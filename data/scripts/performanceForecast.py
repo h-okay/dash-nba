@@ -1,0 +1,174 @@
+import pandas as pd
+import glob
+import os
+import xgboost as xgb
+import lightgbm as lgbm
+import catboost
+from sklearn.model_selection import train_test_split, cross_validate, \
+    cross_val_score, RepeatedKFold
+from sklearn.preprocessing import RobustScaler, StandardScaler, OrdinalEncoder
+from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
+from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.model_selection import cross_validate
+import numpy as np
+from tqdm import tqdm
+
+pd.options.mode.chained_assignment = None
+pd.set_option('display.max_columns', None)
+
+# Func
+def grab_col_names(dataframe, cat_th=10, car_th=20):
+    # cat_cols, cat_but_car
+    cat_cols = [col for col in dataframe.columns if
+                dataframe[col].dtypes == "O"]
+
+    num_but_cat = [col for col in dataframe.columns if
+                   dataframe[col].nunique() < cat_th and
+                   dataframe[col].dtypes != "O"]
+
+    cat_but_car = [col for col in dataframe.columns if
+                   dataframe[col].nunique() > car_th and
+                   dataframe[col].dtypes == "O"]
+
+    cat_cols = cat_cols + num_but_cat
+
+    cat_cols = [col for col in cat_cols if col not in cat_but_car]
+
+    # num_cols
+    num_cols = [col for col in dataframe.columns if
+                dataframe[col].dtypes != "O"]
+
+    num_cols = [col for col in num_cols if col not in num_but_cat]
+
+    return cat_cols, num_cols, cat_but_car, num_but_cat
+
+def validate(model, X, y):
+    results = pd.DataFrame(cross_validate(model, X, y, cv=5,
+                                          scoring=[
+                                              "neg_mean_squared_error",
+                                              "r2"]))
+    results["test_neg_mean_squared_error"] = results[
+        "test_neg_mean_squared_error"].apply(lambda x: -x)
+    results["rmse"] = results["test_neg_mean_squared_error"].apply(
+        lambda x: np.sqrt(x))
+    return results.mean().to_frame().T
+
+def results(dataframe, target, scale=False, ordinal=False):
+    X = dataframe.drop(target, axis=1)
+    y = dataframe[target]
+
+    if scale:
+        cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(X)
+        ss = StandardScaler()
+        for col in num_cols:
+            X[col] = ss.fit_transform(X[[col]])
+
+    if ordinal:
+        cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(X)
+        for col in cat_cols:
+            if X[col].dtype.name == 'category':
+                oe = OrdinalEncoder(
+                    categories=[X[col].dtype.categories.to_list()])
+                X[col] = oe.fit_transform(X[[col]])
+
+    X = pd.get_dummies(X, drop_first=True)
+
+    models = [catboost.CatBoostRegressor(random_state=42, silent=True),
+              RandomForestRegressor(random_state=42),
+              ExtraTreesRegressor(random_state=42),
+              xgb.XGBRegressor(random_state=42),
+              lgbm.LGBMRegressor(random_state=42)]
+
+    result = pd.DataFrame()
+    for model in tqdm(models, desc='Fitting '):
+        mdl = model
+        res = validate(mdl, X, y)
+        result = pd.concat([result, res])
+
+    result.index = ['CatB', 'RF', 'ET', 'XGB', 'LGBM']
+    result = result[['test_neg_mean_squared_error', 'test_r2', 'rmse']]
+    result = result.rename(columns={'test_neg_mean_squared_error': 'MSE',
+                                    'test_r2': 'R2',
+                                    'rmse': 'RMSE'})
+    return result.T
+
+# Import and Process
+os.chdir("../data/")
+all_df = pd.DataFrame()
+all_filenames = [file for file in glob.glob(r"*.csv") if file[:3] == 'PER']
+all_df = pd.concat([pd.read_csv(f) for f in all_filenames])
+all_df['NAME'] = all_df['FIRST_NAME'] + " " + all_df['LAST_NAME']
+all_df.drop(['FIRST_NAME', 'LAST_NAME', 'P_ID','TEAM_ID',
+             'TEAM_ABBREVIATION','factor','vop','drbp',
+             'uPER','T_PACE','L_PACE','adjustment','aPER',
+            'GS','MIN','FGM','FGA','FG3M','FG3A','FTM','FTA'], axis=1, inplace=True)
+
+all_df['REB'] = all_df['REB'] / all_df['GP']
+all_df['AST'] = all_df['AST'] / all_df['GP']
+all_df['STL'] = all_df['STL'] / all_df['GP']
+all_df['BLK'] = all_df['BLK'] / all_df['GP']
+all_df['TOV'] = all_df['TOV'] / all_df['GP']
+all_df['PF'] = all_df['PF'] / all_df['GP']
+all_df['PTS'] = all_df['PTS'] / all_df['GP']
+all_df['SEASON'] = all_df.SEASON_ID.apply(lambda x: int(x[:4]))
+all_df.head()
+
+
+# Lagging
+labels = all_df[['NAME','PER','SEASON']]
+labels['SEASON'] = labels['SEASON']-1
+labels = labels.rename(columns={'PER':'NEXT_PER'})
+all_df = all_df.merge(labels, on=['SEASON','NAME'], how='left')
+
+current_season = all_df[(all_df.SEASON == 2021)]
+current_season_check = current_season[['NAME', 'PER', 'SEASON_ID', 'TEAM']]
+
+all_df.dropna(inplace=True)
+all_df.reset_index(drop=True, inplace=True)
+
+check = all_df[['NAME', 'PER', 'SEASON_ID', 'TEAM']] # to add later
+
+all_df.drop(['SEASON_ID','SEASON', 'NAME','PER', 'TEAM'], axis=1, inplace=True)
+all_df.shape, check.shape
+
+
+# ML
+results(all_df, 'NEXT_PER', scale=True)
+#           CatB        RF        ET       XGB      LGBM
+# MSE   7.788020  8.210121  8.110977  8.676255  7.883905
+# R2    0.577294  0.554382  0.560513  0.528539  0.571863
+# RMSE  2.788923  2.863343  2.845194  2.943948  2.806212
+
+# Get Predictions
+X = all_df.drop('NEXT_PER', axis=1)
+y = all_df['NEXT_PER']
+cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(X)
+ss = StandardScaler()
+for col in num_cols:
+    X[col] = ss.fit_transform(X[[col]])
+
+cb = catboost.CatBoostRegressor(random_state=42, silent=True)
+cb.fit(X, y)
+y_pred = cb.predict(X)
+all_df['y_pred'] = y_pred
+
+# history
+final = pd.concat([all_df, check], axis=1)
+final = final[['TEAM','NAME','SEASON_ID','PER', 'y_pred']]
+final = final.rename(columns={'y_pred':'PRED'})
+final.head()
+
+# current
+cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(current_season)
+for col in num_cols:
+    current_season[col] = ss.fit_transform(current_season[[col]])
+
+current_season.drop(['SEASON_ID','SEASON', 'NAME','PER', 'TEAM', 'NEXT_PER'], axis=1, inplace=True)
+current_season['PRED'] = cb.predict(current_season)
+current_season = pd.concat([current_season, current_season_check], axis=1)
+current_season = current_season[['TEAM', 'NAME','SEASON_ID','PER','PRED']]
+current_season.head()
+
+final = pd.concat([final, current_season], axis=0)
+
+final.to_csv('perf_forecast.csv', index=False)
