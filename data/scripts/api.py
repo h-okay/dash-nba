@@ -17,14 +17,14 @@ def get_data():
     print("Updating teams...")
     nba_teams = teams.get_teams()
     all_teams = pd.DataFrame(nba_teams)
-    all_teams.to_csv("../data/all_teams.csv", index=False)
+    all_teams.to_csv("../data/base/all_teams.csv", index=False)
 
     # -------------------------------------------------------------------------
 
     # All Players
     nba_players = players.get_players()
     all_players = pd.DataFrame(nba_players)
-    all_players.to_csv("../data/all_players.csv", index=False)
+    all_players.to_csv("../data/base/all_players.csv", index=False)
 
     # -------------------------------------------------------------------------
 
@@ -75,11 +75,11 @@ def get_data():
     for key in matches.keys():
         temp = matches[key]
         temp["date"] = pd.to_datetime(temp.SEASON_ID.apply(lambda x: x[:5]))
-        temp = temp[temp["date"] >= "1983-01-01"]
+        temp = temp[temp["date"] >= "2003-01-01"]
         temp = temp.drop("date", axis=1)
         matches[key] = temp
 
-    with open("../data/matches.pkl", "wb") as file:
+    with open("../data/base/matches.pkl", "wb") as file:
         pkl.dump(matches, file)
 
     # -------------------------------------------------------------------------
@@ -95,13 +95,13 @@ def get_data():
         stats = stats.append(p_st, ignore_index=True)
         sleep(0.600)
 
-    all_stats = pd.read_csv("../data/fixed_raw_stats.csv")
-    all_stats = all_stats[all_stats.SEASON_ID >= "1983-84"]
+    all_stats = pd.read_csv("../data/base/fixed_raw_stats.csv")
+    all_stats = all_stats[all_stats.SEASON_ID >= "2003-04"]
     all_stats.drop(all_stats[all_stats.SEASON_ID == "2021-22"].index,
                    axis=0,
                    inplace=True)
     updated_stats = pd.concat([all_stats, stats], axis=0, ignore_index=True)
-    updated_stats.to_csv("../data/stats.csv", index=False)
+    updated_stats.to_csv("../data/base/stats.csv", index=False)
 
     # -------------------------------------------------------------------------
 
@@ -156,5 +156,5 @@ def get_data():
     merged = merged[merged["MPG"] >= 6.09]
     merged = merged[merged["MIN"] >= 500]
 
-    merged.to_csv("../data/merged.csv", index=False)
+    merged.to_csv("../data/base/merged.csv", index=False)
     print("Updating done.")

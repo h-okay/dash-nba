@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas.core.common import SettingWithCopyWarning
-from classes import playerRating, Generators, getStandings, playoffWins
-from api import get_data
+from data.scripts.classes import playerRating, Generators, getStandings, playoffWins
+from data.scripts.api import get_data
 import warnings
 
 warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
@@ -23,7 +23,7 @@ if __name__ == "__main__":
             break
         continue
 
-    merged = pd.read_csv("../data/merged.csv")
+    merged = pd.read_csv("../data/base/merged.csv")
     available_seasons = sorted(merged.SEASON_ID.unique())[::-1]
 
     glob = pd.DataFrame()
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         df.team_pace()
         df.league_pace()
         df.ratings()
-        df.merged.to_csv(f'../data/PER_{season}.csv', index=False)
+        df.merged.to_csv(f'../data/base/pers/PER_{season}.csv', index=False)
         df.team_pers()
         first = df.team_stats
 
@@ -72,8 +72,8 @@ if __name__ == "__main__":
     glob = glob.merge(fourth, on=["TEAM", "SEASON"], how="left")
 
     # ELO
-    all_teams = pd.read_csv('../data/all_teams.csv')
-    elos = pd.read_csv('../data/elos.csv')
+    all_teams = pd.read_csv('../data/base/all_teams.csv')
+    elos = pd.read_csv('../data/base/elos.csv')
     elos = elos.merge(all_teams, left_on='TEAM_ID', right_on='id', how='left')
     elos.drop([
         'id', 'nickname', 'city', 'state', 'year_founded', 'DATE',
@@ -85,5 +85,5 @@ if __name__ == "__main__":
     glob = glob.merge(elos, on=['SEASON', 'TEAM'], how='left')
 
     # DUMP
-    glob.to_csv("../estimations/mlready.csv", index=False)
+    glob.to_csv("../data/est/mlready.csv", index=False)
     print(f"Data exported to estimations folder as mlready.csv")

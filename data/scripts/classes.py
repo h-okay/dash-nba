@@ -18,16 +18,16 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.service import Service
 
-from src.functions import fix_team_names, get_names
+from data.scripts.functions import fix_team_names, get_names
 
 
 class playerRating:
 
     def __init__(self, season):
         self.season = season
-        self.all_players = pd.read_csv("../data/all_players.csv")
-        self.all_teams = pd.read_csv("../data/all_teams.csv")
-        self.merged = pd.read_csv("../data/merged.csv")
+        self.all_players = pd.read_csv("../data/base/all_players.csv")
+        self.all_teams = pd.read_csv("../data/base/all_teams.csv")
+        self.merged = pd.read_csv("../data/base/merged.csv")
         self.merged = self.merged[self.merged["SEASON_ID"] == self.season]
         self.team_stats = self.merged.groupby("TEAM")[[
             "FGM",
@@ -46,7 +46,7 @@ class playerRating:
             "PF",
             "PTS",
         ]].sum()
-        with open("../data/matches.pkl", "rb") as file:
+        with open("../data/base/matches.pkl", "rb") as file:
             self.matches = pkl.load(file)
 
     def factor(self):
@@ -198,39 +198,12 @@ class playerRating:
         return self.team_stats
 
 
-class Metrics:
-
-    def __init__(self, year):
-        self.season = str(year - 1) + "-" + str(year)[-2:]
-
-    def compare_similarity(self, num):
-        real = pd.read_csv(
-            f"real/realper{self.season}.csv").iloc[:num, :].PER.to_list()
-        est = pd.read_csv(
-            f"estimations/{self.season}.csv").iloc[:num, :].PER.to_list()
-        result = 1 - spatial.distance.cosine(real, est)
-        tau, pvalue = weightedtau(real, est)
-        return result, tau
-
-    def similarity_score(self):
-        metrics = pd.DataFrame(columns=["Cosine", "Tau"])
-        for i in [10, 25, 50, 100, 200]:
-            result, tau = self.compare_similarity(i)
-            temp_df = pd.DataFrame({
-                "Cosine": str(result),
-                "Tau": str(tau)
-            },
-                                   index=[f"First {i}"])
-            metrics = metrics.append([temp_df])
-        return metrics
-
-
 class Generators:
 
     def __init__(self):
-        self.merged = pd.read_csv("../data/merged.csv")
+        self.merged = pd.read_csv("../data/base/merged.csv")
         self.merged.columns = [col.strip() for col in self.merged.columns]
-        self.playoffs = pd.read_csv("../data/playoffs.csv")
+        self.playoffs = pd.read_csv("../data/base/playoffs.csv")
         self.playoffs.columns = [col.strip() for col in self.playoffs.columns]
         # self.playoffs.Year = self.playoffs.Year.apply(
         #     lambda x: str(x - 2) + "-" + str(int(str(x-2)[-2:])+1 if x != '2001'
@@ -302,7 +275,7 @@ class getStandings:
             "year": self.years,
             "season": self.seasons
         })
-        self.standings = pd.read_csv('../data/standingsCleaned.csv')
+        self.standings = pd.read_csv('../data/base/standingsCleaned.csv')
         self.standings.columns = [
             col.strip() for col in self.standings.columns
         ]
@@ -339,13 +312,13 @@ class getStandings:
         self.standings.TEAM = self.standings.TEAM.apply(get_names)
         self.standings.TEAM = self.standings.TEAM.apply(fix_team_names)
         self.standings.drop(['LAST 10', 'STREAK'], axis=1, inplace=True)
-        self.standings.to_csv('../data/standingsCleaned.csv', index=False)
+        self.standings.to_csv('../data/base/standingsCleaned.csv', index=False)
 
 
 class playoffWins:
 
     def __init__(self):
-        self.playoffwins = pd.read_csv("../data/playoffwins.csv")
+        self.playoffwins = pd.read_csv("../data/base/playoffwins.csv")
         self.playoffwins.columns = [
             col.strip() for col in self.playoffwins.columns
         ]
@@ -353,3 +326,30 @@ class playoffWins:
 
     def add_playoff_wins(self):
         return self.playoffwins
+
+
+# class Metrics:
+#
+#     def __init__(self, year):
+#         self.season = str(year - 1) + "-" + str(year)[-2:]
+#
+#     def compare_similarity(self, num):
+#         real = pd.read_csv(
+#             f"real/realper{self.season}.csv").iloc[:num, :].PER.to_list()
+#         est = pd.read_csv(
+#             f"estimations/{self.season}.csv").iloc[:num, :].PER.to_list()
+#         result = 1 - spatial.distance.cosine(real, est)
+#         tau, pvalue = weightedtau(real, est)
+#         return result, tau
+#
+#     def similarity_score(self):
+#         metrics = pd.DataFrame(columns=["Cosine", "Tau"])
+#         for i in [10, 25, 50, 100, 200]:
+#             result, tau = self.compare_similarity(i)
+#             temp_df = pd.DataFrame({
+#                 "Cosine": str(result),
+#                 "Tau": str(tau)
+#             },
+#                                    index=[f"First {i}"])
+#             metrics = metrics.append([temp_df])
+#         return metrics
