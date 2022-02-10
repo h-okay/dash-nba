@@ -1,0 +1,182 @@
+html, body {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    -ms-overflow-y: hidden;
+    /*font-family: 'Inter', sans-serif;*/
+}
+
+#page-content {
+    position: relative;
+    -ms-overflow-y: hidden;
+}
+
+#page-content::-webkit-scrollbar {
+    display: none;
+}
+
+#team, #schedule, #p_performance, #f_performance {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.display-4 {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar-links {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.sidebar-links:hover {
+    color: darkblue;
+}
+
+.team_logo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: 0 solid #333;
+    width: 140px;
+    height:140px;
+    transition:transform .05s ease-in-out;
+}
+
+.team_logo:hover {
+    transform:scale(1.3);
+    overflow:hidden;
+    box-sizing:border-box;
+}
+
+
+.LogoHolder > .row >.col {
+    display: flex;
+    justify-content: center;
+}
+
+#worth-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#worth, #next-game {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#worth-cardbody, #next-game-body {
+    margin: auto;
+}
+
+#PlayerCard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+.StatsRow {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.shadow-card {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
+    background-color: #242b44;
+    display: flex;
+    align-items: center;
+    color: white;
+    margin: 3px 3px 3px 3px;
+}
+
+
+#table-card,#table-card2, #table-card3 {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
+    background-color: #242b44;
+    display: flex;
+    align-items: center;
+    margin: 18px 3px 3px 3px;
+    color: black;
+    font-family: 'Inter', sans-serif;
+}
+
+.p-card-stats-card, .t-card-stats-card, .matchup-card-stats {
+    border: 1px #242b44 solid;
+    background-color: #242b44;
+    color: white;
+    text-align: -webkit-center;
+    border-radius: 0;
+    font-family: 'Inter', sans-serif;
+
+}
+
+#matchup-info-col {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+#worth-card1, #worth-card2, #next-match-card {
+    display: contents;
+    font-family: 'Inter', sans-serif;
+}
+
+
+#second-row {
+    padding: 0;
+}
+
+#st-table, #sch-table {
+    /*outline: 2px #242b44 solid;*/
+    /*border-radius: 50%;*/
+    width: 100%;
+    height: 100%;
+}
+
+
+#news-card-body {
+  /* animation properties */
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite;
+   animation: my-animation 15s linear infinite;
+ }
+
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateX(100%); }
+  to { -webkit-transform: translateX(-100%); }
+}
+
+:target {
+padding-top: 90px;
+margin-top: -200px;
+display: inline-block;
+}
+
+#forecast-card {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+

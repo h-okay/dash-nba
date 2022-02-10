@@ -1,0 +1,615 @@
+Year,Series,Team1  ,Team2                 ,Winner
+0   ,2021  ,Playoff,Milwaukee Bucks       ,Miami Heat            ,Miami Heat
+1   ,2021  ,Playoff,Los Angeles Clippers  ,Dallas Mavericks      ,Dallas Mavericks
+2   ,2021  ,Playoff,Brooklyn Nets         ,Boston Celtics        ,Boston Celtics
+3   ,2021  ,Playoff,Denver Nuggets        ,Portland Trail Blazers,Portland Trail Blazers
+4   ,2021  ,Playoff,Philadelphia 76ers    ,Washington Wizards    ,Washington Wizards
+5   ,2021  ,Playoff,Utah Jazz             ,Memphis Grizzlies     ,Memphis Grizzlies
+6   ,2021  ,Playoff,Atlanta Hawks         ,New York Knicks       ,Atlanta Hawks
+7   ,2021  ,Playoff,Phoenix Suns          ,Los Angeles Lakers    ,Los Angeles Lakers
+8   ,2021  ,Quarter,Milwaukee Bucks       ,Brooklyn Nets         ,Milwaukee Bucks
+9   ,2021  ,Quarter,Atlanta Hawks         ,Philadelphia 76ers    ,Philadelphia 76ers
+10  ,2021  ,Quarter,Phoenix Suns          ,Denver Nuggets        ,Denver Nuggets
+11  ,2021  ,Quarter,Los Angeles Clippers  ,Utah Jazz             ,Los Angeles Clippers
+12  ,2021  ,Semi   ,Phoenix Suns          ,Los Angeles Clippers  ,Los Angeles Clippers
+13  ,2021  ,Semi   ,Milwaukee Bucks       ,Atlanta Hawks         ,Atlanta Hawks
+14  ,2021  ,Final  ,Milwaukee Bucks       ,Phoenix Suns          ,Milwaukee Bucks
+16  ,2020  ,Playoff,Milwaukee Bucks       ,Orlando Magic         ,Orlando Magic
+17  ,2020  ,Playoff,Toronto Raptors       ,Brooklyn Nets         ,Brooklyn Nets
+18  ,2020  ,Playoff,Boston Celtics        ,Philadelphia 76ers    ,Philadelphia 76ers
+19  ,2020  ,Playoff,Miami Heat            ,Indiana Pacers        ,Miami Heat
+20  ,2020  ,Playoff,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+21  ,2020  ,Playoff,Los Angeles Clippers  ,Dallas Mavericks      ,Dallas Mavericks
+22  ,2020  ,Playoff,Denver Nuggets        ,Utah Jazz             ,Utah Jazz
+23  ,2020  ,Playoff,Houston Rockets       ,Oklahoma City Thunder ,Oklahoma City Thunder
+24  ,2020  ,Quarter,Boston Celtics        ,Toronto Raptors       ,Boston Celtics
+25  ,2020  ,Quarter,Miami Heat            ,Milwaukee Bucks       ,Miami Heat
+26  ,2020  ,Quarter,Denver Nuggets        ,Los Angeles Clippers  ,Denver Nuggets
+27  ,2020  ,Quarter,Los Angeles Lakers    ,Houston Rockets       ,Houston Rockets
+28  ,2020  ,Semi   ,Miami Heat            ,Boston Celtics        ,Miami Heat
+29  ,2020  ,Semi   ,Los Angeles Lakers    ,Denver Nuggets        ,Denver Nuggets
+30  ,2020  ,Final  ,Los Angeles Lakers    ,Miami Heat            ,Miami Heat
+32  ,2019  ,Playoff,Milwaukee Bucks       ,Detroit Pistons       ,Detroit Pistons
+33  ,2019  ,Playoff,Toronto Raptors       ,Orlando Magic         ,Orlando Magic
+34  ,2019  ,Playoff,Philadelphia 76ers    ,Brooklyn Nets         ,Philadelphia 76ers
+35  ,2019  ,Playoff,Boston Celtics        ,Indiana Pacers        ,Indiana Pacers
+36  ,2019  ,Playoff,Golden State Warriors ,Los Angeles Clippers  ,Los Angeles Clippers
+37  ,2019  ,Playoff,Denver Nuggets        ,San Antonio Spurs     ,San Antonio Spurs
+38  ,2019  ,Playoff,Portland Trail Blazers,Oklahoma City Thunder ,Oklahoma City Thunder
+39  ,2019  ,Playoff,Houston Rockets       ,Utah Jazz             ,Utah Jazz
+40  ,2019  ,Quarter,Milwaukee Bucks       ,Boston Celtics        ,Boston Celtics
+41  ,2019  ,Quarter,Toronto Raptors       ,Philadelphia 76ers    ,Philadelphia 76ers
+42  ,2019  ,Quarter,Golden State Warriors ,Houston Rockets       ,Houston Rockets
+43  ,2019  ,Quarter,Portland Trail Blazers,Denver Nuggets        ,Portland Trail Blazers
+44  ,2019  ,Semi   ,Toronto Raptors       ,Milwaukee Bucks       ,Toronto Raptors
+45  ,2019  ,Semi   ,Golden State Warriors ,Portland Trail Blazers,Portland Trail Blazers
+46  ,2019  ,Final  ,Toronto Raptors       ,Golden State Warriors ,Toronto Raptors
+48  ,2018  ,Playoff,Toronto Raptors       ,Washington Wizards    ,Washington Wizards
+49  ,2018  ,Playoff,Boston Celtics        ,Milwaukee Bucks       ,Milwaukee Bucks
+50  ,2018  ,Playoff,Philadelphia 76ers    ,Miami Heat            ,Philadelphia 76ers
+51  ,2018  ,Playoff,Cleveland Cavaliers   ,Indiana Pacers        ,Indiana Pacers
+52  ,2018  ,Playoff,Houston Rockets       ,Minnesota Timberwolves,Minnesota Timberwolves
+53  ,2018  ,Playoff,Golden State Warriors ,San Antonio Spurs     ,San Antonio Spurs
+54  ,2018  ,Playoff,New Orleans Pelicans  ,Portland Trail Blazers,New Orleans Pelicans
+55  ,2018  ,Playoff,Utah Jazz             ,Oklahoma City Thunder ,Utah Jazz
+56  ,2018  ,Quarter,Golden State Warriors ,New Orleans Pelicans  ,New Orleans Pelicans
+57  ,2018  ,Quarter,Houston Rockets       ,Utah Jazz             ,Utah Jazz
+58  ,2018  ,Quarter,Boston Celtics        ,Philadelphia 76ers    ,Philadelphia 76ers
+59  ,2018  ,Quarter,Cleveland Cavaliers   ,Toronto Raptors       ,Cleveland Cavaliers
+60  ,2018  ,Semi   ,Cleveland Cavaliers   ,Boston Celtics        ,Cleveland Cavaliers
+61  ,2018  ,Semi   ,Golden State Warriors ,Houston Rockets       ,Golden State Warriors
+62  ,2018  ,Final  ,Golden State Warriors ,Cleveland Cavaliers   ,Cleveland Cavaliers
+64  ,2017  ,Playoff,Boston Celtics        ,Chicago Bulls         ,Chicago Bulls
+65  ,2017  ,Playoff,Cleveland Cavaliers   ,Indiana Pacers        ,Indiana Pacers
+66  ,2017  ,Playoff,Toronto Raptors       ,Milwaukee Bucks       ,Milwaukee Bucks
+67  ,2017  ,Playoff,Washington Wizards    ,Atlanta Hawks         ,Atlanta Hawks
+68  ,2017  ,Playoff,Golden State Warriors ,Portland Trail Blazers,Portland Trail Blazers
+69  ,2017  ,Playoff,San Antonio Spurs     ,Memphis Grizzlies     ,Memphis Grizzlies
+70  ,2017  ,Playoff,Houston Rockets       ,Oklahoma City Thunder ,Oklahoma City Thunder
+71  ,2017  ,Playoff,Utah Jazz             ,Los Angeles Clippers  ,Utah Jazz
+72  ,2017  ,Quarter,Cleveland Cavaliers   ,Toronto Raptors       ,Toronto Raptors
+73  ,2017  ,Quarter,Boston Celtics        ,Washington Wizards    ,Washington Wizards
+74  ,2017  ,Quarter,Golden State Warriors ,Utah Jazz             ,Utah Jazz
+75  ,2017  ,Quarter,San Antonio Spurs     ,Houston Rockets       ,Houston Rockets
+76  ,2017  ,Semi   ,Golden State Warriors ,San Antonio Spurs     ,San Antonio Spurs
+77  ,2017  ,Semi   ,Cleveland Cavaliers   ,Boston Celtics        ,Cleveland Cavaliers
+78  ,2017  ,Final  ,Golden State Warriors ,Cleveland Cavaliers   ,Cleveland Cavaliers
+80  ,2016  ,Playoff,Cleveland Cavaliers   ,Detroit Pistons       ,Detroit Pistons
+81  ,2016  ,Playoff,Toronto Raptors       ,Indiana Pacers        ,Indiana Pacers
+82  ,2016  ,Playoff,Miami Heat            ,Charlotte Hornets     ,Charlotte Hornets
+83  ,2016  ,Playoff,Atlanta Hawks         ,Boston Celtics        ,Boston Celtics
+84  ,2016  ,Playoff,Golden State Warriors ,Houston Rockets       ,Houston Rockets
+85  ,2016  ,Playoff,San Antonio Spurs     ,Memphis Grizzlies     ,Memphis Grizzlies
+86  ,2016  ,Playoff,Oklahoma City Thunder ,Dallas Mavericks      ,Dallas Mavericks
+87  ,2016  ,Playoff,Portland Trail Blazers,Los Angeles Clippers  ,Portland Trail Blazers
+88  ,2016  ,Quarter,Cleveland Cavaliers   ,Atlanta Hawks         ,Atlanta Hawks
+89  ,2016  ,Quarter,Toronto Raptors       ,Miami Heat            ,Miami Heat
+90  ,2016  ,Quarter,Golden State Warriors ,Portland Trail Blazers,Portland Trail Blazers
+91  ,2016  ,Quarter,Oklahoma City Thunder ,San Antonio Spurs     ,Oklahoma City Thunder
+92  ,2016  ,Semi   ,Cleveland Cavaliers   ,Toronto Raptors       ,Toronto Raptors
+93  ,2016  ,Semi   ,Golden State Warriors ,Oklahoma City Thunder ,Oklahoma City Thunder
+94  ,2016  ,Final  ,Cleveland Cavaliers   ,Golden State Warriors ,Cleveland Cavaliers
+96  ,2015  ,Playoff,Atlanta Hawks         ,Brooklyn Nets         ,Brooklyn Nets
+97  ,2015  ,Playoff,Cleveland Cavaliers   ,Boston Celtics        ,Boston Celtics
+98  ,2015  ,Playoff,Chicago Bulls         ,Milwaukee Bucks       ,Milwaukee Bucks
+99  ,2015  ,Playoff,Washington Wizards    ,Toronto Raptors       ,Washington Wizards
+100 ,2015  ,Playoff,Golden State Warriors ,New Orleans Pelicans  ,New Orleans Pelicans
+101 ,2015  ,Playoff,Houston Rockets       ,Dallas Mavericks      ,Dallas Mavericks
+102 ,2015  ,Playoff,Los Angeles Clippers  ,San Antonio Spurs     ,San Antonio Spurs
+103 ,2015  ,Playoff,Memphis Grizzlies     ,Portland Trail Blazers,Memphis Grizzlies
+104 ,2015  ,Quarter,Cleveland Cavaliers   ,Chicago Bulls         ,Chicago Bulls
+105 ,2015  ,Quarter,Atlanta Hawks         ,Washington Wizards    ,Washington Wizards
+106 ,2015  ,Quarter,Houston Rockets       ,Los Angeles Clippers  ,Los Angeles Clippers
+107 ,2015  ,Quarter,Golden State Warriors ,Memphis Grizzlies     ,Memphis Grizzlies
+108 ,2015  ,Semi   ,Cleveland Cavaliers   ,Atlanta Hawks         ,Cleveland Cavaliers
+109 ,2015  ,Semi   ,Golden State Warriors ,Houston Rockets       ,Houston Rockets
+110 ,2015  ,Final  ,Golden State Warriors ,Cleveland Cavaliers   ,Cleveland Cavaliers
+112 ,2014  ,Playoff,Indiana Pacers        ,Atlanta Hawks         ,Atlanta Hawks
+113 ,2014  ,Playoff,Miami Heat            ,Charlotte Bobcats     ,Charlotte Bobcats
+114 ,2014  ,Playoff,Brooklyn Nets         ,Toronto Raptors       ,Brooklyn Nets
+115 ,2014  ,Playoff,Washington Wizards    ,Chicago Bulls         ,Washington Wizards
+116 ,2014  ,Playoff,San Antonio Spurs     ,Dallas Mavericks      ,Dallas Mavericks
+117 ,2014  ,Playoff,Oklahoma City Thunder ,Memphis Grizzlies     ,Memphis Grizzlies
+118 ,2014  ,Playoff,Los Angeles Clippers  ,Golden State Warriors ,Golden State Warriors
+119 ,2014  ,Playoff,Portland Trail Blazers,Houston Rockets       ,Portland Trail Blazers
+120 ,2014  ,Quarter,Indiana Pacers        ,Washington Wizards    ,Washington Wizards
+121 ,2014  ,Quarter,Miami Heat            ,Brooklyn Nets         ,Brooklyn Nets
+122 ,2014  ,Quarter,San Antonio Spurs     ,Portland Trail Blazers,Portland Trail Blazers
+123 ,2014  ,Quarter,Oklahoma City Thunder ,Los Angeles Clippers  ,Los Angeles Clippers
+124 ,2014  ,Semi   ,Miami Heat            ,Indiana Pacers        ,Miami Heat
+125 ,2014  ,Semi   ,San Antonio Spurs     ,Oklahoma City Thunder ,Oklahoma City Thunder
+126 ,2014  ,Final  ,San Antonio Spurs     ,Miami Heat            ,Miami Heat
+128 ,2013  ,Playoff,Miami Heat            ,Milwaukee Bucks       ,Milwaukee Bucks
+129 ,2013  ,Playoff,New York Knicks       ,Boston Celtics        ,Boston Celtics
+130 ,2013  ,Playoff,Indiana Pacers        ,Atlanta Hawks         ,Atlanta Hawks
+131 ,2013  ,Playoff,Chicago Bulls         ,Brooklyn Nets         ,Chicago Bulls
+132 ,2013  ,Playoff,Oklahoma City Thunder ,Houston Rockets       ,Houston Rockets
+133 ,2013  ,Playoff,San Antonio Spurs     ,Los Angeles Lakers    ,Los Angeles Lakers
+134 ,2013  ,Playoff,Golden State Warriors ,Denver Nuggets        ,Golden State Warriors
+135 ,2013  ,Playoff,Memphis Grizzlies     ,Los Angeles Clippers  ,Memphis Grizzlies
+136 ,2013  ,Quarter,Miami Heat            ,Chicago Bulls         ,Chicago Bulls
+137 ,2013  ,Quarter,Indiana Pacers        ,New York Knicks       ,Indiana Pacers
+138 ,2013  ,Quarter,Memphis Grizzlies     ,Oklahoma City Thunder ,Memphis Grizzlies
+139 ,2013  ,Quarter,San Antonio Spurs     ,Golden State Warriors ,Golden State Warriors
+140 ,2013  ,Semi   ,Miami Heat            ,Indiana Pacers        ,Indiana Pacers
+141 ,2013  ,Semi   ,San Antonio Spurs     ,Memphis Grizzlies     ,Memphis Grizzlies
+142 ,2013  ,Final  ,Miami Heat            ,San Antonio Spurs     ,San Antonio Spurs
+144 ,2012  ,Playoff,Philadelphia 76ers    ,Chicago Bulls         ,Philadelphia 76ers
+145 ,2012  ,Playoff,Miami Heat            ,New York Knicks       ,New York Knicks
+146 ,2012  ,Playoff,Indiana Pacers        ,Orlando Magic         ,Orlando Magic
+147 ,2012  ,Playoff,Boston Celtics        ,Atlanta Hawks         ,Atlanta Hawks
+148 ,2012  ,Playoff,San Antonio Spurs     ,Utah Jazz             ,Utah Jazz
+149 ,2012  ,Playoff,Oklahoma City Thunder ,Dallas Mavericks      ,Dallas Mavericks
+150 ,2012  ,Playoff,Los Angeles Lakers    ,Denver Nuggets        ,Denver Nuggets
+151 ,2012  ,Playoff,Los Angeles Clippers  ,Memphis Grizzlies     ,Los Angeles Clippers
+152 ,2012  ,Quarter,Miami Heat            ,Indiana Pacers        ,Indiana Pacers
+153 ,2012  ,Quarter,Boston Celtics        ,Philadelphia 76ers    ,Philadelphia 76ers
+154 ,2012  ,Quarter,San Antonio Spurs     ,Los Angeles Clippers  ,Los Angeles Clippers
+155 ,2012  ,Quarter,Oklahoma City Thunder ,Los Angeles Lakers    ,Los Angeles Lakers
+156 ,2012  ,Semi   ,Oklahoma City Thunder ,San Antonio Spurs     ,Oklahoma City Thunder
+157 ,2012  ,Semi   ,Miami Heat            ,Boston Celtics        ,Boston Celtics
+158 ,2012  ,Final  ,Miami Heat            ,Oklahoma City Thunder ,Miami Heat
+160 ,2011  ,Playoff,Chicago Bulls         ,Indiana Pacers        ,Indiana Pacers
+161 ,2011  ,Playoff,Miami Heat            ,Philadelphia 76ers    ,Philadelphia 76ers
+162 ,2011  ,Playoff,Boston Celtics        ,New York Knicks       ,New York Knicks
+163 ,2011  ,Playoff,Atlanta Hawks         ,Orlando Magic         ,Atlanta Hawks
+164 ,2011  ,Playoff,Memphis Grizzlies     ,San Antonio Spurs     ,Memphis Grizzlies
+165 ,2011  ,Playoff,Los Angeles Lakers    ,New Orleans Hornets   ,New Orleans Hornets
+166 ,2011  ,Playoff,Dallas Mavericks      ,Portland Trail Blazers,Portland Trail Blazers
+167 ,2011  ,Playoff,Oklahoma City Thunder ,Denver Nuggets        ,Denver Nuggets
+168 ,2011  ,Quarter,Chicago Bulls         ,Atlanta Hawks         ,Atlanta Hawks
+169 ,2011  ,Quarter,Miami Heat            ,Boston Celtics        ,Boston Celtics
+170 ,2011  ,Quarter,Dallas Mavericks      ,Los Angeles Lakers    ,Dallas Mavericks
+171 ,2011  ,Quarter,Oklahoma City Thunder ,Memphis Grizzlies     ,Memphis Grizzlies
+172 ,2011  ,Semi   ,Miami Heat            ,Chicago Bulls         ,Miami Heat
+173 ,2011  ,Semi   ,Dallas Mavericks      ,Oklahoma City Thunder ,Oklahoma City Thunder
+174 ,2011  ,Final  ,Dallas Mavericks      ,Miami Heat            ,Dallas Mavericks
+176 ,2010  ,Playoff,Cleveland Cavaliers   ,Chicago Bulls         ,Chicago Bulls
+177 ,2010  ,Playoff,Orlando Magic         ,Charlotte Bobcats     ,Charlotte Bobcats
+178 ,2010  ,Playoff,Atlanta Hawks         ,Milwaukee Bucks       ,Milwaukee Bucks
+179 ,2010  ,Playoff,Boston Celtics        ,Miami Heat            ,Miami Heat
+180 ,2010  ,Playoff,Los Angeles Lakers    ,Oklahoma City Thunder ,Oklahoma City Thunder
+181 ,2010  ,Playoff,San Antonio Spurs     ,Dallas Mavericks      ,San Antonio Spurs
+182 ,2010  ,Playoff,Phoenix Suns          ,Portland Trail Blazers,Portland Trail Blazers
+183 ,2010  ,Playoff,Utah Jazz             ,Denver Nuggets        ,Utah Jazz
+184 ,2010  ,Quarter,Boston Celtics        ,Cleveland Cavaliers   ,Boston Celtics
+185 ,2010  ,Quarter,Orlando Magic         ,Atlanta Hawks         ,Atlanta Hawks
+186 ,2010  ,Quarter,Los Angeles Lakers    ,Utah Jazz             ,Utah Jazz
+187 ,2010  ,Quarter,Phoenix Suns          ,San Antonio Spurs     ,San Antonio Spurs
+188 ,2010  ,Semi   ,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+189 ,2010  ,Semi   ,Boston Celtics        ,Orlando Magic         ,Boston Celtics
+190 ,2010  ,Final  ,Los Angeles Lakers    ,Boston Celtics        ,Boston Celtics
+192 ,2009  ,Playoff,Cleveland Cavaliers   ,Detroit Pistons       ,Detroit Pistons
+193 ,2009  ,Playoff,Boston Celtics        ,Chicago Bulls         ,Chicago Bulls
+194 ,2009  ,Playoff,Orlando Magic         ,Philadelphia 76ers    ,Philadelphia 76ers
+195 ,2009  ,Playoff,Atlanta Hawks         ,Miami Heat            ,Miami Heat
+196 ,2009  ,Playoff,Los Angeles Lakers    ,Utah Jazz             ,Utah Jazz
+197 ,2009  ,Playoff,Denver Nuggets        ,New Orleans Hornets   ,New Orleans Hornets
+198 ,2009  ,Playoff,Dallas Mavericks      ,San Antonio Spurs     ,Dallas Mavericks
+199 ,2009  ,Playoff,Houston Rockets       ,Portland Trail Blazers,Houston Rockets
+200 ,2009  ,Quarter,Los Angeles Lakers    ,Houston Rockets       ,Houston Rockets
+201 ,2009  ,Quarter,Denver Nuggets        ,Dallas Mavericks      ,Dallas Mavericks
+202 ,2009  ,Quarter,Cleveland Cavaliers   ,Atlanta Hawks         ,Atlanta Hawks
+203 ,2009  ,Quarter,Orlando Magic         ,Boston Celtics        ,Orlando Magic
+204 ,2009  ,Semi   ,Orlando Magic         ,Cleveland Cavaliers   ,Orlando Magic
+205 ,2009  ,Semi   ,Los Angeles Lakers    ,Denver Nuggets        ,Denver Nuggets
+206 ,2009  ,Final  ,Los Angeles Lakers    ,Orlando Magic         ,Orlando Magic
+208 ,2008  ,Playoff,Boston Celtics        ,Atlanta Hawks         ,Atlanta Hawks
+209 ,2008  ,Playoff,Detroit Pistons       ,Philadelphia 76ers    ,Philadelphia 76ers
+210 ,2008  ,Playoff,Orlando Magic         ,Toronto Raptors       ,Toronto Raptors
+211 ,2008  ,Playoff,Cleveland Cavaliers   ,Washington Wizards    ,Washington Wizards
+212 ,2008  ,Playoff,Los Angeles Lakers    ,Denver Nuggets        ,Denver Nuggets
+213 ,2008  ,Playoff,New Orleans Hornets   ,Dallas Mavericks      ,Dallas Mavericks
+214 ,2008  ,Playoff,San Antonio Spurs     ,Phoenix Suns          ,Phoenix Suns
+215 ,2008  ,Playoff,Utah Jazz             ,Houston Rockets       ,Houston Rockets
+216 ,2008  ,Quarter,Boston Celtics        ,Cleveland Cavaliers   ,Cleveland Cavaliers
+217 ,2008  ,Quarter,Detroit Pistons       ,Orlando Magic         ,Orlando Magic
+218 ,2008  ,Quarter,Los Angeles Lakers    ,Utah Jazz             ,Utah Jazz
+219 ,2008  ,Quarter,San Antonio Spurs     ,New Orleans Hornets   ,San Antonio Spurs
+220 ,2008  ,Semi   ,Boston Celtics        ,Detroit Pistons       ,Detroit Pistons
+221 ,2008  ,Semi   ,Los Angeles Lakers    ,San Antonio Spurs     ,San Antonio Spurs
+222 ,2008  ,Final  ,Boston Celtics        ,Los Angeles Lakers    ,Boston Celtics
+224 ,2007  ,Playoff,Chicago Bulls         ,Miami Heat            ,Chicago Bulls
+225 ,2007  ,Playoff,Cleveland Cavaliers   ,Washington Wizards    ,Washington Wizards
+226 ,2007  ,Playoff,Detroit Pistons       ,Orlando Magic         ,Orlando Magic
+227 ,2007  ,Playoff,New Jersey Nets       ,Toronto Raptors       ,New Jersey Nets
+228 ,2007  ,Playoff,Golden State Warriors ,Dallas Mavericks      ,Golden State Warriors
+229 ,2007  ,Playoff,Phoenix Suns          ,Los Angeles Lakers    ,Los Angeles Lakers
+230 ,2007  ,Playoff,San Antonio Spurs     ,Denver Nuggets        ,Denver Nuggets
+231 ,2007  ,Playoff,Utah Jazz             ,Houston Rockets       ,Houston Rockets
+232 ,2007  ,Quarter,Cleveland Cavaliers   ,New Jersey Nets       ,New Jersey Nets
+233 ,2007  ,Quarter,Detroit Pistons       ,Chicago Bulls         ,Chicago Bulls
+234 ,2007  ,Quarter,San Antonio Spurs     ,Phoenix Suns          ,San Antonio Spurs
+235 ,2007  ,Quarter,Utah Jazz             ,Golden State Warriors ,Golden State Warriors
+236 ,2007  ,Semi   ,Cleveland Cavaliers   ,Detroit Pistons       ,Cleveland Cavaliers
+237 ,2007  ,Semi   ,San Antonio Spurs     ,Utah Jazz             ,Utah Jazz
+238 ,2007  ,Final  ,San Antonio Spurs     ,Cleveland Cavaliers   ,San Antonio Spurs
+240 ,2006  ,Playoff,Cleveland Cavaliers   ,Washington Wizards    ,Washington Wizards
+241 ,2006  ,Playoff,Detroit Pistons       ,Milwaukee Bucks       ,Milwaukee Bucks
+242 ,2006  ,Playoff,Miami Heat            ,Chicago Bulls         ,Chicago Bulls
+243 ,2006  ,Playoff,New Jersey Nets       ,Indiana Pacers        ,Indiana Pacers
+244 ,2006  ,Playoff,Dallas Mavericks      ,Memphis Grizzlies     ,Memphis Grizzlies
+245 ,2006  ,Playoff,Los Angeles Clippers  ,Denver Nuggets        ,Los Angeles Clippers
+246 ,2006  ,Playoff,Phoenix Suns          ,Los Angeles Lakers    ,Los Angeles Lakers
+247 ,2006  ,Playoff,San Antonio Spurs     ,Sacramento Kings      ,Sacramento Kings
+248 ,2006  ,Quarter,Detroit Pistons       ,Cleveland Cavaliers   ,Cleveland Cavaliers
+249 ,2006  ,Quarter,Miami Heat            ,New Jersey Nets       ,New Jersey Nets
+250 ,2006  ,Quarter,Dallas Mavericks      ,San Antonio Spurs     ,Dallas Mavericks
+251 ,2006  ,Quarter,Phoenix Suns          ,Los Angeles Clippers  ,Los Angeles Clippers
+252 ,2006  ,Semi   ,Miami Heat            ,Detroit Pistons       ,Miami Heat
+253 ,2006  ,Semi   ,Dallas Mavericks      ,Phoenix Suns          ,Dallas Mavericks
+254 ,2006  ,Final  ,Miami Heat            ,Dallas Mavericks      ,Dallas Mavericks
+256 ,2005  ,Playoff,Detroit Pistons       ,Philadelphia 76ers    ,Philadelphia 76ers
+257 ,2005  ,Playoff,Indiana Pacers        ,Boston Celtics        ,Indiana Pacers
+258 ,2005  ,Playoff,Miami Heat            ,New Jersey Nets       ,New Jersey Nets
+259 ,2005  ,Playoff,Washington Wizards    ,Chicago Bulls         ,Washington Wizards
+260 ,2005  ,Playoff,Dallas Mavericks      ,Houston Rockets       ,Houston Rockets
+261 ,2005  ,Playoff,Phoenix Suns          ,Memphis Grizzlies     ,Memphis Grizzlies
+262 ,2005  ,Playoff,San Antonio Spurs     ,Denver Nuggets        ,Denver Nuggets
+263 ,2005  ,Playoff,Seattle SuperSonics   ,Sacramento Kings      ,Sacramento Kings
+264 ,2005  ,Quarter,Detroit Pistons       ,Indiana Pacers        ,Indiana Pacers
+265 ,2005  ,Quarter,Miami Heat            ,Washington Wizards    ,Washington Wizards
+266 ,2005  ,Quarter,Phoenix Suns          ,Dallas Mavericks      ,Dallas Mavericks
+267 ,2005  ,Quarter,San Antonio Spurs     ,Seattle SuperSonics   ,Seattle SuperSonics
+268 ,2005  ,Semi   ,Detroit Pistons       ,Miami Heat            ,Detroit Pistons
+269 ,2005  ,Semi   ,San Antonio Spurs     ,Phoenix Suns          ,San Antonio Spurs
+270 ,2005  ,Final  ,San Antonio Spurs     ,Detroit Pistons       ,San Antonio Spurs
+272 ,2004  ,Playoff,Detroit Pistons       ,Milwaukee Bucks       ,Milwaukee Bucks
+273 ,2004  ,Playoff,Indiana Pacers        ,Boston Celtics        ,Boston Celtics
+274 ,2004  ,Playoff,Miami Heat            ,New Orleans Hornets   ,New Orleans Hornets
+275 ,2004  ,Playoff,New Jersey Nets       ,New York Knicks       ,New York Knicks
+276 ,2004  ,Playoff,Los Angeles Lakers    ,Houston Rockets       ,Houston Rockets
+277 ,2004  ,Playoff,Minnesota Timberwolves,Denver Nuggets        ,Denver Nuggets
+278 ,2004  ,Playoff,Sacramento Kings      ,Dallas Mavericks      ,Dallas Mavericks
+279 ,2004  ,Playoff,San Antonio Spurs     ,Memphis Grizzlies     ,Memphis Grizzlies
+280 ,2004  ,Quarter,Detroit Pistons       ,New Jersey Nets       ,Detroit Pistons
+281 ,2004  ,Quarter,Indiana Pacers        ,Miami Heat            ,Miami Heat
+282 ,2004  ,Quarter,Los Angeles Lakers    ,San Antonio Spurs     ,San Antonio Spurs
+283 ,2004  ,Quarter,Minnesota Timberwolves,Sacramento Kings      ,Sacramento Kings
+284 ,2004  ,Semi   ,Detroit Pistons       ,Indiana Pacers        ,Detroit Pistons
+285 ,2004  ,Semi   ,Los Angeles Lakers    ,Minnesota Timberwolves,Los Angeles Lakers
+286 ,2004  ,Final  ,Detroit Pistons       ,Los Angeles Lakers    ,Detroit Pistons
+288 ,2003  ,Playoff,Boston Celtics        ,Indiana Pacers        ,Boston Celtics
+289 ,2003  ,Playoff,Detroit Pistons       ,Orlando Magic         ,Orlando Magic
+290 ,2003  ,Playoff,New Jersey Nets       ,Milwaukee Bucks       ,Milwaukee Bucks
+291 ,2003  ,Playoff,Philadelphia 76ers    ,New Orleans Hornets   ,Philadelphia 76ers
+292 ,2003  ,Playoff,Dallas Mavericks      ,Portland Trail Blazers,Portland Trail Blazers
+293 ,2003  ,Playoff,Los Angeles Lakers    ,Minnesota Timberwolves,Los Angeles Lakers
+294 ,2003  ,Playoff,Sacramento Kings      ,Utah Jazz             ,Utah Jazz
+295 ,2003  ,Playoff,San Antonio Spurs     ,Phoenix Suns          ,Phoenix Suns
+296 ,2003  ,Quarter,Detroit Pistons       ,Philadelphia 76ers    ,Philadelphia 76ers
+297 ,2003  ,Quarter,New Jersey Nets       ,Boston Celtics        ,Boston Celtics
+298 ,2003  ,Quarter,Dallas Mavericks      ,Sacramento Kings      ,Dallas Mavericks
+299 ,2003  ,Quarter,San Antonio Spurs     ,Los Angeles Lakers    ,Los Angeles Lakers
+300 ,2003  ,Semi   ,New Jersey Nets       ,Detroit Pistons       ,New Jersey Nets
+301 ,2003  ,Semi   ,San Antonio Spurs     ,Dallas Mavericks      ,Dallas Mavericks
+302 ,2003  ,Final  ,San Antonio Spurs     ,New Jersey Nets       ,New Jersey Nets
+304 ,2002  ,Playoff,Boston Celtics        ,Philadelphia 76ers    ,Philadelphia 76ers
+305 ,2002  ,Playoff,Charlotte Hornets     ,Orlando Magic         ,Orlando Magic
+306 ,2002  ,Playoff,Detroit Pistons       ,Toronto Raptors       ,Toronto Raptors
+307 ,2002  ,Playoff,New Jersey Nets       ,Indiana Pacers        ,Indiana Pacers
+308 ,2002  ,Playoff,Dallas Mavericks      ,Minnesota Timberwolves,Minnesota Timberwolves
+309 ,2002  ,Playoff,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+310 ,2002  ,Playoff,Sacramento Kings      ,Utah Jazz             ,Utah Jazz
+311 ,2002  ,Playoff,San Antonio Spurs     ,Seattle SuperSonics   ,Seattle SuperSonics
+312 ,2002  ,Quarter,Boston Celtics        ,Detroit Pistons       ,Boston Celtics
+313 ,2002  ,Quarter,New Jersey Nets       ,Charlotte Hornets     ,Charlotte Hornets
+314 ,2002  ,Quarter,Los Angeles Lakers    ,San Antonio Spurs     ,Los Angeles Lakers
+315 ,2002  ,Quarter,Sacramento Kings      ,Dallas Mavericks      ,Dallas Mavericks
+316 ,2002  ,Semi   ,New Jersey Nets       ,Boston Celtics        ,Boston Celtics
+317 ,2002  ,Semi   ,Los Angeles Lakers    ,Sacramento Kings      ,Los Angeles Lakers
+318 ,2002  ,Final  ,Los Angeles Lakers    ,New Jersey Nets       ,Los Angeles Lakers
+320 ,2001  ,Playoff,Charlotte Hornets     ,Miami Heat            ,Charlotte Hornets
+321 ,2001  ,Playoff,Milwaukee Bucks       ,Orlando Magic         ,Orlando Magic
+322 ,2001  ,Playoff,Philadelphia 76ers    ,Indiana Pacers        ,Indiana Pacers
+323 ,2001  ,Playoff,Toronto Raptors       ,New York Knicks       ,Toronto Raptors
+324 ,2001  ,Playoff,Dallas Mavericks      ,Utah Jazz             ,Dallas Mavericks
+325 ,2001  ,Playoff,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+326 ,2001  ,Playoff,Sacramento Kings      ,Phoenix Suns          ,Phoenix Suns
+327 ,2001  ,Playoff,San Antonio Spurs     ,Minnesota Timberwolves,Minnesota Timberwolves
+328 ,2001  ,Quarter,Milwaukee Bucks       ,Charlotte Hornets     ,Charlotte Hornets
+329 ,2001  ,Quarter,Philadelphia 76ers    ,Toronto Raptors       ,Philadelphia 76ers
+330 ,2001  ,Quarter,Los Angeles Lakers    ,Sacramento Kings      ,Sacramento Kings
+331 ,2001  ,Quarter,San Antonio Spurs     ,Dallas Mavericks      ,Dallas Mavericks
+332 ,2001  ,Semi   ,Philadelphia 76ers    ,Milwaukee Bucks       ,Philadelphia 76ers
+333 ,2001  ,Semi   ,Los Angeles Lakers    ,San Antonio Spurs     ,Los Angeles Lakers
+334 ,2001  ,Final  ,Los Angeles Lakers    ,Philadelphia 76ers    ,Philadelphia 76ers
+336 ,2000  ,Playoff,Indiana Pacers        ,Milwaukee Bucks       ,Milwaukee Bucks
+337 ,2000  ,Playoff,Miami Heat            ,Detroit Pistons       ,Detroit Pistons
+338 ,2000  ,Playoff,New York Knicks       ,Toronto Raptors       ,Toronto Raptors
+339 ,2000  ,Playoff,Philadelphia 76ers    ,Charlotte Hornets     ,Philadelphia 76ers
+340 ,2000  ,Playoff,Los Angeles Lakers    ,Sacramento Kings      ,Sacramento Kings
+341 ,2000  ,Playoff,Phoenix Suns          ,San Antonio Spurs     ,Phoenix Suns
+342 ,2000  ,Playoff,Portland Trail Blazers,Minnesota Timberwolves,Minnesota Timberwolves
+343 ,2000  ,Playoff,Utah Jazz             ,Seattle SuperSonics   ,Seattle SuperSonics
+344 ,2000  ,Quarter,Indiana Pacers        ,Philadelphia 76ers    ,Philadelphia 76ers
+345 ,2000  ,Quarter,New York Knicks       ,Miami Heat            ,New York Knicks
+346 ,2000  ,Quarter,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+347 ,2000  ,Quarter,Portland Trail Blazers,Utah Jazz             ,Portland Trail Blazers
+348 ,2000  ,Semi   ,Indiana Pacers        ,New York Knicks       ,New York Knicks
+349 ,2000  ,Semi   ,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+350 ,2000  ,Final  ,Los Angeles Lakers    ,Indiana Pacers        ,Los Angeles Lakers
+352 ,1999  ,Playoff,Atlanta Hawks         ,Detroit Pistons       ,Detroit Pistons
+353 ,1999  ,Playoff,Indiana Pacers        ,Milwaukee Bucks       ,Milwaukee Bucks
+354 ,1999  ,Playoff,New York Knicks       ,Miami Heat            ,New York Knicks
+355 ,1999  ,Playoff,Philadelphia 76ers    ,Orlando Magic         ,Philadelphia 76ers
+356 ,1999  ,Playoff,Los Angeles Lakers    ,Houston Rockets       ,Houston Rockets
+357 ,1999  ,Playoff,Portland Trail Blazers,Phoenix Suns          ,Phoenix Suns
+358 ,1999  ,Playoff,San Antonio Spurs     ,Minnesota Timberwolves,Minnesota Timberwolves
+359 ,1999  ,Playoff,Utah Jazz             ,Sacramento Kings      ,Sacramento Kings
+360 ,1999  ,Quarter,Indiana Pacers        ,Philadelphia 76ers    ,Philadelphia 76ers
+361 ,1999  ,Quarter,New York Knicks       ,Atlanta Hawks         ,New York Knicks
+362 ,1999  ,Quarter,Portland Trail Blazers,Utah Jazz             ,Utah Jazz
+363 ,1999  ,Quarter,San Antonio Spurs     ,Los Angeles Lakers    ,Los Angeles Lakers
+364 ,1999  ,Semi   ,New York Knicks       ,Indiana Pacers        ,New York Knicks
+365 ,1999  ,Semi   ,San Antonio Spurs     ,Portland Trail Blazers,Portland Trail Blazers
+366 ,1999  ,Final  ,San Antonio Spurs     ,New York Knicks       ,New York Knicks
+368 ,1998  ,Playoff,Charlotte Hornets     ,Atlanta Hawks         ,Atlanta Hawks
+369 ,1998  ,Playoff,Chicago Bulls         ,New Jersey Nets       ,New Jersey Nets
+370 ,1998  ,Playoff,Indiana Pacers        ,Cleveland Cavaliers   ,Cleveland Cavaliers
+371 ,1998  ,Playoff,New York Knicks       ,Miami Heat            ,New York Knicks
+372 ,1998  ,Playoff,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+373 ,1998  ,Playoff,San Antonio Spurs     ,Phoenix Suns          ,San Antonio Spurs
+374 ,1998  ,Playoff,Seattle SuperSonics   ,Minnesota Timberwolves,Minnesota Timberwolves
+375 ,1998  ,Playoff,Utah Jazz             ,Houston Rockets       ,Houston Rockets
+376 ,1998  ,Quarter,Chicago Bulls         ,Charlotte Hornets     ,Charlotte Hornets
+377 ,1998  ,Quarter,Indiana Pacers        ,New York Knicks       ,New York Knicks
+378 ,1998  ,Quarter,Los Angeles Lakers    ,Seattle SuperSonics   ,Los Angeles Lakers
+379 ,1998  ,Quarter,Utah Jazz             ,San Antonio Spurs     ,San Antonio Spurs
+380 ,1998  ,Semi   ,Chicago Bulls         ,Indiana Pacers        ,Indiana Pacers
+381 ,1998  ,Semi   ,Utah Jazz             ,Los Angeles Lakers    ,Los Angeles Lakers
+382 ,1998  ,Final  ,Chicago Bulls         ,Utah Jazz             ,Chicago Bulls
+384 ,1997  ,Playoff,Atlanta Hawks         ,Detroit Pistons       ,Detroit Pistons
+385 ,1997  ,Playoff,Chicago Bulls         ,Washington Bullets    ,Washington Bullets
+386 ,1997  ,Playoff,Miami Heat            ,Orlando Magic         ,Orlando Magic
+387 ,1997  ,Playoff,New York Knicks       ,Charlotte Hornets     ,Charlotte Hornets
+388 ,1997  ,Playoff,Houston Rockets       ,Minnesota Timberwolves,Minnesota Timberwolves
+389 ,1997  ,Playoff,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+390 ,1997  ,Playoff,Seattle SuperSonics   ,Phoenix Suns          ,Phoenix Suns
+391 ,1997  ,Playoff,Utah Jazz             ,Los Angeles Clippers  ,Los Angeles Clippers
+392 ,1997  ,Quarter,Chicago Bulls         ,Atlanta Hawks         ,Atlanta Hawks
+393 ,1997  ,Quarter,Miami Heat            ,New York Knicks       ,New York Knicks
+394 ,1997  ,Quarter,Houston Rockets       ,Seattle SuperSonics   ,Houston Rockets
+395 ,1997  ,Quarter,Utah Jazz             ,Los Angeles Lakers    ,Los Angeles Lakers
+396 ,1997  ,Semi   ,Chicago Bulls         ,Miami Heat            ,Miami Heat
+397 ,1997  ,Semi   ,Utah Jazz             ,Houston Rockets       ,Houston Rockets
+398 ,1997  ,Final  ,Chicago Bulls         ,Utah Jazz             ,Chicago Bulls
+400 ,1996  ,Playoff,Atlanta Hawks         ,Indiana Pacers        ,Atlanta Hawks
+401 ,1996  ,Playoff,Chicago Bulls         ,Miami Heat            ,Miami Heat
+402 ,1996  ,Playoff,New York Knicks       ,Cleveland Cavaliers   ,New York Knicks
+403 ,1996  ,Playoff,Orlando Magic         ,Detroit Pistons       ,Detroit Pistons
+404 ,1996  ,Playoff,Houston Rockets       ,Los Angeles Lakers    ,Houston Rockets
+405 ,1996  ,Playoff,San Antonio Spurs     ,Phoenix Suns          ,Phoenix Suns
+406 ,1996  ,Playoff,Seattle SuperSonics   ,Sacramento Kings      ,Sacramento Kings
+407 ,1996  ,Playoff,Utah Jazz             ,Portland Trail Blazers,Portland Trail Blazers
+408 ,1996  ,Quarter,Chicago Bulls         ,New York Knicks       ,New York Knicks
+409 ,1996  ,Quarter,Orlando Magic         ,Atlanta Hawks         ,Atlanta Hawks
+410 ,1996  ,Quarter,Seattle SuperSonics   ,Houston Rockets       ,Houston Rockets
+411 ,1996  ,Quarter,Utah Jazz             ,San Antonio Spurs     ,Utah Jazz
+412 ,1996  ,Semi   ,Chicago Bulls         ,Orlando Magic         ,Orlando Magic
+413 ,1996  ,Semi   ,Seattle SuperSonics   ,Utah Jazz             ,Utah Jazz
+414 ,1996  ,Final  ,Chicago Bulls         ,Seattle SuperSonics   ,Chicago Bulls
+416 ,1995  ,Playoff,Chicago Bulls         ,Charlotte Hornets     ,Chicago Bulls
+417 ,1995  ,Playoff,Indiana Pacers        ,Atlanta Hawks         ,Atlanta Hawks
+418 ,1995  ,Playoff,New York Knicks       ,Cleveland Cavaliers   ,Cleveland Cavaliers
+419 ,1995  ,Playoff,Orlando Magic         ,Boston Celtics        ,Boston Celtics
+420 ,1995  ,Playoff,Houston Rockets       ,Utah Jazz             ,Houston Rockets
+421 ,1995  ,Playoff,Los Angeles Lakers    ,Seattle SuperSonics   ,Los Angeles Lakers
+422 ,1995  ,Playoff,Phoenix Suns          ,Portland Trail Blazers,Portland Trail Blazers
+423 ,1995  ,Playoff,San Antonio Spurs     ,Denver Nuggets        ,Denver Nuggets
+424 ,1995  ,Quarter,Indiana Pacers        ,New York Knicks       ,New York Knicks
+425 ,1995  ,Quarter,Orlando Magic         ,Chicago Bulls         ,Chicago Bulls
+426 ,1995  ,Quarter,Houston Rockets       ,Phoenix Suns          ,Houston Rockets
+427 ,1995  ,Quarter,San Antonio Spurs     ,Los Angeles Lakers    ,Los Angeles Lakers
+428 ,1995  ,Semi   ,Orlando Magic         ,Indiana Pacers        ,Indiana Pacers
+429 ,1995  ,Semi   ,Houston Rockets       ,San Antonio Spurs     ,Houston Rockets
+430 ,1995  ,Final  ,Houston Rockets       ,Orlando Magic         ,Houston Rockets
+432 ,1994  ,Playoff,Atlanta Hawks         ,Miami Heat            ,Miami Heat
+433 ,1994  ,Playoff,Chicago Bulls         ,Cleveland Cavaliers   ,Cleveland Cavaliers
+434 ,1994  ,Playoff,Indiana Pacers        ,Orlando Magic         ,Indiana Pacers
+435 ,1994  ,Playoff,New York Knicks       ,New Jersey Nets       ,New Jersey Nets
+436 ,1994  ,Playoff,Denver Nuggets        ,Seattle SuperSonics   ,Denver Nuggets
+437 ,1994  ,Playoff,Houston Rockets       ,Portland Trail Blazers,Portland Trail Blazers
+438 ,1994  ,Playoff,Phoenix Suns          ,Golden State Warriors ,Golden State Warriors
+439 ,1994  ,Playoff,Utah Jazz             ,San Antonio Spurs     ,Utah Jazz
+440 ,1994  ,Quarter,Indiana Pacers        ,Atlanta Hawks         ,Indiana Pacers
+441 ,1994  ,Quarter,New York Knicks       ,Chicago Bulls         ,Chicago Bulls
+442 ,1994  ,Quarter,Houston Rockets       ,Phoenix Suns          ,Phoenix Suns
+443 ,1994  ,Quarter,Utah Jazz             ,Denver Nuggets        ,Denver Nuggets
+444 ,1994  ,Semi   ,New York Knicks       ,Indiana Pacers        ,Indiana Pacers
+445 ,1994  ,Semi   ,Houston Rockets       ,Utah Jazz             ,Utah Jazz
+446 ,1994  ,Final  ,Houston Rockets       ,New York Knicks       ,Houston Rockets
+448 ,1993  ,Playoff,Charlotte Hornets     ,Boston Celtics        ,Charlotte Hornets
+449 ,1993  ,Playoff,Chicago Bulls         ,Atlanta Hawks         ,Atlanta Hawks
+450 ,1993  ,Playoff,Cleveland Cavaliers   ,New Jersey Nets       ,New Jersey Nets
+451 ,1993  ,Playoff,New York Knicks       ,Indiana Pacers        ,Indiana Pacers
+452 ,1993  ,Playoff,Houston Rockets       ,Los Angeles Clippers  ,Los Angeles Clippers
+453 ,1993  ,Playoff,Phoenix Suns          ,Los Angeles Lakers    ,Los Angeles Lakers
+454 ,1993  ,Playoff,San Antonio Spurs     ,Portland Trail Blazers,San Antonio Spurs
+455 ,1993  ,Playoff,Seattle SuperSonics   ,Utah Jazz             ,Utah Jazz
+456 ,1993  ,Quarter,Chicago Bulls         ,Cleveland Cavaliers   ,Cleveland Cavaliers
+457 ,1993  ,Quarter,New York Knicks       ,Charlotte Hornets     ,Charlotte Hornets
+458 ,1993  ,Quarter,Phoenix Suns          ,San Antonio Spurs     ,San Antonio Spurs
+459 ,1993  ,Quarter,Seattle SuperSonics   ,Houston Rockets       ,Seattle SuperSonics
+460 ,1993  ,Semi   ,Chicago Bulls         ,New York Knicks       ,Chicago Bulls
+461 ,1993  ,Semi   ,Phoenix Suns          ,Seattle SuperSonics   ,Seattle SuperSonics
+462 ,1993  ,Final  ,Chicago Bulls         ,Phoenix Suns          ,Chicago Bulls
+464 ,1992  ,Playoff,Boston Celtics        ,Indiana Pacers        ,Indiana Pacers
+465 ,1992  ,Playoff,Chicago Bulls         ,Miami Heat            ,Miami Heat
+466 ,1992  ,Playoff,Cleveland Cavaliers   ,New Jersey Nets       ,New Jersey Nets
+467 ,1992  ,Playoff,New York Knicks       ,Detroit Pistons       ,Detroit Pistons
+468 ,1992  ,Playoff,Phoenix Suns          ,San Antonio Spurs     ,San Antonio Spurs
+469 ,1992  ,Playoff,Portland Trail Blazers,Los Angeles Lakers    ,Los Angeles Lakers
+470 ,1992  ,Playoff,Seattle SuperSonics   ,Golden State Warriors ,Seattle SuperSonics
+471 ,1992  ,Playoff,Utah Jazz             ,Los Angeles Clippers  ,Los Angeles Clippers
+472 ,1992  ,Quarter,Chicago Bulls         ,New York Knicks       ,New York Knicks
+473 ,1992  ,Quarter,Cleveland Cavaliers   ,Boston Celtics        ,Cleveland Cavaliers
+474 ,1992  ,Quarter,Portland Trail Blazers,Phoenix Suns          ,Phoenix Suns
+475 ,1992  ,Quarter,Utah Jazz             ,Seattle SuperSonics   ,Seattle SuperSonics
+476 ,1992  ,Semi   ,Chicago Bulls         ,Cleveland Cavaliers   ,Cleveland Cavaliers
+477 ,1992  ,Semi   ,Portland Trail Blazers,Utah Jazz             ,Utah Jazz
+478 ,1992  ,Final  ,Chicago Bulls         ,Portland Trail Blazers,Chicago Bulls
+480 ,1991  ,Playoff,Boston Celtics        ,Indiana Pacers        ,Indiana Pacers
+481 ,1991  ,Playoff,Chicago Bulls         ,New York Knicks       ,New York Knicks
+482 ,1991  ,Playoff,Detroit Pistons       ,Atlanta Hawks         ,Atlanta Hawks
+483 ,1991  ,Playoff,Philadelphia 76ers    ,Milwaukee Bucks       ,Philadelphia 76ers
+484 ,1991  ,Playoff,Golden State Warriors ,San Antonio Spurs     ,Golden State Warriors
+485 ,1991  ,Playoff,Los Angeles Lakers    ,Houston Rockets       ,Houston Rockets
+486 ,1991  ,Playoff,Portland Trail Blazers,Seattle SuperSonics   ,Seattle SuperSonics
+487 ,1991  ,Playoff,Utah Jazz             ,Phoenix Suns          ,Utah Jazz
+488 ,1991  ,Quarter,Chicago Bulls         ,Philadelphia 76ers    ,Philadelphia 76ers
+489 ,1991  ,Quarter,Detroit Pistons       ,Boston Celtics        ,Detroit Pistons
+490 ,1991  ,Quarter,Los Angeles Lakers    ,Golden State Warriors ,Golden State Warriors
+491 ,1991  ,Quarter,Portland Trail Blazers,Utah Jazz             ,Utah Jazz
+492 ,1991  ,Semi   ,Chicago Bulls         ,Detroit Pistons       ,Detroit Pistons
+493 ,1991  ,Semi   ,Los Angeles Lakers    ,Portland Trail Blazers,Los Angeles Lakers
+494 ,1991  ,Final  ,Chicago Bulls         ,Los Angeles Lakers    ,Los Angeles Lakers
+496 ,1990  ,Playoff,Chicago Bulls         ,Milwaukee Bucks       ,Milwaukee Bucks
+497 ,1990  ,Playoff,Detroit Pistons       ,Indiana Pacers        ,Indiana Pacers
+498 ,1990  ,Playoff,New York Knicks       ,Boston Celtics        ,New York Knicks
+499 ,1990  ,Playoff,Philadelphia 76ers    ,Cleveland Cavaliers   ,Philadelphia 76ers
+500 ,1990  ,Playoff,Los Angeles Lakers    ,Houston Rockets       ,Houston Rockets
+501 ,1990  ,Playoff,Phoenix Suns          ,Utah Jazz             ,Phoenix Suns
+502 ,1990  ,Playoff,Portland Trail Blazers,Dallas Mavericks      ,Dallas Mavericks
+503 ,1990  ,Playoff,San Antonio Spurs     ,Denver Nuggets        ,Denver Nuggets
+504 ,1990  ,Quarter,Chicago Bulls         ,Philadelphia 76ers    ,Philadelphia 76ers
+505 ,1990  ,Quarter,Detroit Pistons       ,New York Knicks       ,New York Knicks
+506 ,1990  ,Quarter,Phoenix Suns          ,Los Angeles Lakers    ,Phoenix Suns
+507 ,1990  ,Quarter,Portland Trail Blazers,San Antonio Spurs     ,Portland Trail Blazers
+508 ,1990  ,Semi   ,Detroit Pistons       ,Chicago Bulls         ,Chicago Bulls
+509 ,1990  ,Semi   ,Portland Trail Blazers,Phoenix Suns          ,Phoenix Suns
+510 ,1990  ,Final  ,Detroit Pistons       ,Portland Trail Blazers,Portland Trail Blazers
+512 ,1989  ,Playoff,Chicago Bulls         ,Cleveland Cavaliers   ,Chicago Bulls
+513 ,1989  ,Playoff,Detroit Pistons       ,Boston Celtics        ,Boston Celtics
+514 ,1989  ,Playoff,Milwaukee Bucks       ,Atlanta Hawks         ,Milwaukee Bucks
+515 ,1989  ,Playoff,New York Knicks       ,Philadelphia 76ers    ,Philadelphia 76ers
+516 ,1989  ,Playoff,Golden State Warriors ,Utah Jazz             ,Golden State Warriors
+517 ,1989  ,Playoff,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+518 ,1989  ,Playoff,Phoenix Suns          ,Denver Nuggets        ,Denver Nuggets
+519 ,1989  ,Playoff,Seattle SuperSonics   ,Houston Rockets       ,Houston Rockets
+520 ,1989  ,Quarter,Chicago Bulls         ,New York Knicks       ,Chicago Bulls
+521 ,1989  ,Quarter,Detroit Pistons       ,Milwaukee Bucks       ,Milwaukee Bucks
+522 ,1989  ,Quarter,Los Angeles Lakers    ,Seattle SuperSonics   ,Seattle SuperSonics
+523 ,1989  ,Quarter,Phoenix Suns          ,Golden State Warriors ,Golden State Warriors
+524 ,1989  ,Semi   ,Detroit Pistons       ,Chicago Bulls         ,Chicago Bulls
+525 ,1989  ,Semi   ,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+526 ,1989  ,Final  ,Detroit Pistons       ,Los Angeles Lakers    ,Detroit Pistons
+528 ,1988  ,Playoff,Atlanta Hawks         ,Milwaukee Bucks       ,Milwaukee Bucks
+529 ,1988  ,Playoff,Boston Celtics        ,New York Knicks       ,New York Knicks
+530 ,1988  ,Playoff,Chicago Bulls         ,Cleveland Cavaliers   ,Cleveland Cavaliers
+531 ,1988  ,Playoff,Detroit Pistons       ,Washington Bullets    ,Washington Bullets
+532 ,1988  ,Playoff,Dallas Mavericks      ,Houston Rockets       ,Houston Rockets
+533 ,1988  ,Playoff,Denver Nuggets        ,Seattle SuperSonics   ,Seattle SuperSonics
+534 ,1988  ,Playoff,Los Angeles Lakers    ,San Antonio Spurs     ,San Antonio Spurs
+535 ,1988  ,Playoff,Utah Jazz             ,Portland Trail Blazers,Utah Jazz
+536 ,1988  ,Quarter,Boston Celtics        ,Atlanta Hawks         ,Atlanta Hawks
+537 ,1988  ,Quarter,Detroit Pistons       ,Chicago Bulls         ,Chicago Bulls
+538 ,1988  ,Quarter,Dallas Mavericks      ,Denver Nuggets        ,Dallas Mavericks
+539 ,1988  ,Quarter,Los Angeles Lakers    ,Utah Jazz             ,Utah Jazz
+540 ,1988  ,Semi   ,Detroit Pistons       ,Boston Celtics        ,Detroit Pistons
+541 ,1988  ,Semi   ,Los Angeles Lakers    ,Dallas Mavericks      ,Dallas Mavericks
+542 ,1988  ,Final  ,Los Angeles Lakers    ,Detroit Pistons       ,Detroit Pistons
+544 ,1987  ,Playoff,Atlanta Hawks         ,Indiana Pacers        ,Indiana Pacers
+545 ,1987  ,Playoff,Boston Celtics        ,Chicago Bulls         ,Chicago Bulls
+546 ,1987  ,Playoff,Detroit Pistons       ,Washington Bullets    ,Washington Bullets
+547 ,1987  ,Playoff,Milwaukee Bucks       ,Philadelphia 76ers    ,Philadelphia 76ers
+548 ,1987  ,Playoff,Golden State Warriors ,Utah Jazz             ,Golden State Warriors
+549 ,1987  ,Playoff,Houston Rockets       ,Portland Trail Blazers,Houston Rockets
+550 ,1987  ,Playoff,Los Angeles Lakers    ,Denver Nuggets        ,Denver Nuggets
+551 ,1987  ,Playoff,Seattle SuperSonics   ,Dallas Mavericks      ,Seattle SuperSonics
+552 ,1987  ,Quarter,Boston Celtics        ,Milwaukee Bucks       ,Milwaukee Bucks
+553 ,1987  ,Quarter,Detroit Pistons       ,Atlanta Hawks         ,Detroit Pistons
+554 ,1987  ,Quarter,Los Angeles Lakers    ,Golden State Warriors ,Golden State Warriors
+555 ,1987  ,Quarter,Seattle SuperSonics   ,Houston Rockets       ,Seattle SuperSonics
+556 ,1987  ,Semi   ,Boston Celtics        ,Detroit Pistons       ,Detroit Pistons
+557 ,1987  ,Semi   ,Los Angeles Lakers    ,Seattle SuperSonics   ,Seattle SuperSonics
+558 ,1987  ,Final  ,Los Angeles Lakers    ,Boston Celtics        ,Los Angeles Lakers
+560 ,1986  ,Playoff,Atlanta Hawks         ,Detroit Pistons       ,Detroit Pistons
+561 ,1986  ,Playoff,Boston Celtics        ,Chicago Bulls         ,Chicago Bulls
+562 ,1986  ,Playoff,Milwaukee Bucks       ,New Jersey Nets       ,New Jersey Nets
+563 ,1986  ,Playoff,Philadelphia 76ers    ,Washington Bullets    ,Philadelphia 76ers
+564 ,1986  ,Playoff,Dallas Mavericks      ,Utah Jazz             ,Utah Jazz
+565 ,1986  ,Playoff,Denver Nuggets        ,Portland Trail Blazers,Portland Trail Blazers
+566 ,1986  ,Playoff,Houston Rockets       ,Sacramento Kings      ,Sacramento Kings
+567 ,1986  ,Playoff,Los Angeles Lakers    ,San Antonio Spurs     ,San Antonio Spurs
+568 ,1986  ,Quarter,Boston Celtics        ,Atlanta Hawks         ,Atlanta Hawks
+569 ,1986  ,Quarter,Milwaukee Bucks       ,Philadelphia 76ers    ,Philadelphia 76ers
+570 ,1986  ,Quarter,Houston Rockets       ,Denver Nuggets        ,Denver Nuggets
+571 ,1986  ,Quarter,Los Angeles Lakers    ,Dallas Mavericks      ,Dallas Mavericks
+572 ,1986  ,Semi   ,Boston Celtics        ,Milwaukee Bucks       ,Milwaukee Bucks
+573 ,1986  ,Semi   ,Houston Rockets       ,Los Angeles Lakers    ,Houston Rockets
+574 ,1986  ,Final  ,Boston Celtics        ,Houston Rockets       ,Houston Rockets
+576 ,1985  ,Playoff,Boston Celtics        ,Cleveland Cavaliers   ,Cleveland Cavaliers
+577 ,1985  ,Playoff,Detroit Pistons       ,New Jersey Nets       ,New Jersey Nets
+578 ,1985  ,Playoff,Milwaukee Bucks       ,Chicago Bulls         ,Chicago Bulls
+579 ,1985  ,Playoff,Philadelphia 76ers    ,Washington Bullets    ,Philadelphia 76ers
+580 ,1985  ,Playoff,Denver Nuggets        ,San Antonio Spurs     ,San Antonio Spurs
+581 ,1985  ,Playoff,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+582 ,1985  ,Playoff,Portland Trail Blazers,Dallas Mavericks      ,Portland Trail Blazers
+583 ,1985  ,Playoff,Utah Jazz             ,Houston Rockets       ,Utah Jazz
+584 ,1985  ,Quarter,Boston Celtics        ,Detroit Pistons       ,Detroit Pistons
+585 ,1985  ,Quarter,Philadelphia 76ers    ,Milwaukee Bucks       ,Philadelphia 76ers
+586 ,1985  ,Quarter,Denver Nuggets        ,Utah Jazz             ,Utah Jazz
+587 ,1985  ,Quarter,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+588 ,1985  ,Semi   ,Boston Celtics        ,Philadelphia 76ers    ,Philadelphia 76ers
+589 ,1985  ,Semi   ,Los Angeles Lakers    ,Denver Nuggets        ,Denver Nuggets
+590 ,1985  ,Final  ,Los Angeles Lakers    ,Boston Celtics        ,Los Angeles Lakers
+592 ,1984  ,Playoff,Boston Celtics        ,Washington Bullets    ,Washington Bullets
+593 ,1984  ,Playoff,Milwaukee Bucks       ,Atlanta Hawks         ,Atlanta Hawks
+594 ,1984  ,Playoff,New Jersey Nets       ,Philadelphia 76ers    ,Philadelphia 76ers
+595 ,1984  ,Playoff,New York Knicks       ,Detroit Pistons       ,New York Knicks
+596 ,1984  ,Playoff,Dallas Mavericks      ,Seattle SuperSonics   ,Seattle SuperSonics
+597 ,1984  ,Playoff,Los Angeles Lakers    ,Kansas City Kings     ,Kansas City Kings
+598 ,1984  ,Playoff,Phoenix Suns          ,Portland Trail Blazers,Phoenix Suns
+599 ,1984  ,Playoff,Utah Jazz             ,Denver Nuggets        ,Denver Nuggets
+600 ,1984  ,Quarter,Boston Celtics        ,New York Knicks       ,New York Knicks
+601 ,1984  ,Quarter,Milwaukee Bucks       ,New Jersey Nets       ,New Jersey Nets
+602 ,1984  ,Quarter,Los Angeles Lakers    ,Dallas Mavericks      ,Dallas Mavericks
+603 ,1984  ,Quarter,Phoenix Suns          ,Utah Jazz             ,Phoenix Suns
+604 ,1984  ,Semi   ,Boston Celtics        ,Milwaukee Bucks       ,Milwaukee Bucks
+605 ,1984  ,Semi   ,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+606 ,1984  ,Final  ,Boston Celtics        ,Los Angeles Lakers    ,Boston Celtics
+608 ,1983  ,Playoff,Boston Celtics        ,Atlanta Hawks         ,Atlanta Hawks
+609 ,1983  ,Playoff,New York Knicks       ,New Jersey Nets       ,New York Knicks
+610 ,1983  ,Playoff,Denver Nuggets        ,Phoenix Suns          ,Denver Nuggets
+611 ,1983  ,Playoff,Portland Trail Blazers,Seattle SuperSonics   ,Portland Trail Blazers
+612 ,1983  ,Quarter,Milwaukee Bucks       ,Boston Celtics        ,Boston Celtics
+613 ,1983  ,Quarter,Philadelphia 76ers    ,New York Knicks       ,Philadelphia 76ers
+614 ,1983  ,Quarter,Los Angeles Lakers    ,Portland Trail Blazers,Portland Trail Blazers
+615 ,1983  ,Quarter,San Antonio Spurs     ,Denver Nuggets        ,Denver Nuggets
+616 ,1983  ,Semi   ,Philadelphia 76ers    ,Milwaukee Bucks       ,Philadelphia 76ers
+617 ,1983  ,Semi   ,Los Angeles Lakers    ,San Antonio Spurs     ,San Antonio Spurs
+618 ,1983  ,Final  ,Philadelphia 76ers    ,Los Angeles Lakers    ,Philadelphia 76ers
+620 ,1982  ,Playoff,Philadelphia 76ers    ,Atlanta Hawks         ,Philadelphia 76ers
+621 ,1982  ,Playoff,Washington Bullets    ,New Jersey Nets       ,Washington Bullets
+622 ,1982  ,Playoff,Phoenix Suns          ,Denver Nuggets        ,Phoenix Suns
+623 ,1982  ,Playoff,Seattle SuperSonics   ,Houston Rockets       ,Houston Rockets
+624 ,1982  ,Quarter,Boston Celtics        ,Washington Bullets    ,Washington Bullets
+625 ,1982  ,Quarter,Philadelphia 76ers    ,Milwaukee Bucks       ,Philadelphia 76ers
+626 ,1982  ,Quarter,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+627 ,1982  ,Quarter,San Antonio Spurs     ,Seattle SuperSonics   ,Seattle SuperSonics
+628 ,1982  ,Semi   ,Philadelphia 76ers    ,Boston Celtics        ,Philadelphia 76ers
+629 ,1982  ,Semi   ,Los Angeles Lakers    ,San Antonio Spurs     ,San Antonio Spurs
+630 ,1982  ,Final  ,Los Angeles Lakers    ,Philadelphia 76ers    ,Philadelphia 76ers
+632 ,1981  ,Playoff,Chicago Bulls         ,New York Knicks       ,Chicago Bulls
+633 ,1981  ,Playoff,Philadelphia 76ers    ,Indiana Pacers        ,Philadelphia 76ers
+634 ,1981  ,Playoff,Houston Rockets       ,Los Angeles Lakers    ,Houston Rockets
+635 ,1981  ,Playoff,Kansas City Kings     ,Portland Trail Blazers,Kansas City Kings
+636 ,1981  ,Quarter,Boston Celtics        ,Chicago Bulls         ,Chicago Bulls
+637 ,1981  ,Quarter,Philadelphia 76ers    ,Milwaukee Bucks       ,Philadelphia 76ers
+638 ,1981  ,Quarter,Houston Rockets       ,San Antonio Spurs     ,Houston Rockets
+639 ,1981  ,Quarter,Kansas City Kings     ,Phoenix Suns          ,Kansas City Kings
+640 ,1981  ,Semi   ,Boston Celtics        ,Philadelphia 76ers    ,Philadelphia 76ers
+641 ,1981  ,Semi   ,Houston Rockets       ,Kansas City Kings     ,Houston Rockets
+642 ,1981  ,Final  ,Boston Celtics        ,Houston Rockets       ,Houston Rockets
+644 ,1980  ,Playoff,Houston Rockets       ,San Antonio Spurs     ,San Antonio Spurs
+645 ,1980  ,Playoff,Philadelphia 76ers    ,Washington Bullets    ,Philadelphia 76ers
+646 ,1980  ,Playoff,Phoenix Suns          ,Kansas City Kings     ,Kansas City Kings
+647 ,1980  ,Playoff,Seattle SuperSonics   ,Portland Trail Blazers,Portland Trail Blazers
+648 ,1980  ,Quarter,Boston Celtics        ,Houston Rockets       ,Houston Rockets
+649 ,1980  ,Quarter,Philadelphia 76ers    ,Atlanta Hawks         ,Philadelphia 76ers
+650 ,1980  ,Quarter,Los Angeles Lakers    ,Phoenix Suns          ,Phoenix Suns
+651 ,1980  ,Quarter,Seattle SuperSonics   ,Milwaukee Bucks       ,Seattle SuperSonics
+652 ,1980  ,Semi   ,Philadelphia 76ers    ,Boston Celtics        ,Philadelphia 76ers
+653 ,1980  ,Semi   ,Los Angeles Lakers    ,Seattle SuperSonics   ,Seattle SuperSonics
+654 ,1980  ,Final  ,Los Angeles Lakers    ,Philadelphia 76ers    ,Philadelphia 76ers
