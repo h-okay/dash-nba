@@ -122,3 +122,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# file: ~/.gitignore_global
+.DS_Store
+.idea
