@@ -22,16 +22,13 @@ pd.options.mode.chained_assignment = None
 def get_player_perf_forecast():
     # Import and Process
     print('Import and process...')
-    path = r'C:\Users\Hakan\Desktop\GitHub\VBO\data\base\pers'
-    all_df = pd.DataFrame()
-    all_filenames = [file for file in glob.glob(path + "./*.csv")]
-    all_df = pd.concat([pd.read_csv(f) for f in all_filenames])
+    all_df = pd.read_csv('../data/base/per.csv')
     all_df['NAME'] = all_df['FIRST_NAME'] + " " + all_df['LAST_NAME']
     all_df.drop(['FIRST_NAME', 'LAST_NAME', 'P_ID','TEAM_ID',
                  'TEAM_ABBREVIATION','factor','vop','drbp',
                  'uPER','T_PACE','L_PACE','adjustment','aPER',
                 'GS','MIN','FGM','FGA','FG3M','FG3A','FTM','FTA'], axis=1, inplace=True)
-
+    all_df
     all_df['REB'] = all_df['REB'] / all_df['GP']
     all_df['AST'] = all_df['AST'] / all_df['GP']
     all_df['STL'] = all_df['STL'] / all_df['GP']
@@ -97,8 +94,3 @@ def get_player_perf_forecast():
     path = r'C:\Users\Hakan\Desktop\GitHub\VBO\data\est'
     final.to_csv(path + "/perf_forecast.csv", index=False)
     print('Done.')
-
-
-
-if __name__ == '__main__':
-    get_player_perf_forecast()

@@ -8,7 +8,7 @@ from tqdm import tqdm
 import glob
 
 
-per = pd.read_csv("data/per.csv")
+per = pd.read_csv("../data/base/per.csv")
 per['NAME'] = per['FIRST_NAME'] + " " + per['LAST_NAME']
 
 def get_headshots():

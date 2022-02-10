@@ -9,6 +9,8 @@ from scipy import spatial
 from scipy.stats import weightedtau
 
 from time import sleep
+import datetime
+import glob
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -311,7 +313,6 @@ class getStandings:
                                    ignore_index=True)
         self.standings.TEAM = self.standings.TEAM.apply(get_names)
         self.standings.TEAM = self.standings.TEAM.apply(fix_team_names)
-        self.standings.drop(['LAST 10', 'STREAK'], axis=1, inplace=True)
         self.standings.to_csv('../data/base/standingsCleaned.csv', index=False)
 
 
@@ -327,6 +328,40 @@ class playoffWins:
     def add_playoff_wins(self):
         return self.playoffwins
 
+
+class Schedule:
+    def __init__(self):
+        self.today = datetime.datetime.today().strftime('%Y-%m-%d')
+        self.dates = pd.date_range(start=self.today, end='2022-04-10',
+                              freq='D').to_frame().reset_index(drop=True)
+        self.dates.columns = ['date']
+        self.dates['date'] = self.dates['date'].apply(lambda x: x.strftime('%Y%m%d'))
+        self.dates = self.dates.date.to_list()
+
+    def get_schedules(self):
+        self.schedule = pd.DataFrame()
+        for date in self.dates:
+            try:
+                df = pd.read_html(
+                    f'https://www.cbssports.com/nba/schedule/{date}/')[0]
+                df = df[['Away', 'Home', 'Time / TV']]
+                df['date'] = date
+                self.schedule = pd.concat([self.schedule, df])
+            except ValueError:
+                continue
+        self.schedule.date = pd.to_datetime(self.schedule.date)
+        self.schedule = self.schedule.sort_values(by='date')
+        self.schedule.Away = self.schedule.Away.apply(fix_team_names)
+        self.schedule.Home = self.schedule.Home.apply(fix_team_names)
+        self.schedule.to_csv('../data/base/schedule.csv', index=False)
+
+
+class PER:
+    def __init__(self):
+        self.all_filenames = [file for file in glob.glob("C:/Users/Hakan/Desktop/GitHub/VBO/data/base/pers" + "./*.csv")]
+        self.all_df = pd.concat([pd.read_csv(f) for f in self.all_filenames])
+        self.all_df.to_csv(
+            "C:/Users/Hakan/Desktop/GitHub/VBO/data/base/" + "per.csv", index=False)
 
 # class Metrics:
 #

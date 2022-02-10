@@ -9,11 +9,11 @@ from pandas.core.common import SettingWithCopyWarning
 pd.set_option("display.float_format", lambda x: "%.3f" % x)
 warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 
-all_players = pd.read_csv("../base/all_players.csv")
-all_teams = pd.read_csv("../base/all_teams.csv")
-merged = pd.read_csv("../base/merged.csv")
+all_players = pd.read_csv("../data/base/all_players.csv")
+all_teams = pd.read_csv("../data/base/all_teams.csv")
+merged = pd.read_csv("../data/base/merged.csv")
 
-with open("../base/matches.pkl", "rb") as file:
+with open("../data/base/matches.pkl", "rb") as file:
     matches = pkl.load(file)
 
 for i in matches.values():
@@ -116,8 +116,4 @@ def calculate_elo():
     edt = elo_date_team.copy()
     edt = edt.sort_values(by="DATE")
     c = edt[edt.groupby(["SEASON", "TEAM_ID"]).DATE.transform("max") == edt.DATE]
-    c.to_csv("../base/elos.csv", index=False)
-
-
-if __name__ == '__main__':
-    calculate_elo()
+    c.to_csv("../data/base/elos.csv", index=False)
