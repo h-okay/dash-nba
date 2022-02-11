@@ -12,6 +12,8 @@ import numpy as np
 import glob
 from dash_bootstrap_components import Button
 
+from helpers import fix_team_names
+
 
 def create_card(t_name):
     alt = " ".join(t_name.split("-")).title()
@@ -25,9 +27,9 @@ def create_card(t_name):
 
 
 def headshotCards(team):
-    merged = pd.read_csv("data/base/merged.csv")
+    merged = pd.read_csv("../data/base/merged.csv")
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv("data/base/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/top/{team}/*")
     files = pd.DataFrame({"LINK": links})
@@ -88,7 +90,7 @@ def drawFigure(col_name, static, title, team, range=(650, 1300)):
 
 
 def drawStats(team, player):
-    per = pd.read_csv("data/base/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
@@ -314,8 +316,18 @@ def top_card(text, id):
     ]
 
 
+def team_worth(team):
+    temp = pd.read_csv('../data/base/salaries.csv')
+    temp = temp[(temp.TEAM == 'Phoenix Suns') & (temp.YEAR == 2021)]
+    total = temp.SALARY.sum()
+    return '{:,}'.format(total)
+
+
 def next_game(team):
-    schedule = pd.read_csv("data/base/schedule.csv")
+    schedule = pd.read_csv("../data/base/schedule.csv")
+    schedule.Away = schedule.Away.apply(fix_team_names)
+    schedule.Home = schedule.Home.apply(fix_team_names)
+    # sorted(schedule.Away.unique())
     schedule = schedule[(schedule.Away == team) | (schedule.Home == team)].sort_values(
         by="date"
     )
@@ -326,17 +338,18 @@ def next_game(team):
 
 
 def matchup_info(team_):
+    # team_ = 'Phoenix Suns'
     team, opponent = next_game(team_)
+    #
+    #
+    #
+    # team = 'Phoenix Suns'
+    # pd.set_option('display.max_columns', None)
 
 
 
-    team = 'Phoenix Suns'
-    pd.set_option('display.max_columns', None)
-
-
-
-    mlready = pd.read_csv("data/est/mlready.csv")
-    standings = pd.read_csv("data/base/standingsCleaned.csv")
+    mlready = pd.read_csv("../data/est/mlready.csv")
+    standings = pd.read_csv("../data/base/standingsCleaned.csv")
     st_tm = standings[
         (standings.TEAM == team) & (standings.SEASON == "2021-22")
     ].STREAK.values[0]
@@ -424,7 +437,7 @@ def matchup_info(team_):
 
 
 def current_team_stats(team):
-    standings = pd.read_csv("data/base/standingsCleaned.csv")
+    standings = pd.read_csv("../data/base/standingsCleaned.csv")
     st_tm = (
         standings[(standings.SEASON == "2021-22")]
         .sort_values(by="WIN%", ascending=False)
@@ -465,6 +478,8 @@ def current_team_stats(team):
 
 def team_schedule(team):
     schedule = pd.read_csv("../data/base/schedule.csv")
+    schedule.Away = schedule.Away.apply(fix_team_names)
+    schedule.Home = schedule.Home.apply(fix_team_names)
     schedule = (
         schedule[(schedule.Away == team) | (schedule.Home == team)]
         .sort_values(by="date")
@@ -493,7 +508,7 @@ def team_schedule(team):
 
 
 def player_perf(team):
-    per = pd.read_csv("data/base/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
@@ -571,7 +586,7 @@ def player_perf(team):
 
 
 def performance_forecast_buttons(team):
-    per = pd.read_csv("data/base/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == "Phoenix Suns") & (per.SEASON_ID == "2021-22")]
     per = per.reset_index()
@@ -584,7 +599,7 @@ def performance_forecast_buttons(team):
 
 
 def get_button_count(team):
-    per = pd.read_csv("data/base/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == "Phoenix Suns") & (per.SEASON_ID == "2021-22")]
     return len(sorted(per.NAME.unique()))

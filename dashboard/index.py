@@ -70,7 +70,7 @@ sidebar = html.Div(
                 html.P("Estimations", className="display-4"),
                 dbc.NavLink(
                     "Future Performance",
-                    href="/f_performance",
+                    href="#f_performance",
                     id="page-4-link",
                     className="sidebar-links",
                     external_link=True,

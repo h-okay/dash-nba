@@ -25,6 +25,7 @@ from func import (
     player_perf,
     performance_forecast_buttons,
     get_button_count,
+    team_worth
 )
 
 hs = headshotCards("Phoenix Suns")
@@ -42,7 +43,8 @@ layout = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         dbc.Card(
-                            top_card("Team Worth: 123456$", "worth-cardbody"),
+                            top_card(f"Team Worth: {team_worth('Phoenix Suns')} $",
+                                     "worth-cardbody"),
                             color="success",
                             inverse=True,
                         ),
@@ -172,9 +174,9 @@ def player_performance(data, team=team_):
         data = 1
     else:
         data = int(data)
-    merged = pd.read_csv("data/merged.csv")
+    merged = pd.read_csv("../data/base/merged.csv")
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv("data/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/top/{team}/*")
     files = pd.DataFrame({"LINK": links})
@@ -243,9 +245,9 @@ def per_forecast(data, team=team_):
         data = 1
     else:
         data = int(data)
-    merged = pd.read_csv("data/merged.csv")
+    merged = pd.read_csv("../data/base/merged.csv")
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv("data/per.csv")
+    per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/top/{team}/*")
     files = pd.DataFrame({"LINK": links})

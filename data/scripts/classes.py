@@ -20,7 +20,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.service import Service
 
-from data.scripts.functions import fix_team_names, get_names
+from data.scripts.helpers import fix_team_names, get_names
 
 
 class playerRating:

@@ -97,7 +97,7 @@ def fix_team_names(row):
         return "Los Angeles Clippers"
     if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City", "Sacramento"]:
         return "Sacramento Kings"
-    if row in ["Seattle SuperSonics", "Oklahoma", "Oklahoma City"]:
+    if row in ["Seattle SuperSonics", "Oklahoma"]:
         return "Oklahoma City Thunder"
     if row in ["New Orleans/Oklahoma City Hornets", "New Orleans Hornets", "New Orleans"]:
         return "New Orleans Pelicans"
