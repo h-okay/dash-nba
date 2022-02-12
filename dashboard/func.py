@@ -102,7 +102,7 @@ def drawStats(team, player):
             dbc.Col(
                 [
                     dbc.Card(
-                        [html.P("PPG"), per[per.NAME == player].PPG.values[0]],
+                        [html.P("PER"), per[per.NAME == player].PER.values[0]],
                         className="p-card-stats-card",
                     )
                 ],
@@ -111,7 +111,7 @@ def drawStats(team, player):
             dbc.Col(
                 [
                     dbc.Card(
-                        [html.P("PER"), per[per.NAME == player].PER.values[0]],
+                        [html.P("PPG"), per[per.NAME == player].PPG.values[0]],
                         className="p-card-stats-card",
                     )
                 ],
@@ -338,16 +338,7 @@ def next_game(team):
 
 
 def matchup_info(team_):
-    # team_ = 'Phoenix Suns'
     team, opponent = next_game(team_)
-    #
-    #
-    #
-    # team = 'Phoenix Suns'
-    # pd.set_option('display.max_columns', None)
-
-
-
     mlready = pd.read_csv("../data/est/mlready.csv")
     standings = pd.read_csv("../data/base/standingsCleaned.csv")
     st_tm = standings[
@@ -391,7 +382,7 @@ def matchup_info(team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("Win Probabilities"),
+                                    html.P("Win"),
                                     f"67% - 33%",
                                 ],  # need to calculate ##### !!!!
                                 className="matchup-card-stats",

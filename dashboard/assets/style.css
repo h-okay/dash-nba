@@ -123,7 +123,6 @@ html, body {
     text-align: -webkit-center;
     border-radius: 0;
     font-family: 'Inter', sans-serif;
-
 }
 
 #matchup-info-col {
@@ -167,9 +166,9 @@ html, body {
 }
 
 :target {
-padding-top: 90px;
-margin-top: -200px;
-display: inline-block;
+    padding-top: 90px;
+    margin-top: -200px;
+    display: inline-block;
 }
 
 #forecast-card {
@@ -177,6 +176,14 @@ display: inline-block;
     flex-direction: row;
 }
 
+.p-card-stats-card.card > p, .matchup-card-stats.card > p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
+.Graph {
+    width: 95%;
+    height: 95%;
+}
 
 
