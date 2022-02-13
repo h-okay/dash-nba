@@ -317,10 +317,10 @@ def top_card(text, id):
 
 
 def team_worth(team):
-    temp = pd.read_csv('../data/base/salaries.csv')
-    temp = temp[(temp.TEAM == 'Phoenix Suns') & (temp.YEAR == 2021)]
+    temp = pd.read_csv("../data/base/salaries.csv")
+    temp = temp[(temp.TEAM == "Phoenix Suns") & (temp.YEAR == 2021)]
     total = temp.SALARY.sum()
-    return '{:,}'.format(total)
+    return "{:,}".format(total)
 
 
 def next_game(team):
@@ -442,8 +442,8 @@ def current_team_stats(team):
     else:
         st_tm = st_tm.iloc[idx - 6 : idx + 4]
     return dash_table.DataTable(
-        st_tm.to_dict("records"),
-        [{"name": i, "id": i} for i in st_tm.columns],
+        data=st_tm.to_dict("records"),
+        columns=[{"name": i, "id": i} for i in st_tm.columns],
         style_cell={
             "textAlign": "center",
             "background-color": "#242b44",
@@ -479,8 +479,8 @@ def team_schedule(team):
     schedule = schedule.rename(columns={"date": "Date"})
 
     return dash_table.DataTable(
-        schedule.to_dict("records"),
-        [{"name": i, "id": i} for i in schedule.columns],
+        data=schedule.to_dict("records"),
+        columns=[{"name": i, "id": i} for i in schedule.columns],
         style_cell={
             "textAlign": "center",
             "background-color": "#242b44",
@@ -557,8 +557,8 @@ def player_perf(team):
     ]
     per = per.sort_values(by="NAME")
     return dash_table.DataTable(
-        per.to_dict("records"),
-        [{"name": i, "id": i} for i in per.columns],
+        data=per.to_dict("records"),
+        columns=[{"name": i, "id": i} for i in per.columns],
         style_cell={
             "textAlign": "center",
             "background-color": "#242b44",
@@ -589,8 +589,86 @@ def performance_forecast_buttons(team):
     ]
 
 
+def performance_forecast_buttons(team):
+    per = pd.read_csv("../data/base/per.csv")
+    per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
+    per = per[(per.TEAM == "Phoenix Suns") & (per.SEASON_ID == "2021-22")]
+    per = per.reset_index()
+    per = per.sort_values(by="NAME")
+    players = per.NAME.unique()
+    return [
+        Button([player], id=f"btn-nclicks-{i+1}", n_clicks=0)
+        for i, player in enumerate(players)
+    ]
+
+
+def worth_forecast_buttons(team):
+    per = pd.read_csv("../data/base/per.csv")
+    per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
+    per = per[(per.TEAM == "Phoenix Suns") & (per.SEASON_ID == "2021-22")]
+    per = per.reset_index()
+    per = per.sort_values(by="NAME")
+    players = per.NAME.unique()
+    return [
+        Button([player], id=f"worth-btn-nclicks-{i+1}", n_clicks=0)
+        for i, player in enumerate(players)
+    ]
+
+
 def get_button_count(team):
     per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == "Phoenix Suns") & (per.SEASON_ID == "2021-22")]
     return len(sorted(per.NAME.unique()))
+
+
+def player_worth(team):
+    salaries = pd.read_csv("data/base/salaries.csv")
+    current_players = salaries[
+        (salaries.TEAM == "Phoenix Suns") & (salaries.YEAR == 2021)
+    ].NAME.to_list()
+    salaries = salaries[salaries.NAME.isin(current_players)]
+    salaries.TEAM = salaries.TEAM.apply(fix_team_names)
+    # salaries.SALARY = salaries.SALARY.apply(lambda x: "{:,}".format(x))
+    salaries = salaries[["NAME", "SALARY", "YEAR"]]
+
+    dash_table.DataTable(
+        salaries.to_dict("records"),
+        [{"name": i, "id": i} for i in salaries.columns],
+        style_cell={
+            "textAlign": "center",
+            "background-color": "#242b44",
+            "color": "white",
+        },
+        style_header={
+            "backgroundColor": "#242b44",
+            "color": "white",
+            "fontWeight": "bold",
+            "textAlign": "left",
+            "border": "1px solid black",
+        },
+        style_data={"border": "1px solid black"},
+        id="sch-table",
+    )
+
+
+def _starter_(team):
+    merged = pd.read_csv("../data/base/merged.csv")
+    merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
+    per = pd.read_csv("../data/base/per.csv")
+    per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
+    links = glob.glob(f"../dashboard/assets/top/{team}/*")
+    files = pd.DataFrame({"LINK": links})
+    files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
+    names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
+        drop=True
+    )[["NAME", "PER"]]
+    hs = names.merge(files, on="NAME", how="left").sort_values(by="NAME")
+    per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
+    per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
+    per["RPG"] = np.round(per["REB"] / per["GP"], 2)
+    per["APG"] = np.round(per["AST"] / per["GP"], 2)
+    per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(by="NAME")
+    per = per.reset_index(drop=True)
+    hs = hs.reset_index(drop=True)
+    return per, hs

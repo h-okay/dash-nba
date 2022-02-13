@@ -36,12 +36,15 @@ def calculate_elo():
     starter["AWAY"] = starter.apply(lambda x: "@" in x["MATCHUP"], axis=1) * 1
     away_matches = starter[starter["AWAY"] == 1].copy()
     home_matches = starter[starter["AWAY"] == 0].copy()
-    home_matches["WL_away"] = home_matches["WL"].apply(lambda x: "W" if x == "L" else "L")
+    home_matches["WL_away"] = home_matches["WL"].apply(
+        lambda x: "W" if x == "L" else "L"
+    )
     home_matches["ABB_away"] = home_matches["MATCHUP"].apply(lambda x: x[-3:])
     concat_matches = home_matches.merge(
         away_matches,
         left_on=["GAME_ID", "WL_away", "ABB_away"],
-        right_on=["GAME_ID", "WL", "TEAM_ABBREVIATION"])
+        right_on=["GAME_ID", "WL", "TEAM_ABBREVIATION"],
+    )
 
     ###########
 
@@ -62,10 +65,12 @@ def calculate_elo():
     ]
 
     team_ids = concat_matches["TEAM_ID_x"].unique()
-    elo_ratings = np.full(len(team_ids), 1400) # Takımların başlangıç elolarını belirt.
+    elo_ratings = np.full(len(team_ids), 1400)  # Takımların başlangıç elolarını belirt.
     a = concat_matches[["TEAM_ID_x", "GAME_DATE_x"]]
     checkpoint = concat_matches[~a.duplicated()]  # 6 maç drop oldu.
-    checkpoint = checkpoint.sort_values("GAME_DATE_x").reset_index().drop("index", axis=1)
+    checkpoint = (
+        checkpoint.sort_values("GAME_DATE_x").reset_index().drop("index", axis=1)
+    )
 
     ####### ELO HESAPLAMA
 

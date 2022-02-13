@@ -12,6 +12,7 @@ import glob
 from dash import callback_context
 from dash import dash_table
 
+from dashboard.helpers import fix_team_names
 
 from func import (
     headshotCards,
@@ -26,7 +27,9 @@ from func import (
     player_perf,
     performance_forecast_buttons,
     get_button_count,
-    team_worth
+    team_worth,
+    _starter_,
+    worth_forecast_buttons,
 )
 
 hs = headshotCards("Phoenix Suns")
@@ -37,6 +40,7 @@ team_ = "Phoenix Suns"
 layout = dbc.Container(
     [
         dcc.Store(id="store-id"),
+        dcc.Store(id="worth-id"),
         html.H2(["TEAM"], id="team"),
         html.Hr(),
         dbc.Row(
@@ -44,8 +48,10 @@ layout = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         dbc.Card(
-                            top_card(f"Team Worth: {team_worth('Phoenix Suns')} $",
-                                     "worth-cardbody"),
+                            top_card(
+                                f"Team Worth: {team_worth('Phoenix Suns')} $",
+                                "worth-cardbody",
+                            ),
                             color="success",
                             inverse=True,
                         ),
@@ -145,8 +151,8 @@ layout = dbc.Container(
         ),
         dbc.Row(
             [
-                dbc.Col(children=[], width=4, id="placeholder1"),
-                dbc.Col(children=[], width=8, id="placeholder2"),
+                dbc.Col(children=[], width=3, id="placeholder1"),
+                dbc.Col(children=[], width=9, id="placeholder2"),
             ]
         ),
         html.Br(),
@@ -155,6 +161,27 @@ layout = dbc.Container(
         html.Br(),
         html.Br(),
         html.Br(),
+        html.H2(["PLAYER WORTH"], id="p_worth"),
+        html.Hr(),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dbc.Card(
+                            worth_forecast_buttons("Phoenix Suns"),
+                            id="salary-nav",
+                            className="shadow-card",
+                        )
+                    ]
+                )
+            ]
+        ),
+        dbc.Row(
+            [
+                dbc.Col([], id="placeholder3", width=3),
+                dbc.Col([], id="placeholder4", width=9),
+            ]
+        ),
     ],
     className="team-page-container",
 )
@@ -164,7 +191,16 @@ layout = dbc.Container(
     Output("store-id", "data"),
     [Input(f"btn-nclicks-{i+1}", "n_clicks") for i in range(n_buttons)],
 )
-def func(*args):
+def perfnav(*args):
+    trigger = callback_context.triggered[0]
+    return trigger["prop_id"].split(".")[0].split("-")[-1]
+
+
+@app.callback(
+    Output("worth-id", "data"),
+    [Input(f"worth-btn-nclicks-{i+1}", "n_clicks") for i in range(n_buttons)],
+)
+def salarynav(*args):
     trigger = callback_context.triggered[0]
     return trigger["prop_id"].split(".")[0].split("-")[-1]
 
@@ -186,22 +222,20 @@ def player_performance(data, team=team_):
         drop=True
     )[["NAME", "PER"]]
     hs = names.merge(files, on="NAME", how="left").sort_values(by="NAME")
-    per = per[(per.TEAM == team) & (per.SEASON_ID == '2021-22')]
-    per.groupby('NAME').PER
+    per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
     per["RPG"] = np.round(per["REB"] / per["GP"], 2)
     per["APG"] = np.round(per["AST"] / per["GP"], 2)
     per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(by="NAME")
     per = per.reset_index(drop=True)
     hs = hs.reset_index(drop=True)
-    forecast = pd.read_csv('../data/est/perf_forecast.csv')
+    forecast = pd.read_csv("../data/est/perf_forecast.csv")
     p_select = hs.NAME[data - 1]
     forecast = forecast[(forecast.NAME == p_select)]
-    forecast['SEASON'] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
-    played = forecast[['TEAM', 'SEASON']]
+    forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
+    played = forecast[["TEAM", "SEASON"]]
     played = played[~played.duplicated()]
-    played = played.groupby('TEAM').SEASON.min().reset_index().sort_values(by='SEASON')
-
+    played = played.groupby("TEAM").SEASON.min().reset_index().sort_values(by="SEASON")
 
     return dbc.Card(
         [
@@ -246,8 +280,7 @@ def player_performance(data, team=team_):
                             dbc.Card(
                                 [
                                     html.P("RPG"),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].RPG.values[0],
+                                    per[per.NAME == hs.NAME[data - 1]].RPG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -259,45 +292,110 @@ def player_performance(data, team=team_):
                             dbc.Card(
                                 [
                                     html.P("APG"),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].APG.values[0],
+                                    per[per.NAME == hs.NAME[data - 1]].APG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
                         ],
                         className="p-card-stats",
-                    )
+                    ),
                 ],
                 className="StatsRow",
                 align=True,
                 justify=True,
             ),
-        dbc.Row([
-                dash_table.DataTable(
-                    played.to_dict("records"),
-                    [{"name": i, "id": i} for i in played.columns],
-                    style_cell={
-                        "textAlign": "center",
-                        "background-color": "#242b44",
-                        "color": "white",
-                    },
-                    style_header={
-                        "backgroundColor": "#242b44",
-                        "color": "white",
-                        "fontWeight": "bold",
-                        "textAlign": "left",
-                        "border": "1px solid black",
-                    },
-                    style_data={"border": "1px solid black"},
-                    id="sch-table",
-                )
-        ], className='StatsRow')
+            dbc.Row(
+                [
+                    dash_table.DataTable(
+                        data=played.to_dict("records"),
+                        columns=[{"name": i, "id": i} for i in played.columns],
+                        style_cell={
+                            "textAlign": "center",
+                            "background-color": "#242b44",
+                            "color": "white",
+                        },
+                        style_header={
+                            "backgroundColor": "#242b44",
+                            "color": "white",
+                            "fontWeight": "bold",
+                            "textAlign": "left",
+                            "border": "1px solid black",
+                        },
+                        style_data={"border": "1px solid black"},
+                        id="sch-table",
+                    )
+                ],
+                className="StatsRow",
+            ),
         ],
         className="shadow-card",
     )
 
+
 @app.callback(Output("placeholder2", "children"), [Input("store-id", "data")])
 def per_forecast(data, team=team_):
+    if data == "":
+        data = 1
+    else:
+        data = int(data)
+    per = pd.read_csv("../data/base/per.csv")
+    per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
+    names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
+        drop=True
+    )[["NAME", "PER"]]
+    hs = names.sort_values(by="NAME")
+    per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
+    per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
+    per["RPG"] = np.round(per["REB"] / per["GP"], 2)
+    per["APG"] = np.round(per["AST"] / per["GP"], 2)
+    per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(by="NAME")
+    per = per.reset_index(drop=True)
+    hs = hs.reset_index(drop=True)
+    forecast = pd.read_csv("../data/est/perf_forecast.csv")
+    p_select = hs.NAME[data - 1]
+    forecast = forecast[(forecast.NAME == p_select)]
+    forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
+    lst = [
+        (row[1].SEASON, row[1].PER)
+        if row[1].SEASON_ID != "2021-22"
+        else (row[1].SEASON, np.round(row[1].PRED, 2))
+        for row in forecast.iterrows()
+    ]
+    g = pd.DataFrame(lst)
+    g.columns = ["year", "per"]
+    g = np.round(g.groupby("year").per.mean(), 2).reset_index()
+    permin = g.per.min()
+    permax = g.per.max()
+
+    fig = px.bar(
+        data_frame=g, x="year", y="per", text="per", range_y=(permin - 1, permax + 2)
+    ).update_layout(
+        plot_bgcolor="rgba(0, 0, 0, 0)",
+        paper_bgcolor="rgba(0, 0, 0, 0)",
+        font=dict(size=18, color="white"),
+        margin={"t": 0, "l": 0, "r": 0, "b": 0},
+        yaxis_title=None,
+        xaxis_title=None,
+    )
+    fig.update_xaxes(dtick="date", showgrid=False)
+    fig.update_yaxes(visible=False, fixedrange=True)
+    fig.update_traces(
+        textfont_size=16, textangle=0, textposition="outside", cliponaxis=False
+    )
+    return dbc.Card(
+        [
+            dcc.Graph(
+                figure=fig,
+                config={"displayModeBar": False},
+                className="Graph",
+            )
+        ],
+        className="shadow-card",
+    )
+
+
+@app.callback(Output("placeholder3", "children"), [Input("worth-id", "data")])
+def player_performance(data, team=team_):
     if data == "":
         data = 1
     else:
@@ -306,7 +404,7 @@ def per_forecast(data, team=team_):
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
     per = pd.read_csv("../data/base/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
-    links = glob.glob(f"../dashboard/assets/top/{team}/*")
+    links = glob.glob(f"assets/top/{team}/*")
     files = pd.DataFrame({"LINK": links})
     files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
@@ -317,54 +415,150 @@ def per_forecast(data, team=team_):
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
     per["RPG"] = np.round(per["REB"] / per["GP"], 2)
     per["APG"] = np.round(per["AST"] / per["GP"], 2)
-    per = per[["NAME", "PPG", "PER"]].sort_values(by="NAME")
+    per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(by="NAME")
     per = per.reset_index(drop=True)
     hs = hs.reset_index(drop=True)
-    forecast = pd.read_csv('../data/est/perf_forecast.csv')
+    forecast = pd.read_csv("../data/est/perf_forecast.csv")
     p_select = hs.NAME[data - 1]
     forecast = forecast[(forecast.NAME == p_select)]
-    forecast['SEASON'] = forecast.SEASON_ID.apply(lambda x: int(x[:4])+1)
-    lst = [(row[1].SEASON, row[1].PER)
-           if row[1].SEASON_ID != '2021-22' else (row[1].SEASON,np.round(row[1].PRED, 2))
-           for row in forecast.iterrows()]
-    g = pd.DataFrame(lst)
-    g.columns = ['year','per']
-    g = np.round(g.groupby('year').per.mean(), 2).reset_index()
-    permin = g.per.min()
-    permax = g.per.max()
-    mini = g.year.min()
-    maxi = g.year.max()
-    years = pd.DataFrame(range(mini, maxi+1))
-    years.columns = ['year']
-    g = g.merge(years, on='year', how='right')
-    nulls = g[g.per.isnull()].year.to_list()
-    fig = px.bar(data_frame=g, x='year', y='per', text="per", range_y=(permin-1, permax+2),
-                 ).update_layout(
-        # template="ggplot2",
+    forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
+    played = forecast[["TEAM", "SEASON"]]
+    played = played[~played.duplicated()]
+    played = played.groupby("TEAM").SEASON.min().reset_index().sort_values(by="SEASON")
+
+    return dbc.Card(
+        [
+            html.P(
+                [hs.NAME[data - 1]],
+                style={"font-family": "Inter, sans-serif", "margin-top": "10px"},
+            ),
+            html.Img(
+                src=hs.LINK[data - 1],
+                width=188,
+                height=137,
+                style={"max-height": "100%", "max-width": "100%"},
+            ),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                [
+                                    html.P("PER"),
+                                    per[per.NAME == hs.NAME[data - 1]].PER.values[0],
+                                ],
+                                className="p-card-stats-card",
+                            )
+                        ],
+                        className="p-card-stats",
+                    ),
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                [
+                                    html.P("PPG"),
+                                    per[per.NAME == hs.NAME[data - 1]].PPG.values[0],
+                                ],
+                                className="p-card-stats-card",
+                            )
+                        ],
+                        className="p-card-stats",
+                    ),
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                [
+                                    html.P("RPG"),
+                                    per[per.NAME == hs.NAME[data - 1]].RPG.values[0],
+                                ],
+                                className="p-card-stats-card",
+                            )
+                        ],
+                        className="p-card-stats",
+                    ),
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                [
+                                    html.P("APG"),
+                                    per[per.NAME == hs.NAME[data - 1]].APG.values[0],
+                                ],
+                                className="p-card-stats-card",
+                            )
+                        ],
+                        className="p-card-stats",
+                    ),
+                ],
+                className="StatsRow",
+                align=True,
+                justify=True,
+            ),
+            dbc.Row(
+                [
+                    dash_table.DataTable(
+                        data=played.to_dict("records"),
+                        columns=[{"name": i, "id": i} for i in played.columns],
+                        style_cell={
+                            "textAlign": "center",
+                            "background-color": "#242b44",
+                            "color": "white",
+                        },
+                        style_header={
+                            "backgroundColor": "#242b44",
+                            "color": "white",
+                            "fontWeight": "bold",
+                            "textAlign": "left",
+                            "border": "1px solid black",
+                        },
+                        style_data={"border": "1px solid black"},
+                        id="sch-table",
+                    )
+                ],
+                className="StatsRow",
+            ),
+        ],
+        className="shadow-card",
+    )
+
+
+@app.callback(Output("placeholder4", "children"), [Input("worth-id", "data")])
+def player_worth(data, team=team_):
+    if data == "":
+        data = 1
+    else:
+        data = int(data)
+    per = pd.read_csv("../data/base/per.csv")
+    per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
+    names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
+        drop=True
+    )[["NAME", "PER"]]
+    hs = names.sort_values(by="NAME").reset_index(drop=True)
+    p_select = hs.NAME[data - 1]
+    salaries = pd.read_csv("../data/base/salaries.csv")
+    salaries.TEAM = salaries.TEAM.apply(fix_team_names)
+    salaries = salaries[(salaries.NAME == p_select)]
+
+    fig = px.bar(data_frame=salaries, x="YEAR", y="SALARY", color="TEAM").update_layout(
         plot_bgcolor="rgba(0, 0, 0, 0)",
         paper_bgcolor="rgba(0, 0, 0, 0)",
         font=dict(size=18, color="white"),
         margin={"t": 0, "l": 0, "r": 0, "b": 0},
         yaxis_title=None,
-        xaxis_title=None
-
+        xaxis_title=None,
     )
-    if len(nulls) > 0:
-        fig.update_xaxes(dtick="date", showgrid=False, rangebreaks=[dict(values=nulls)])
-    else:
-        fig.update_xaxes(dtick="date", showgrid=False)
+
+    fig.update_xaxes(dtick="date", showgrid=False)
     fig.update_yaxes(visible=False, fixedrange=True)
-    fig.update_traces(textfont_size=16, textangle=0, textposition="outside",
-                      cliponaxis=False)
+    fig.update_traces(
+        textfont_size=16, textangle=0, textposition="outside", cliponaxis=False
+    )
     return dbc.Card(
         [
             dcc.Graph(
                 figure=fig,
                 config={"displayModeBar": False},
                 className="Graph",
-
             )
-
         ],
         className="shadow-card",
     )

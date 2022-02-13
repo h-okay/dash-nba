@@ -31,28 +31,40 @@ pytrend = TrendReq()
 
 ### PROJE İÇİN KULLANIMI
 
-players = pd.read_csv('data/base/merged.csv')
-players['NAME'] = players['FIRST_NAME'] + " " + players['LAST_NAME']
-players = players[players.SEASON_ID > '2003-04']
+players = pd.read_csv("data/base/merged.csv")
+players["NAME"] = players["FIRST_NAME"] + " " + players["LAST_NAME"]
+players = players[players.SEASON_ID > "2003-04"]
 players.dropna(inplace=True)
 players = list(set(players.NAME.to_list()))
-players = players + ['Yao Ming', 'Nene', 'Yi Jianlian']
+players = players + ["Yao Ming", "Nene", "Yi Jianlian"]
 players = sorted(players)
 
 
-base_term = 'Lebron James'
+base_term = "Lebron James"
 # 2021'de en çok aranan kelimelerden biri  olduğu için güzel bir referans noktası oluşturur.
 search_dict = {}
 
+
 def get_trends():
     for player in tqdm(players[:1]):
-        random = np.random.random()*3
+        random = np.random.random() * 3
         kw_list = [base_term, player]
 
         # 2005 ilk gününden 2022 ilk gününe kadar arama verilerini getir
-        historicaldf = pytrend.get_historical_interest(kw_list, year_start=2005, month_start=1, day_start=1,
-                                                       hour_start=0, year_end=2022, month_end=1, day_end=1,
-                                                       hour_end=0, geo='US', sleep=1+random, frequency='daily')
+        historicaldf = pytrend.get_historical_interest(
+            kw_list,
+            year_start=2005,
+            month_start=1,
+            day_start=1,
+            hour_start=0,
+            year_end=2022,
+            month_end=1,
+            day_end=1,
+            hour_end=0,
+            geo="US",
+            sleep=1 + random,
+            frequency="daily",
+        )
 
         search_dict[player] = historicaldf[player]
 

@@ -77,9 +77,10 @@ sidebar = html.Div(
                 ),
                 dbc.NavLink(
                     "Current Worth",
-                    href="/worth",
+                    href="#p_worth",
                     id="page-5-link",
                     className="sidebar-links",
+                    external_link=True,
                 ),
                 html.Hr(),
                 html.P("Historic Data", className="display-4"),

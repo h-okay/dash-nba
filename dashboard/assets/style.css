@@ -17,7 +17,7 @@ html, body {
     display: none;
 }
 
-#team, #schedule, #p_performance, #f_performance {
+#team, #schedule, #p_performance, #f_performance, #p_worth {
     font-family: 'Inter', sans-serif;
     font-weight: bold;
     font-size: 24px;
@@ -171,7 +171,7 @@ html, body {
     display: inline-block;
 }
 
-#forecast-card {
+#forecast-card, #salary-nav {
     display: flex;
     flex-direction: row;
 }
@@ -186,4 +186,12 @@ html, body {
     height: 95%;
 }
 
+#placeholder1 {
+    height: 100%;
+    padding-right: 0;
+}
 
+#placeholder2, #placeholder4 {
+    height: 100%;
+    padding-left: 0;
+}

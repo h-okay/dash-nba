@@ -41,8 +41,7 @@ def get_data():
     matches = {}
     for id in tqdm(team_ids, desc="Updating matches"):
         gamefinder = leaguegamefinder.LeagueGameFinder(team_id_nullable=id)
-        team_name = list(
-            set(gamefinder.get_data_frames()[0]["TEAM_NAME"].to_list()))[0]
+        team_name = list(set(gamefinder.get_data_frames()[0]["TEAM_NAME"].to_list()))[0]
 
         # Name Changes
         if team_name == "New Jersey Nets":
@@ -55,9 +54,7 @@ def get_data():
             team_name = "Sacramento Kings"
         if team_name == "Seattle SuperSonics":
             team_name = "Oklahoma City Thunder"
-        if team_name in [
-                "New Orleans/Oklahoma City Hornets", "New Orleans Hornets"
-        ]:
+        if team_name in ["New Orleans/Oklahoma City Hornets", "New Orleans Hornets"]:
             team_name = "New Orleans Pelicans"
         if team_name == "Charlotte Bobcats":
             team_name = "Charlotte Hornets"
@@ -66,10 +63,13 @@ def get_data():
 
         matches[team_name] = gamefinder.get_data_frames()[0]
         matches[team_name].SEASON_ID = matches[team_name].SEASON_ID.apply(
-            lambda x: (x[1:] + f"-{int(x[-2:]) + 1}") if x[2:4] != "00" or x ==
-            "22009" else (x[1:] + f"-0{int(x[-2:]) + 1}"))
+            lambda x: (x[1:] + f"-{int(x[-2:]) + 1}")
+            if x[2:4] != "00" or x == "22009"
+            else (x[1:] + f"-0{int(x[-2:]) + 1}")
+        )
         matches[team_name].SEASON_ID = matches[team_name].SEASON_ID.apply(
-            lambda x: "1999-00" if x == "1999-100" else x)
+            lambda x: "1999-00" if x == "1999-100" else x
+        )
         sleep(0.600)
 
     for key in matches.keys():
@@ -97,22 +97,18 @@ def get_data():
 
     all_stats = pd.read_csv("../data/base/fixed_raw_stats.csv")
     all_stats = all_stats[all_stats.SEASON_ID >= "2003-04"]
-    all_stats.drop(all_stats[all_stats.SEASON_ID == "2021-22"].index,
-                   axis=0,
-                   inplace=True)
+    all_stats.drop(
+        all_stats[all_stats.SEASON_ID == "2021-22"].index, axis=0, inplace=True
+    )
     updated_stats = pd.concat([all_stats, stats], axis=0, ignore_index=True)
     updated_stats.to_csv("../data/base/stats.csv", index=False)
 
     # -------------------------------------------------------------------------
 
     # Merge Final
-    merged = all_players.merge(updated_stats,
-                               left_on="id",
-                               right_on="PLAYER_ID",
-                               how="left").merge(all_teams,
-                                                 left_on="TEAM_ID",
-                                                 right_on="id",
-                                                 how="left")
+    merged = all_players.merge(
+        updated_stats, left_on="id", right_on="PLAYER_ID", how="left"
+    ).merge(all_teams, left_on="TEAM_ID", right_on="id", how="left")
 
     merged.drop(
         [
@@ -130,23 +126,26 @@ def get_data():
         axis=1,
         inplace=True,
     )
-    merged = merged.rename(columns=({
-        "PLAYER_ID": "P_ID",
-        "PLAYER_AGE": "AGE",
-        "full_name_y": "TEAM",
-        "first_name": "FIRST_NAME",
-        "last_name": "LAST_NAME",
-        "FG_PCT": "FG%",
-        "FG3_PCT": "FG3%",
-    }))
+    merged = merged.rename(
+        columns=(
+            {
+                "PLAYER_ID": "P_ID",
+                "PLAYER_AGE": "AGE",
+                "full_name_y": "TEAM",
+                "first_name": "FIRST_NAME",
+                "last_name": "LAST_NAME",
+                "FG_PCT": "FG%",
+                "FG3_PCT": "FG3%",
+            }
+        )
+    )
     merged.dropna(axis=0, inplace=True)
     merged.AGE = merged.AGE.astype("int64")
     merged.MIN = merged.MIN.astype("int64")
     merged.GP = merged.GP.astype("int64")
     min_gp = np.round(
-        pd.pivot_table(merged, values="MIN", columns="SEASON_ID",
-                       index="P_ID") /
-        pd.pivot_table(merged, values="GP", columns="SEASON_ID", index="P_ID"),
+        pd.pivot_table(merged, values="MIN", columns="SEASON_ID", index="P_ID")
+        / pd.pivot_table(merged, values="GP", columns="SEASON_ID", index="P_ID"),
         2,
     )
 
