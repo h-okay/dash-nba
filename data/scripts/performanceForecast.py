@@ -26,7 +26,7 @@ pd.options.mode.chained_assignment = None
 def get_player_perf_forecast():
     # Import and Process
     print("Import and process...")
-    all_df = pd.read_csv("../data/base/per.csv")
+    all_df = pd.read_csv("data/base/per.csv")
     all_df["NAME"] = all_df["FIRST_NAME"] + " " + all_df["LAST_NAME"]
     all_df.drop(
         [
@@ -77,9 +77,13 @@ def get_player_perf_forecast():
     all_df.dropna(inplace=True)
     all_df.reset_index(drop=True, inplace=True)
 
-    check = all_df[["NAME", "PER", "SEASON_ID", "TEAM"]]  # to add later
+    check = all_df[["NAME", "PER", "SEASON_ID", "TEAM"]]
+    check = check[~check.duplicated()] # to add later
 
     all_df.drop(["SEASON_ID", "SEASON", "NAME", "PER", "TEAM"], axis=1, inplace=True)
+    all_df = all_df[~all_df.duplicated()]
+
+    results(all_df, 'NEXT_PER')
 
     #           CatB        RF        ET       XGB      LGBM
     # MSE   7.788020  8.210121  8.110977  8.676255  7.883905

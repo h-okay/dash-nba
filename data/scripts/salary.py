@@ -8,7 +8,7 @@ from data.scripts.helpers import fix_team_names
 
 def get_salaries():
     df = pd.DataFrame()
-    for year in tqdm(range(2004, 2022)):  # 2022
+    for year in tqdm(range(2004, 2023)):  # 2022
         for page in range(1, 19):  # 18
             try:
                 temp = pd.read_html(

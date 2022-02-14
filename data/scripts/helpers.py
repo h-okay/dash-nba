@@ -54,7 +54,7 @@ def validate(model, X, y):
         "test_neg_mean_squared_error"
     ].apply(lambda x: -x)
     results["rmse"] = results["test_neg_mean_squared_error"].apply(lambda x: np.sqrt(x))
-    return results.mean().to_frame().T
+    return np.round(results.mean(), 2).to_frame().T
 
 
 def results(dataframe, target, scale=False, ordinal=False):
