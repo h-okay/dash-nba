@@ -10,8 +10,11 @@ app = dash.Dash(
     __name__,
     external_stylesheets=external_stylesheets,
     meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=1.0"}
-    ],
+        {
+            "name": "viewport",
+            "content": "width=device-width, initial-scale=1, maximum-scale=1",
+        }
+    ]
 )
 cache = Cache(
     app.server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": "cache-directory"}
