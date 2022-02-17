@@ -23,6 +23,7 @@ def get_salaries():
 
     df = df.drop(df[df["NAME"] == "NAME"].index.values)
     df = df.drop("RK", axis=1)
+    df["POS"] = df["NAME"].apply(lambda x: x.split(",")[1])
     df["NAME"] = df["NAME"].apply(lambda x: x.split(",")[0])
     df["SALARY"] = df["SALARY"].apply(lambda x: x.strip("$"))
     df["SALARY"] = df["SALARY"].apply(lambda x: x.replace(",", ""))
@@ -36,3 +37,5 @@ def get_salaries():
 
 
 get_salaries()
+
+
