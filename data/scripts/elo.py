@@ -13,7 +13,7 @@ all_players = pd.read_csv("../data/base/all_players.csv")
 all_teams = pd.read_csv("../data/base/all_teams.csv")
 merged = pd.read_csv("../data/base/merged.csv")
 
-with open("data/base/matches.pkl", "rb") as file:
+with open("../data/base/matches.pkl", "rb") as file:
     matches = pkl.load(file)
 
 for i in matches.values():

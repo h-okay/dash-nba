@@ -26,7 +26,7 @@ pd.options.mode.chained_assignment = None
 def get_player_perf_forecast():
     # Import and Process
     print("Import and process...")
-    all_df = pd.read_csv("data/base/per.csv")
+    all_df = pd.read_csv("../data/base/per.csv")
     all_df["NAME"] = all_df["FIRST_NAME"] + " " + all_df["LAST_NAME"]
     all_df.drop(
         [
