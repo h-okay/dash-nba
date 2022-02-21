@@ -14,7 +14,7 @@ app = dash.Dash(
             "name": "viewport",
             "content": "width=device-width, initial-scale=1, maximum-scale=1",
         }
-    ]
+    ],
 )
 cache = Cache(
     app.server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": "cache-directory"}

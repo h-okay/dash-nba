@@ -37,5 +37,3 @@ def get_salaries():
 
 
 get_salaries()
-
-

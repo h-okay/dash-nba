@@ -78,12 +78,12 @@ def get_player_perf_forecast():
     all_df.reset_index(drop=True, inplace=True)
 
     check = all_df[["NAME", "PER", "SEASON_ID", "TEAM"]]
-    check = check[~check.duplicated()] # to add later
+    check = check[~check.duplicated()]  # to add later
 
     all_df.drop(["SEASON_ID", "SEASON", "NAME", "PER", "TEAM"], axis=1, inplace=True)
     all_df = all_df[~all_df.duplicated()]
 
-    results(all_df, 'NEXT_PER')
+    results(all_df, "NEXT_PER")
 
     #           CatB        RF        ET       XGB      LGBM
     # MSE   7.788020  8.210121  8.110977  8.676255  7.883905

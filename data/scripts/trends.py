@@ -48,6 +48,7 @@ players = sorted(players)
 # datelist = pd.date_range(start='2005-01-01', end='2022-01-01', freq='MS').tolist()
 # a.index = datelist
 
+
 def get_trends(base_term, kws):
     search_dict = {}
     for player in tqdm(players):
@@ -62,18 +63,18 @@ def get_trends(base_term, kws):
             year_end=2022,
             month_end=1,
             geo="US",
-            sleep= 1 + random,
-            frequency="daily"
+            sleep=1 + random,
+            frequency="daily",
         )
         if not historicaldf.empty:
             search_dict[player] = historicaldf[player]
         else:
-            print('Empty dataset.')
-        sleep(.6 + random)
+            print("Empty dataset.")
+        sleep(0.6 + random)
     return search_dict
 
 
-get_trends('Lebron James', players)
+get_trends("Lebron James", players)
 
 with open("data/base/trends.pkl", "wb") as file:
-        pkl.dump(search_dict, file)
+    pkl.dump(search_dict, file)
