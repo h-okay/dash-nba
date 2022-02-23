@@ -380,28 +380,151 @@ class PER:
         )
 
 
-# class Metrics:
-#
-#     def __init__(self, year):
-#         self.season = str(year - 1) + "-" + str(year)[-2:]
-#
-#     def compare_similarity(self, num):
-#         real = pd.read_csv(
-#             f"real/realper{self.season}.csv").iloc[:num, :].PER.to_list()
-#         est = pd.read_csv(
-#             f"estimations/{self.season}.csv").iloc[:num, :].PER.to_list()
-#         result = 1 - spatial.distance.cosine(real, est)
-#         tau, pvalue = weightedtau(real, est)
-#         return result, tau
-#
-#     def similarity_score(self):
-#         metrics = pd.DataFrame(columns=["Cosine", "Tau"])
-#         for i in [10, 25, 50, 100, 200]:
-#             result, tau = self.compare_similarity(i)
-#             temp_df = pd.DataFrame({
-#                 "Cosine": str(result),
-#                 "Tau": str(tau)
-#             },
-#                                    index=[f"First {i}"])
-#             metrics = metrics.append([temp_df])
-#         return metrics
+class ELO:
+    def __init__(self):
+        with open("../data/base/matches.pkl", "rb") as file:
+            self.matches = pkl.load(file)
+        for i in self.matches.values():
+            cols = i.columns
+            break
+        self.starter = pd.DataFrame(columns=cols)
+        for value in self.matches.values():
+            self.starter = pd.concat([self.starter, value]).copy()
+        self.starter["AWAY"] = (
+            self.starter.apply(lambda x: "@" in x["MATCHUP"], axis=1) * 1
+        )
+        away_matches = self.starter[self.starter["AWAY"] == 1].copy()
+        home_matches = self.starter[self.starter["AWAY"] == 0].copy()
+        home_matches["WL_away"] = home_matches["WL"].apply(
+            lambda x: "W" if x == "L" else "L"
+        )
+        home_matches["ABB_away"] = home_matches["MATCHUP"].apply(lambda x: x[-3:])
+        concat_matches = home_matches.merge(
+            away_matches,
+            left_on=["GAME_ID", "WL_away", "ABB_away"],
+            right_on=["GAME_ID", "WL", "TEAM_ABBREVIATION"],
+        )
+
+        concat_matches = concat_matches[
+            [
+                "SEASON_ID_x",
+                "GAME_DATE_x",
+                "TEAM_ID_x",
+                "TEAM_NAME_x",
+                "TEAM_ID_y",
+                "TEAM_NAME_y",
+                "WL_x",
+                "WL_y",
+                "MIN_x",
+                "PTS_x",
+                "PTS_y",
+            ]
+        ]
+
+        team_ids = concat_matches["TEAM_ID_x"].unique()
+        self.elo_ratings = np.full(
+            len(team_ids), 1400
+        )  # Takımların başlangıç elolarını belirt.
+        a = concat_matches[["TEAM_ID_x", "GAME_DATE_x"]]
+        self.checkpoint = concat_matches[~a.duplicated()]  # 6 maç drop oldu.
+        self.checkpoint = (
+            self.checkpoint.sort_values("GAME_DATE_x")
+            .reset_index()
+            .drop("index", axis=1)
+        )
+
+        self.elo_dict = dict(zip(team_ids, self.elo_ratings))
+        self.elo_date_team = pd.DataFrame(columns=["DATE", "SEASON", "TEAM_ID", "ELO"])
+
+    @staticmethod
+    def expected_score(elo_a, elo_b):
+        return 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
+
+    @staticmethod
+    def new_rating(elo_a, score_a, expected_score_a):
+        return elo_a + 32 * (score_a - expected_score_a)
+
+    def calculate_elo(self):
+        for index, row in tqdm(
+            self.checkpoint.iterrows(), total=self.checkpoint.shape[0]
+        ):
+            season_id = row["SEASON_ID_x"]
+            game_date = row["GAME_DATE_x"]
+            home_id = row["TEAM_ID_x"]
+            home_elo = self.elo_dict[home_id]
+            away_id = row["TEAM_ID_y"]
+            away_elo = self.elo_dict[away_id]
+            exp_scr = self.expected_score(home_elo, away_elo)
+            result = row["WL_x"]
+
+            if result == "W":
+                self.elo_dict[home_id] = self.new_rating(home_elo, 1, exp_scr)
+                self.elo_dict[away_id] = self.new_rating(away_elo, 0, 1 - exp_scr)
+            elif result == "L":
+                self.elo_dict[home_id] = self.new_rating(home_elo, 0, exp_scr)
+                self.elo_dict[away_id] = self.new_rating(away_elo, 1, 1 - exp_scr)
+            else:
+                print(f"{season_id} season, {game_date} dated match is defected.")
+                continue
+
+            self.elo_date_team = self.elo_date_team.append(
+                {
+                    "DATE": game_date,
+                    "SEASON": season_id,
+                    "TEAM_ID": home_id,
+                    "ELO": self.elo_dict[home_id],
+                },
+                ignore_index=True,
+            )
+            self.elo_date_team = self.elo_date_team.append(
+                {
+                    "DATE": game_date,
+                    "SEASON": season_id,
+                    "TEAM_ID": away_id,
+                    "ELO": self.elo_dict[away_id],
+                },
+                ignore_index=True,
+            )
+
+        self.edt = self.elo_date_team.copy()
+        self.edt = self.edt.sort_values(by="DATE")
+        dump = self.edt[
+            self.edt.groupby(["SEASON", "TEAM_ID"]).DATE.transform("max")
+            == self.edt.DATE
+        ]
+        dump.to_csv("../data/base/elos.csv", index=False)
+
+
+class Salaries:
+    def __init__(self):
+        self.df = pd.DataFrame()
+
+    def scrape(self, start, end):
+        for year in tqdm(range(start, end + 1)):  # 2022
+            for page in range(1, 19):  # 18
+                try:
+                    temp = pd.read_html(
+                        f"https://www.espn.com/nba/salaries/_/year/{year}/page/{page}",
+                        header=0,
+                    )[0]
+                    temp["YEAR"] = year
+                    self.df = self.df.append(temp, ignore_index=True)
+                    sleep(0.6)
+                except:
+                    continue
+
+    def dump(self):
+        self.df = self.df.drop(self.df[self.df["NAME"] == "NAME"].index.values)
+        self.df = self.df.drop("RK", axis=1)
+        self.df["POS"] = self.df["NAME"].apply(lambda x: x.split(",")[1])
+        self.df["NAME"] = self.df["NAME"].apply(lambda x: x.split(",")[0])
+        self.df["SALARY"] = self.df["SALARY"].apply(lambda x: x.strip("$"))
+        self.df["SALARY"] = self.df["SALARY"].apply(lambda x: x.replace(",", ""))
+        self.df["SALARY"] = self.df["SALARY"].astype(np.compat.long)
+        self.df.drop(
+            self.df[self.df.TEAM == "null Unknown"].index, axis=0, inplace=True
+        )
+        self.df.TEAM = self.df.TEAM.apply(fix_team_names)
+        self.df.reset_index(drop=True, inplace=True)
+        self.df.to_csv("data/base/salaries.csv", index=False)
+        print("Done.")

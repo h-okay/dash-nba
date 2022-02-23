@@ -1,101 +1,197 @@
-import pandas as pd
-import glob
-import os
-import xgboost as xgb
-import lightgbm as lgbm
 import catboost
-from sklearn.model_selection import (
-    train_test_split,
-    cross_validate,
-    cross_val_score,
-    RepeatedKFold,
-)
-from sklearn.preprocessing import RobustScaler, StandardScaler, OrdinalEncoder
-from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
-from sklearn.metrics import r2_score, mean_squared_error
-from sklearn.model_selection import cross_validate
-import numpy as np
+import lightgbm as lgbm
+import pandas as pd
+import xgboost as xgb
+from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, \
+    RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import KFold, cross_validate
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler, OrdinalEncoder
 from tqdm import tqdm
 
 
-def grab_col_names(dataframe, cat_th=10, car_th=20):
-    # cat_cols, cat_but_car
-    cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "O"]
+class FastML:
+    def __init__(self, objective, data, target, scale=False, ordinal=False):
+        self.objective = objective
+        self.data = data
+        self.target = target
+        self.scale = scale
+        self.ordinal = ordinal
+        self.kfold = KFold(n_splits=5)
 
-    num_but_cat = [
-        col
-        for col in dataframe.columns
-        if dataframe[col].nunique() < cat_th and dataframe[col].dtypes != "O"
-    ]
+        if self.objective not in ["regression", "classification"]:
+            raise f"{self.objective} is not valid."
 
-    cat_but_car = [
-        col
-        for col in dataframe.columns
-        if dataframe[col].nunique() > car_th and dataframe[col].dtypes == "O"
-    ]
+    @staticmethod
+    def grab_col_names(dataframe, cat_th=10, car_th=20):
+        cat_cols = [col for col in dataframe.columns if
+                    dataframe[col].dtypes == "O"]
+        num_but_cat = [
+            col
+            for col in dataframe.columns
+            if
+            dataframe[col].nunique() < cat_th and dataframe[col].dtypes != "O"
+        ]
+        cat_but_car = [
+            col
+            for col in dataframe.columns
+            if
+            dataframe[col].nunique() > car_th and dataframe[col].dtypes == "O"
+        ]
+        cat_cols = cat_cols + num_but_cat
+        cat_cols = [col for col in cat_cols if col not in cat_but_car]
+        num_cols = [col for col in dataframe.columns if
+                    dataframe[col].dtypes != "O"]
+        num_cols = [col for col in num_cols if col not in num_but_cat]
+        return cat_cols, num_cols, cat_but_car, num_but_cat
 
-    cat_cols = cat_cols + num_but_cat
+    def classification_validate(self, model, X, y):
+        self.results = (
+            pd.DataFrame(
+                cross_validate(
+                    model,
+                    X,
+                    y,
+                    cv=self.kfold,
+                    scoring=["neg_log_loss", "f1", "roc_auc"],
+                )
+            )
+                .mean()
+                .to_frame()
+                .iloc[2:, :]
+                .rename(
+                index={
+                    "test_f1": "F1-Score",
+                    "test_roc_auc": "ROC",
+                    "test_neg_log_loss": "Log-Loss",
+                }
+            )
+        )
+        self.results = self.results.T
+        self.results["Log-Loss"] = self.results["Log-Loss"].apply(lambda x: -x)
+        return self.results[["Log-Loss", "F1-Score", "ROC"]]
 
-    cat_cols = [col for col in cat_cols if col not in cat_but_car]
+    def regression_validate(self, model, X, y):
+        self.results = (
+            pd.DataFrame(
+                cross_validate(
+                    model,
+                    X,
+                    y,
+                    cv=self.kfold,
+                    scoring=["neg_root_mean_squared_error", "r2"],
+                )
+            )
+                .mean()
+                .to_frame()
+                .iloc[2:, :]
+                .applymap(lambda x: -x)
+                .rename(index={"test_neg_root_mean_squared_error": "RMSE",
+                               "test_r2": "R2"})
+        )
+        self.results = self.results.T
+        self.results["R2"] = self.results["R2"].apply(lambda x: -x)
+        return self.results[["RMSE", "R2"]]
 
-    # num_cols
-    num_cols = [col for col in dataframe.columns if dataframe[col].dtypes != "O"]
+    def select_models(self):
+        if self.objective == "classification":
+            self.models = [
+                ("Catboost",
+                 catboost.CatBoostClassifier(random_state=42, silent=True)),
+                (
+                    "XGBoost",
+                    xgb.XGBClassifier(
+                        random_state=42, verbosity=0, use_label_encoder=False
+                    ),
+                ),
+                ("LightGBM", lgbm.LGBMClassifier(random_state=42)),
+                (
+                    "LogisticRegression",
+                    LogisticRegression(random_state=42, max_iter=100000),
+                ),
+                ("RandomForests", RandomForestClassifier(random_state=42)),
+                ("KNN", KNeighborsClassifier()),
+            ]
+        if self.objective == "regression":
+            self.models = [
+                ("Catboost",
+                 catboost.CatBoostRegressor(random_state=42, silent=True)),
+                ("RandomForests", RandomForestRegressor(random_state=42)),
+                ("ExtraTrees", ExtraTreesRegressor(random_state=42)),
+                ("XGBoost", xgb.XGBRegressor(random_state=42)),
+                ("LigthGBM", lgbm.LGBMRegressor(random_state=42)),
+            ]
+        return self.models
 
-    num_cols = [col for col in num_cols if col not in num_but_cat]
+    def data_prep(self):
+        self.X = self.data.drop(self.target, axis=1)
+        self.y = self.data[self.target]
+        if self.scale:
+            cat_cols, num_cols, cat_but_car, num_but_cat = self.grab_col_names(
+                self.X)
+            ss = StandardScaler()
+            for col in num_cols:
+                self.X[col] = ss.fit_transform(self.X[[col]])
+        if self.ordinal:
+            cat_cols, num_cols, cat_but_car, num_but_cat = self.grab_col_names(
+                self.X)
+            for col in cat_cols:
+                if self.X[col].dtype.name == "category":
+                    oe = OrdinalEncoder(
+                        categories=[self.X[col].dtype.categories.to_list()]
+                    )
+                    self.X[col] = oe.fit_transform(self.X[[col]])
+        self.X = pd.get_dummies(self.X, drop_first=True)
+        return self.X, self.y
 
-    return cat_cols, num_cols, cat_but_car, num_but_cat
+    def train_models(self, X, y):
+        if self.objective == "regression":
+            self.cv_result = pd.DataFrame()
+            pbar = tqdm(self.models, position=0, leave=True)
+            for model in pbar:
+                pbar.set_description(f"{model[0]}")
+                res = self.regression_validate(model[1], X, y)
+                self.cv_result = pd.concat([self.cv_result, res])
 
+            self.cv_result.index = [
+                "CatBoost",
+                "RandomForests",
+                "ExtraTrees",
+                "XGBoost",
+                "LigthGBM",
+            ]
 
-def validate(model, X, y):
-    results = pd.DataFrame(
-        cross_validate(model, X, y, cv=5, scoring=["neg_mean_squared_error", "r2"])
-    )
-    results["test_neg_mean_squared_error"] = results[
-        "test_neg_mean_squared_error"
-    ].apply(lambda x: -x)
-    results["rmse"] = results["test_neg_mean_squared_error"].apply(lambda x: np.sqrt(x))
-    return np.round(results.mean(), 2).to_frame().T
+            return self.cv_result.sort_values(
+                by=["RMSE", "R2"], ascending=[False, False]
+            )
 
+        if self.objective == "classification":
+            self.cv_result = pd.DataFrame()
+            pbar = tqdm(self.models, position=0, leave=True)
+            for model in pbar:
+                pbar.set_description(f"{model[0]}")
+                res = self.classification_validate(model[1], X, y)
+                self.cv_result = pd.concat([self.cv_result, res])
 
-def results(dataframe, target, scale=False, ordinal=False):
-    X = dataframe.drop(target, axis=1)
-    y = dataframe[target]
+            self.cv_result.index = [
+                "Catboost",
+                "XGBoost",
+                "LightGBM",
+                "LogisticRegression",
+                "RandomForests",
+                "KNN",
+            ]
 
-    if scale:
-        cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(X)
-        ss = StandardScaler()
-        for col in num_cols:
-            X[col] = ss.fit_transform(X[[col]])
+            return self.cv_result.sort_values(
+                by=["Log-Loss", "F1-Score", "ROC"],
+                ascending=[True, False, False]
+            )
 
-    if ordinal:
-        cat_cols, num_cols, cat_but_car, num_but_cat = grab_col_names(X)
-        for col in cat_cols:
-            if X[col].dtype.name == "category":
-                oe = OrdinalEncoder(categories=[X[col].dtype.categories.to_list()])
-                X[col] = oe.fit_transform(X[[col]])
-
-    X = pd.get_dummies(X, drop_first=True)
-
-    models = [
-        catboost.CatBoostRegressor(random_state=42, silent=True),
-        RandomForestRegressor(random_state=42),
-        ExtraTreesRegressor(random_state=42),
-        xgb.XGBRegressor(random_state=42),
-        lgbm.LGBMRegressor(random_state=42),
-    ]
-
-    result = pd.DataFrame()
-    for model in tqdm(models, desc="Fitting "):
-        mdl = model
-        res = validate(mdl, X, y)
-        result = pd.concat([result, res])
-
-    result.index = ["CatB", "RF", "ET", "XGB", "LGBM"]
-    result = result[["test_neg_mean_squared_error", "test_r2", "rmse"]]
-    result = result.rename(
-        columns={"test_neg_mean_squared_error": "MSE", "test_r2": "R2", "rmse": "RMSE"}
-    )
-    return result.T
+    def results(self):
+        models = self.select_models()
+        X, y = self.data_prep()
+        return self.train_models(X, y)
 
 
 def fix_team_names(row):
@@ -108,9 +204,11 @@ def fix_team_names(row):
         "Washington",
     ]:
         return "Washington Wizards"
-    if row in ["LA Clippers", "San Diego Clippers", "Buffalo Braves", "L.A. Clippers"]:
+    if row in ["LA Clippers", "San Diego Clippers", "Buffalo Braves",
+               "L.A. Clippers"]:
         return "Los Angeles Clippers"
-    if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City", "Sacramento"]:
+    if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City",
+               "Sacramento"]:
         return "Sacramento Kings"
     if row in ["Seattle SuperSonics", "Oklahoma", "Oklahoma City"]:
         return "Oklahoma City Thunder"
