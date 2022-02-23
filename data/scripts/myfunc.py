@@ -25,7 +25,7 @@ def validate(model, X, y):
                 X,
                 y,
                 cv=kfold,
-                scoring=["f1", "recall", "precision", "accuracy", "roc_auc"],
+                scoring=["neg_log_loss", "f1", "roc_auc"],
             )
         )
         .mean()
@@ -34,14 +34,13 @@ def validate(model, X, y):
         .rename(
             index={
                 "test_f1": "F1 Score",
-                "test_recall": "Recall",
-                "test_precision": "Precision",
-                "test_accuracy": "Accuracy",
                 "test_roc_auc": "ROC",
+                "test_neg_log_loss": "Log-Loss",
             }
         )
     )
-    return result.T[["F1 Score", "Recall", "Precision", "Accuracy", "ROC"]]
+    results["Log-Loss"] = results["Log-Loss"].apply(lambda x: -x)
+    return result.T[["Log-Loss", "F1 Score", "ROC"]]
 
 
 def results(dataframe, target):
@@ -75,4 +74,34 @@ def results(dataframe, target):
         "RandomForests",
         "KNN",
     ]
-    return cv_result
+    return cv_result.sort_values(
+        by=["Log-Loss", "F1 Score", "ROC"], ascending=[True, False, False]
+    )
+
+
+def grab_col_names(dataframe, cat_th=10, car_th=20):
+    # cat_cols, cat_but_car
+    cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "O"]
+
+    num_but_cat = [
+        col
+        for col in dataframe.columns
+        if dataframe[col].nunique() < cat_th and dataframe[col].dtypes != "O"
+    ]
+
+    cat_but_car = [
+        col
+        for col in dataframe.columns
+        if dataframe[col].nunique() > car_th and dataframe[col].dtypes == "O"
+    ]
+
+    cat_cols = cat_cols + num_but_cat
+
+    cat_cols = [col for col in cat_cols if col not in cat_but_car]
+
+    # num_cols
+    num_cols = [col for col in dataframe.columns if dataframe[col].dtypes != "O"]
+
+    num_cols = [col for col in num_cols if col not in num_but_cat]
+
+    return cat_cols, num_cols, cat_but_car, num_but_cat
