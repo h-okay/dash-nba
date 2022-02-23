@@ -1,13 +1,11 @@
 import pandas as pd
 import numpy as np
-import seaborn as sns
 from matplotlib import pyplot as plt
-from sklearn.cluster import KMeans
-from yellowbrick.cluster import KElbowVisualizer
 from scipy.cluster.hierarchy import linkage
 from scipy.cluster.hierarchy import dendrogram
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import RobustScaler
 from sklearn.cluster import AgglomerativeClustering
+
 import plotly.express as px
 import plotly.io as pio
 
@@ -26,51 +24,36 @@ for i, val in enumerate(per_["SEASON_ID"]):
     per_.loc[i, "YEAR"] = "20"+val[5:]
 
 ####
-# Concating FIRST and LAST NAME's
-
+# Concating FIRST and LAST NAME
 per_["NAME"] = per_["FIRST_NAME"] + " " + per_["LAST_NAME"]
 per_.insert(0, "NAME", per_.pop('NAME')) # getting player names to first column
+
 
 per = per_.copy()
 per = per[per["YEAR"] == "2022"]
 per.shape
 
 ### Getting player POSITIONS and SALARY from salary data
-per = per.merge(salary, on="NAME").drop_duplicates("P_ID", keep="last", ignore_index=True).reset_index(drop=True)
-per.shape
-per.head(10)
+per = per.merge(salary, on="NAME", how="inner").drop_duplicates("P_ID", keep="last", ignore_index=True).reset_index(drop=True)
+
+### DROP duplicate and unnecessary columns
+per.drop(["FIRST_NAME", "LAST_NAME", "TEAM_ABBREVIATION", "P_ID", "SEASON_ID", "TEAM_ID",
+         "TEAM_x", "YEAR_x"], axis=1, inplace=True)
+
+per.rename(columns={"TEAM_y": "TEAM",
+                    "YEAR_y" : "YEAR"}, inplace=True)
+
+# we delete unrelated columns to segmentation
+df = per.drop([col for col in per.columns if col not in ["AGE", "PTS", "MPG", "PER"]], axis=1)
 
 
-
-per.drop(["FIRST_NAME", "LAST_NAME", "P_ID", "SEASON_ID", "TEAM_ID",
-         "first_name", "last_name", "is_active", "NAME", "YEAR_y"], axis=1, inplace=True)
-# we delete columns unrelated to segmentation
-df = stats.drop(["TEAM_ABBREVIATION", "YEAR_x", "full_name",
-          "TEAM", "POS"], axis=1)
-
-
-# SCALING
-scaler = MinMaxScaler((0,3))
+####### SCALING
+scaler = RobustScaler()
 df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
-df.head(10)
+df.head()
 
-# Finding optimum cluster number with KMEANS
-kmeans = KMeans()
-elbow = KElbowVisualizer(kmeans, k=(2, 20))
-elbow.fit(df)
-elbow.show()
-elbow.elbow_value_
 
-## Fınal clustering model
-kmeans = KMeans(n_clusters=elbow.elbow_value_).fit(df)
-clusters = kmeans.labels_
-centers = kmeans.cluster_centers_
-
-segments = pd.DataFrame({"full_name": stats.full_name, "cluster_no": clusters})
-segments["cluster_no"] = segments["cluster_no"] + 1
-segments.head(20)
-segments.shape
-
+########### HIERARCHICAL CLUSTERING ####################
 # Finding optimum cluster number with HIEARCHICAL CLUSTERING
 hc_complete = linkage(df, "complete")
 hc_average = linkage(df, "average")
@@ -84,41 +67,46 @@ dendrogram(hc_complete,
 plt.show()
 
 ### FINAL MODEL HIERARCHICAL CLUSTERING
-cluster = AgglomerativeClustering(n_clusters=4)
+cluster = AgglomerativeClustering(n_clusters=5)
 clusters = cluster.fit_predict(df)
-segments = pd.DataFrame({"full_name": stats.full_name, "cluster_no": clusters})
-segments["cluster_no"] = segments["cluster_no"] + 1
+segments = pd.DataFrame({"NAME": per.NAME, "H_cluster_no": clusters})
+segments["H_cluster_no"] = segments["H_cluster_no"] + 1
+per = per.merge(segments, on="NAME")
 
 
-### analysis of clusters in position breakdown
-stats = stats.merge(segments, on="full_name")
+### analysis of Segments
+sgmnts = {"1" : "Average Player",
+          "4" : "BEST",
+          "2" : "Field Player",
+          "3" : "Aged Talent",
+          "5" : "Rookie"}
+per["Segment"] = per["H_cluster_no"].astype(str).map(sgmnts)
 
-stats.head(20)
+per.groupby("Segment").agg({"AGE": "mean",
+                            "PTS" : "mean",
+                            "MPG" : "mean",
+                            "PER" : "mean",
+                            "SALARY" : "mean",
+                            "NAME" : "count"})
 
-stats.groupby("cluster_no").agg({"PLAYER_AGE": "mean",
-                               "SALARY" : "mean",
-                               "PTS" : "mean",
-                                "full_name" : "count"})
+# ##### Intractive PLOT
+# ############ PER - SALARY SCATTER ################
+# pio.renderers.default = "browser"
+# fig = px.scatter(per, x="PER", y="SALARY", color='cluster_no', hover_name="NAME", trendline="ols")
+# fig.update_traces(marker_size=10)
+# fig.show()
+#
+# ############ PTS - SALARY SCATTER ##################
+# pio.renderers.default = "browser"
+# fig = px.scatter(per, x="PTS", y="SALARY", color='cluster_no', hover_name="NAME", trendline="ols")
+# fig.update_traces(marker_size=10)
+# fig.show()
+#
 
-
-sgmnt = {"1" : "High",
-         "2" : "Low",
-         "3" : "Mid"}
-
-stats["segments"] = stats["cluster_no"].map(sgmnt)
-
-
-
-##### Intractive PLOT
+#############  3D SCATTER  ####################
 pio.renderers.default = "browser"
-stats["cluster_no"] = stats["cluster_no"].astype(str)
-fig = px.scatter(stats, x="PTS", y="SALARY", color='cluster_no', hover_name="full_name")
-fig.update_traces(marker_size=10)
+per["Segment"] = per["Segment"].astype(str)
+fig = px.scatter_3d(per, x='PER', y='MPG', z='AGE', hover_data=["TEAM", "POS"],
+                    hover_name="NAME", color='Segment')
 fig.show()
 
-pio.renderers.default = "browser"
-stats["cluster_no"] = stats["cluster_no"].astype(str)
-fig = px.histogram(stats, x="POS", y="SALARY", color='cluster_no', hover_name="full_name")
-fig.show()
-
-stats.head()
