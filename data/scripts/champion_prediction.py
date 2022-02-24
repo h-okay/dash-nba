@@ -55,6 +55,7 @@
 #             prev_year_elos[f"{season} {team}"] = np.round(elos[(elos['TEAM_ABBREVIATION'] == team)
 #             & (elos['SEASON']==season)]['ELO'].values[0], 2)
 
+
 # PLAYOFFS DATASININ OKUNMASI
 
 import pandas as pd
@@ -62,6 +63,13 @@ from vboUtil import eda
 
 playoffs = pd.read_csv("data/est/mlready.csv")
 playoffs = playoffs[playoffs['SEASON'] != '2003-04']  # 2003-04'te 29 takım var. Uğraşmaya gerek yok.
+
+## Bozuk formattaki GB değerlerinin düzeltilmesi
+gb_edit = playoffs['GB'].str.strip()
+gb_edit[gb_edit == '--'] = gb_edit[gb_edit != '--'].astype('float64').mean()
+gb_edit.astype('float64')
+playoffs['GB'] = gb_edit
+
 
 east_conf = ['Miami Heat', 'Chicago Bulls', 'Philadelphia 76ers', 'Cleveland Cavaliers', 'Milwaukee Bucks',
              'Boston Celtics', 'Toronto Raptors', 'Brooklyn Nets', 'Charlotte Hornets', 'Atlanta Hawks',
@@ -81,6 +89,34 @@ playoffs['FG3P'] = playoffs['FG3M'] / playoffs['FG3A']
 
 playoffs['ORP'] = playoffs['OREB'] / playoffs['REB']
 playoffs['DRP'] = playoffs['DREB'] / playoffs['REB']
+
+## ALL-PLAYERS DATASI İLE YENİ KADRONUN GEÇMİŞ SENE PER ORTALAMASININ EKLENMESİ
+
+per_all_calc = pd.read_csv("data/base/per.csv")
+
+per_all = per_all_calc[per_all_calc['SEASON_ID'] > '2003-04']
+
+team_names = list(playoffs['TEAM'].unique())
+
+per_ready = per_all[['TEAM', 'P_ID', 'SEASON_ID']]
+
+def season_lag(season):
+    temp = season[:4]
+    temp1 = int(temp) - 1
+    temp2 = str(temp1) + "-" + str(temp1+1)[-2:]
+    return temp2
+
+per_ready['PRE_SEASON'] = per_ready.apply(lambda x: season_lag(x['SEASON_ID']), axis=1)
+
+def past_per_finder(player):
+    id = player['P_ID']
+    season = player['PRE_SEASON']
+    return per_all_calc[(per_all_calc['P_ID'] == id) & (per_all_calc['SEASON_ID'] == season)]['PER'].mean()
+
+pre_per = per_ready.apply(lambda x: past_per_finder(x), axis=1)
+
+per_ready['PRE_PER'] =pre_per.fillna(15)
+
 
 ## STATLARIN YILLARA GÖRE TRENDİNİN İNCELENMESİ
 
@@ -120,8 +156,8 @@ def champ_data_prepare(data, stage, drop_list = None):
 
 ## Train-Test Ayrılması
 
-po_train = playoffs[playoffs['SEASON'] < '2020-21']
-po_test = playoffs[playoffs['SEASON'] == '2020-21']
+po_train = playoffs[playoffs['SEASON'] < '2019-20']
+po_test = playoffs[playoffs['SEASON'] == '2019-20']
 
 
 # H2O Serverının initialize edilmesi
