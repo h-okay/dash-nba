@@ -1,17 +1,14 @@
-## !pip install imblearn
-
 import pandas as pd
 import numpy as np
 import seaborn as sns
-from lightgbm import LGBMClassifier
-from xgboost import XGBClassifier
 from matplotlib import pyplot as plt
-from imblearn.over_sampling import SMOTE
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split, cross_val_score, cross_val_predict
-from sklearn.metrics import confusion_matrix, accuracy_score
+from datetime import date
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split, cross_val_score, cross_val_predict, GridSearchCV
+from sklearn.ensemble import RandomForestRegressor
+from lightgbm import LGBMRegressor
+from xgboost import XGBRegressor
+from catboost import CatBoostRegressor
 from data.scripts.helpers import *
 from tqdm import tqdm
 
@@ -20,154 +17,103 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 pd.set_option('display.width', 500)
 
+year = date.today().year
+mvp_cands = pd.read_csv("data/base/mvp_candidates.csv")
+
+mvp_cands.describe([.01, .05, .5, .95, .99]).T
 
 
-###############
-# DATA PREPARATION
-###############
-mvp = pd.read_csv("data/base/mvps.csv")
-
-player_stats = pd.read_csv("data/base/per.csv")
+mvp_cands[mvp_cands["W/L%"].isnull()]
 
 
-####
-# SEASON_ID 'nin Yıl olarak kayıt edilmesi
-####
-for i, val in enumerate(player_stats["SEASON_ID"]):
-    player_stats.loc[i, "YEAR"] = "20"+val[5:]
+mvp_cands.shape
 
 
-####
-# Isim ve Soyisimlerin birlesip PLAYER olarak kayıt edilmesi
-####
-player_stats["PLAYER"] = player_stats["FIRST_NAME"] + " " + player_stats["LAST_NAME"]
-player_stats.insert(0, "PLAYER", player_stats.pop('PLAYER')) # Oyuncu isimlerinin ilk sütuna alınması.
+mvp_cands.groupby("Pos").agg({"MVP": "count"})
 
-player_stats.shape
-mvp.shape
-player_stats.head()
-
-
-#####
-# Yılların eşit olduğu oyuncuların MVP değişkenine 1 yazılması
-df = player_stats.merge(mvp, on="PLAYER", how="left")
-df["YEAR_y"]=df.YEAR_y.fillna(0).astype(int).astype(str)
-df["MVP"]= np.where(df["YEAR_x"] == df["YEAR_y"], 1,0)
-df.head(100)
-
-####
-# Gereksiz Sütunların silinmesi
-df.drop(["FIRST_NAME", "LAST_NAME", "P_ID", "TEAM_ID", "SEASON_ID",  "TEAM_ABBREVIATION", "YEAR_y",
-                      "POS", "TEAM_y", "TEAM_x", "FG%_y"], axis=1, inplace=True)
-df.rename(columns={"FG%_x":"FG%",
-                    "YEAR_x" : "YEAR"}, inplace=True)
+mvp_cands.head()
+df = mvp_cands.get(["3P%", "FT%", "AST%", "STL%", "TRB%", "BLK%", "TOV%", "TS%", "PER", "WS", "FTr", "BPM", "VORP", "USG%", "W/L%", "Share"])
 df.head()
 
 
-
-############################
-# EXPLORATORY DATA ANALYSIS
-############################
-df.info()
-
-df.isnull().sum()
-df[df["PLAYER"].isnull()]
-# Isimdeki NaN değerli oyuncu MVP seçilmediği için veri setinden siliyorum.
-df.dropna(subset=["PLAYER"], inplace=True)
+########  BASE MODEL  ##########
+y = df["Share"]
+X = df.drop("Share", axis = 1)
 
 
-# MVP seçilenlerin sayısı, ortalama ve standart sapma kontrolu
-df.groupby(["MVP"]).agg({"PER": "describe",
-                                      "AGE": "describe",
-                                      "MIN": "describe"})
+
+lgbm = LGBMRegressor()
+np.mean(np.sqrt(-cross_val_score(lgbm, X, y, cv=5, scoring="neg_mean_squared_error")))
 
 
-# MVP seçilen oyuncu sayısı grafiği
-df.groupby("MVP").size().plot(kind="pie")
-plt.show()
+xgb = XGBRegressor()
+np.mean(np.sqrt(-cross_val_score(xgb, X, y, cv=5, scoring="neg_mean_squared_error")))
 
 
-######
-# FEATURE ENGINEERING
-
-df["PPG"] = df["PTS"] / df["GP"]
-df["RPG"] = df["REB"] / df["GP"]
-df["APG"] = df["AST"] / df["GP"]
-df["BLKPG"] = df["BLK"] / df["GP"]
-
-
-######
-# SCALING  - MANUAL STANDART SCALER
-val = df[df["YEAR"] > "2021"]
-val["YEAR"].head()
-df = df[df["YEAR"] != "2022"]
-mvps = df["MVP"].to_list()
-df = df.groupby("YEAR").apply(lambda x: (x - x.mean()) / x.std())
-df["MVP"] = mvps
-df.head()
-
-
-######
-# BASE MODEL
-df.drop("PLAYER", axis=1, inplace=True)
-df.isnull().sum()
-df["vop"].describe([0.01, 0.05, 0.5, 0.7, 0.95, 0.99]).T
-df[df["vop"].isna() & df["MVP"] == 1]["vop"] = df["vop"].median()
-df.isnull().sum()
-df.dropna(inplace=True)
-X = df.drop("MVP", axis=1)
-y = df["MVP"]
-
-# SMOTE
-sm = SMOTE(sampling_strategy=0.5)
-X_os, y_os = sm.fit_resample(X, y)
-
-X_os.shape
-sum(y_os == 1)
-sum(y_os == 0)
-
-y_os[y_os == 1].shape[0] / y_os.shape[0]
-
-y_os.head()
-y_os.tail()
-# Model
-lgbm = LGBMClassifier()
-xgb = XGBClassifier()
-rf = RandomForestClassifier()
-loj_model = LogisticRegression()
-
-df.head()
-
-cv_results = cross_validate(lgbm, X_os, y_os, cv=5, scoring=["roc_auc", "f1", "precision", "recall"])
-print(f"AUC: {round(cv_results['test_roc_auc'].mean(),4)} (LGBM) ")
-print(f"F1_Score: {round(cv_results['test_f1'].mean(), 4)} (LGBM) ")
-print(f"Precision: {round(cv_results['test_precision'].mean(), 4)} (LGBM) ")
-print(f"Recall: {round(cv_results['test_recall'].mean(), 4)} (LGBM) ")
-
-cv_results = cross_validate(xgb, X_os, y_os, cv=5, scoring=["roc_auc", "f1", "precision", "recall"])
-print(f"AUC: {round(cv_results['test_roc_auc'].mean(),4)} (XGBOOST) ")
-print(f"F1_Score: {round(cv_results['test_f1'].mean(), 4)} (XGBOOST) ")
-print(f"Precision: {round(cv_results['test_precision'].mean(), 4)} (XGBOOST) ")
-print(f"Recall: {round(cv_results['test_recall'].mean(), 4)} (XGBOOST) ")
-
-cv_results = cross_validate(rf, X_os, y_os, cv=5, scoring=["roc_auc", "f1", "precision", "recall"])
-print(f"AUC: {round(cv_results['test_roc_auc'].mean(),4)} (RF) ")
-print(f"F1_Score: {round(cv_results['test_f1'].mean(), 4)} (RF) ")
-print(f"Precision: {round(cv_results['test_precision'].mean(), 4)} (RF) ")
-print(f"Recall: {round(cv_results['test_recall'].mean(), 4)} (RF) ")
-
-cv_results = cross_validate(loj_model, X_os, y_os, cv=5, scoring=["roc_auc", "f1", "precision", "recall"])
-print(f"AUC: {round(cv_results['test_roc_auc'].mean(),4)} (LOJ) ")
-print(f"F1_Score: {round(cv_results['test_f1'].mean(), 4)} (LOJ) ")
-print(f"Precision: {round(cv_results['test_precision'].mean(), 4)} (LOJ) ")
-print(f"Recall: {round(cv_results['test_recall'].mean(), 4)} (LOJ) ")
-
-val.head()
+cat = CatBoostRegressor()
+np.mean(np.sqrt(-cross_val_score(cat, X, y, cv=5, scoring="neg_mean_squared_error")))
 
 
 
 
+def plot_importance(model, features, num=len(X), save=False):
+    feature_imp = pd.DataFrame({'Value': model.feature_importances_, 'Feature': features.columns})
+    plt.figure(figsize=(10, 10))
+    sns.set(font_scale=1)
+    sns.barplot(x="Value", y="Feature", data=feature_imp.sort_values(by="Value",
+                                                                      ascending=False)[0:num])
+    plt.title(f'{model} Features')
+    plt.tight_layout()
+    plt.show()
+    if save:
+        plt.savefig('importances.png')
 
+
+
+plot_importance(cat.fit(X, y), X)
+plot_importance(lgbm.fit(X, y), X)
+plot_importance(xgb.fit(X, y), X)
+
+######## HYPER PARAMETRE Optimization ##################
+
+df = mvp_cands.get(["W/L%", "WS", "VORP", "PER", "USG%", "BPM", "Share"])
+y = df["Share"]
+X = df.drop("Share", axis = 1)
+
+cat = CatBoostRegressor()
+parameters = {'depth' : [6,8,10],
+              'learning_rate' : [0.01, 0.05, 0.1],
+              'iterations': [30, 50, 100],
+              'early_stopping_rounds' : [200]
+              }
+grid = GridSearchCV(estimator=cat, param_grid = parameters, cv = 5, n_jobs=-1).fit(X,y)
+grid.best_params_
+
+
+final_cat = cat.set_params(**grid.best_params_).fit(X,y)
+np.mean(np.sqrt(-cross_val_score(final_cat, X, y, cv=5, scoring="neg_mean_squared_error")))
+
+###############  2022  Prediction ##################
+advncd_2022 = pd.read_html(f"https://www.basketball-reference.com/leagues/NBA_{year}_advanced.html", header=0, match="Advanced")[0]
+cands_2022 = pd.read_html(f"https://www.basketball-reference.com/friv/mvp.html", header=0)[0].drop(["Unnamed: 31", "Prob%"], axis=1)
+
+data_2022 = cands_2022.merge(advncd_2022, how="left", left_on=["Player", "Team"], right_on=["Player", "Tm"]).drop(["W", "L", "Rk_x", "Rk_y", "Tm", "Unnamed: 19", "Unnamed: 24" ], axis=1)
+
+df_2022 = data_2022.get(["W/L%", "WS", "VORP", "PER", "USG%", "BPM"])
+
+data_2022["Share"] = final_cat.predict(df_2022)
+
+data_2022.sort_values("Share", ascending=False).get(["Player", "Team", "Share"])
+data_2022.head()
+data_2022.to_csv(f"data/base/mvps/{year}_mvp.csv", index=False)
+
+###############   2018-2021 Prediction  ####################
+for i in range(2018, year):
+    temp = mvp_cands[mvp_cands["Year"] == i].get(["Player", "Year", "Tm", "W/L%", "WS", "VORP", "PER", "USG%", "BPM", "Share"])
+
+    temp["Predicted_Share"] = final_cat.predict(temp.drop(["Share", "Player", "Year", "Tm"], axis=1))
+
+    temp.to_csv(f"data/base/mvps/{i}_mvp.csv", index=False)
 
 
 

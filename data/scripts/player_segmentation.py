@@ -104,9 +104,12 @@ per.groupby("Segment").agg({"AGE": "mean",
 #
 
 #############  3D SCATTER  ####################
+team = "Miami Heat"
 pio.renderers.default = "browser"
 per["Segment"] = per["Segment"].astype(str)
 fig = px.scatter_3d(per, x='PER', y='MPG', z='AGE', hover_data=["TEAM", "POS"],
-                    hover_name="NAME", color='Segment')
+                    hover_name="NAME", color="Segment", symbol=np.where(per["TEAM"] == team, team, "Other"),
+                    symbol_map={team : "diamond",
+                                "Other" : "cross"}, size_max=10)
 fig.show()
 
