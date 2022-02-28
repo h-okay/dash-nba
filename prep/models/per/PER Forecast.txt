@@ -1,0 +1,6 @@
+                   RMSE        R2
+CatBoost       1.084792  0.941810
+LigthGBM       1.100253  0.940192
+ExtraTrees     1.107908  0.939288
+RandomForests  1.109763  0.939087
+XGBoost        1.135133  0.936285

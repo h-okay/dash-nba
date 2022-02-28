@@ -17,7 +17,9 @@ html, body {
     display: none;
 }
 
-#team, #schedule, #p_performance, #f_performance, #p_worth {
+#team, #schedule, #p_performance, #f_performance, #p_worth, #p_segment,
+#elo_history, #player_history, #clustering1, #clustering2, #mvp_pred,
+#champ_pred {
     font-family: 'Inter', sans-serif;
     font-weight: bold;
     font-size: 24px;
@@ -36,7 +38,7 @@ html, body {
 }
 
 .sidebar-links:hover {
-    color: darkblue;
+    color: cornflowerblue;
 }
 
 .team_logo {
@@ -105,8 +107,18 @@ html, body {
     margin: 3px 3px 3px 3px;
 }
 
+.shadow-card1 {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.25) 0 10px 10px;
+    background-color: rgba(0, 0, 0, 0.0);
+    display: flex;
+    align-items: center;
+    color: white;
+    margin: 3px 3px 3px 3px;
+}
 
-#table-card,#table-card2, #table-card3 {
+
+#table-card,#table-card2, #table-card3, #table-card4, #table-card5,
+#table-card6 {
     box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
     background-color: #242b44;
     display: flex;
@@ -123,6 +135,7 @@ html, body {
     text-align: -webkit-center;
     border-radius: 0;
     font-family: 'Inter', sans-serif;
+    margin: auto;
 }
 
 #matchup-info-col {
@@ -142,7 +155,7 @@ html, body {
     padding: 0;
 }
 
-#st-table, #sch-table {
+#st-table, #sch-table, #team-segment-table, #mvp-table {
     /*outline: 2px #242b44 solid;*/
     /*border-radius: 50%;*/
     width: 100%;
@@ -171,11 +184,14 @@ html, body {
     display: inline-block;
 }
 
-#forecast-card, #salary-nav {
+#forecast-card, #salary-nav  {
     display: flex;
     flex-direction: row;
 }
+#mvp-nav, #champ-nav {
+     display: block;
 
+}
 .p-card-stats-card.card > p, .matchup-card-stats.card > p {
     margin-top: 0;
     margin-bottom: 0;
@@ -186,12 +202,68 @@ html, body {
     height: 95%;
 }
 
-#placeholder1 {
+#placeholder1, #placeholder3, #placeholder5, #placeholder7,
+#placeholder9, #placeholder11, #placeholder13, #placeholder15,
+#placeholder17, #placeholder19, #placeholder21, #placeholder23,
+#placeholder25, #placeholder27, #placeholder29, #placeholder31,
+#placeholder33, #placeholder35, #placeholder37, #placeholder39,
+#placeholder41, #placeholder43, #placeholder45, #placeholder47,
+#placeholder49, #placeholder51, #placeholder53, #placeholder55,
+#placeholder57, #placeholder59, #placeholder61, #placeholder63,
+#placeholder65, #placeholder67, #placeholder69, #placeholder71,
+#placeholder73, #placeholder75, #placeholder77, #placeholder79,
+#placeholder81, #placeholder83, #placeholder85, #placeholder87,
+#placeholder89, #placeholder91, #placeholder93, #placeholder95,
+#placeholder97, #placeholder99, #placeholder101, #placeholder103,
+#placeholder105, #placeholder107, #placeholder109, #placeholder111,
+#placeholder113, #placeholder115, #placeholder117, #placeholder119{
     height: 100%;
     padding-right: 0;
 }
 
-#placeholder2, #placeholder4 {
+#placeholder2, #placeholder4, #placeholder6, #placeholder8,
+#placeholder10, #placeholder12, #placeholder14, #placeholder16,
+#placeholder18, #placeholder20, #placeholder22, #placeholder24,
+#placeholder26, #placeholder28, #placeholder30, #placeholder32,
+#placeholder34, #placeholder36, #placeholder38, #placeholder40,
+#placeholder42, #placeholder44, #placeholder46, #placeholder48,
+#placeholder50, #placeholder52, #placeholder54, #placeholder56,
+#placeholder58, #placeholder60, #placeholder62, #placeholder64,
+#placeholder66, #placeholder68, #placeholder70, #placeholder72,
+#placeholder74, #placeholder76, #placeholder78, #placeholder80,
+#placeholder82, #placeholder84, #placeholder86, #placeholder88,
+#placeholder90, #placeholder92, #placeholder94, #placeholder96,
+#placeholder98, #placeholder100, #placeholder102, #placeholder104,
+#placeholder106, #placeholder108, #placeholder110, #placeholder112,
+#placeholder114, #placeholder116, #placeholder118, #placeholder120 {
     height: 100%;
     padding-left: 0;
+}
+
+#button-holder {
+    display: inline-flex;
+    margin: auto;
+}
+
+._dash-loading {
+  margin: auto;
+  color: transparent;
+  width: 0;
+  height: 0;
+  text-align: center;
+}
+
+._dash-loading::after {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  color: black;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border 0.75s linear infinite;
+  animation: spinner-border 0.75s linear infinite;
+  margin-top: 2rem;
 }

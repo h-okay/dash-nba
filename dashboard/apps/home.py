@@ -5,7 +5,7 @@ from dash import html
 import dash_bootstrap_components as dbc
 import pandas as pd
 from app import app
-from func import create_card
+from dashboard.func import create_card
 
 layout = dbc.Container(
     [
