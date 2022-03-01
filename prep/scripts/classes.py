@@ -15,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
 from tqdm import tqdm
 
-from utils.helpers import fix_team_names, get_names, FastML
+from utils.helpers import fix_team_names, get_names
 
 pd.options.mode.chained_assignment = None
 
