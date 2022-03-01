@@ -8,7 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
 import pandas as pd
-from app import app
+from dashboard.app import app
 import numpy as np
 import glob
 from dash import callback_context

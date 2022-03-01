@@ -28,9 +28,9 @@ def print_done(category):
 class playerRating:
     def __init__(self, season):
         self.season = season
-        self.all_players = pd.read_csv("../prep/data/all_players.csv")
-        self.all_teams = pd.read_csv("../prep/data/all_teams.csv")
-        self.merged = pd.read_csv("../prep/data/merged.csv")
+        self.all_players = pd.read_csv("prep/data/all_players.csv")
+        self.all_teams = pd.read_csv("prep/data/all_teams.csv")
+        self.merged = pd.read_csv("prep/data/merged.csv")
         self.merged = self.merged[self.merged["SEASON_ID"] == self.season]
         self.team_stats = self.merged.groupby("TEAM")[
             [
@@ -51,7 +51,7 @@ class playerRating:
                 "PTS",
             ]
         ].sum()
-        with open("../prep/data/matches.pkl", "rb") as file:
+        with open("prep/data/matches.pkl", "rb") as file:
             self.matches = pkl.load(file)
 
     def factor(self):
@@ -221,9 +221,9 @@ class playerRating:
 
 class Generators:
     def __init__(self):
-        self.merged = pd.read_csv("../prep/data/merged.csv")
+        self.merged = pd.read_csv("prep/data/merged.csv")
         self.merged.columns = [col.strip() for col in self.merged.columns]
-        self.playoffs = pd.read_csv("../prep/data/playoffs.csv")
+        self.playoffs = pd.read_csv("prep/data/playoffs.csv")
         self.playoffs.columns = [col.strip() for col in self.playoffs.columns]
         self.playoffs.Year = self.playoffs.Year.apply(
             lambda x: str(x - 1) + "-" + str(x)[-2:]
@@ -294,7 +294,7 @@ class getStandings:
         self.years = range(1971, 2023)
         self.seasons = [str(year - 1) + "-" + str(year)[-2:] for year in self.years]
         self.numeric = pd.DataFrame({"year": self.years, "season": self.seasons})
-        self.standings = pd.read_csv("../prep/data/standingsCleaned.csv")
+        self.standings = pd.read_csv("prep/data/standingsCleaned.csv")
         self.standings.columns = [col.strip() for col in self.standings.columns]
         self.standings.TEAM = self.standings.TEAM.apply(lambda x: x.strip())
 
@@ -329,12 +329,12 @@ class getStandings:
         self.standings = pd.concat([self.standings, data], axis=0, ignore_index=True)
         self.standings.TEAM = self.standings.TEAM.apply(get_names)
         self.standings.TEAM = self.standings.TEAM.apply(fix_team_names)
-        self.standings.to_csv("../prep/data/standingsCleaned.csv", index=False)
+        self.standings.to_csv("prep/data/standingsCleaned.csv", index=False)
 
 
 class playoffWins:
     def __init__(self):
-        self.playoffwins = pd.read_csv("../prep/data/playoffwins.csv")
+        self.playoffwins = pd.read_csv("prep/data/playoffwins.csv")
         self.playoffwins.columns = [col.strip() for col in self.playoffwins.columns]
         self.playoffwins.TEAM = self.playoffwins.TEAM.apply(fix_team_names)
 
@@ -368,21 +368,21 @@ class Schedule:
         self.schedule = self.schedule.sort_values(by="date")
         self.schedule.Away = self.schedule.Away.apply(fix_team_names)
         self.schedule.Home = self.schedule.Home.apply(fix_team_names)
-        self.schedule.to_csv("../prep/data/schedule.csv", index=False)
+        self.schedule.to_csv("prep/data/schedule.csv", index=False)
 
 
 class PER:
     def __init__(self):
         self.all_filenames = [
-            file for file in glob.glob("../prep/data/pers" + "./*.csv")
+            file for file in glob.glob("prep/data/pers" + "./*.csv")
         ]
         self.all_df = pd.concat([pd.read_csv(f) for f in self.all_filenames])
-        self.all_df.to_csv("../prep/data/" + "per.csv", index=False)
+        self.all_df.to_csv("prep/data/" + "per.csv", index=False)
 
 
 class ELO:
     def __init__(self):
-        with open("../prep/data/matches.pkl", "rb") as file:
+        with open("prep/data/matches.pkl", "rb") as file:
             self.matches = pkl.load(file)
         for i in self.matches.values():
             cols = i.columns
@@ -494,7 +494,7 @@ class ELO:
             self.edt.groupby(["SEASON", "TEAM_ID"]).DATE.transform("max")
             == self.edt.DATE
         ]
-        dump.to_csv("../prep/data/elos.csv", index=False)
+        dump.to_csv("prep/data/elos.csv", index=False)
 
 
 class Salaries:
@@ -528,17 +528,17 @@ class Salaries:
         )
         self.df.TEAM = self.df.TEAM.apply(fix_team_names)
         self.df.reset_index(drop=True, inplace=True)
-        self.df.to_csv("../prep/data/salaries.csv", index=False)
+        self.df.to_csv("prep/data/salaries.csv", index=False)
 
 
 class winProbability:
     def __init__(self, team):
         self.team = team
-        with open("../prep/models/winprobability/winprobamodel.pkl", "rb") as file:
+        with open("prep/models/winprobability/winprobamodel.pkl", "rb") as file:
             self.model = pkl.load(file)
 
     def prep(self):
-        schedule = pd.read_csv("../prep/data/schedule.csv").drop("Time / TV", axis=1)
+        schedule = pd.read_csv("prep/data/schedule.csv").drop("Time / TV", axis=1)
         self.next_match = (
             schedule[(schedule.Away == self.team) | (schedule.Home == self.team)][
                 ["Away", "Home"]
@@ -546,7 +546,7 @@ class winProbability:
             .iloc[0:1, :]
             .values
         )
-        melo = pd.read_csv("../prep/models/winprobability/data/melo.csv")
+        melo = pd.read_csv("prep/models/winprobability/data/melo.csv")
         away = (
             melo[melo.TEAM == self.next_match[0][0]].iloc[-1:, :].reset_index(drop=True)
         )
@@ -557,7 +557,7 @@ class winProbability:
         home.columns = ["HOME_" + col for col in home.columns]
         melo = pd.concat([away, home], axis=1)
         melo.drop(["AWAY_W", "AWAY_L", "HOME_W", "HOME_L"], axis=1, inplace=True)
-        rankings = pd.read_csv("../prep/data/daily_rankings_cleaned.csv")
+        rankings = pd.read_csv("prep/data/daily_rankings_cleaned.csv")
         away_rank = (
             rankings[rankings.TEAM == self.next_match[0][0]]
             .iloc[-1:, :]
@@ -715,12 +715,12 @@ class winProbability:
 
 class PERForecast:
     def __init__(self):
-        with open("../prep/models/per/perforecastmodel.pkl", "rb") as file:
+        with open("prep/models/per/perforecastmodel.pkl", "rb") as file:
             self.model = pkl.load(file)
 
     def get_player_perf_forecast(self):
         # Import and Process
-        all_df = pd.read_csv("../prep/data/per.csv")
+        all_df = pd.read_csv("prep/data/per.csv")
         all_df.loc[all_df.LAST_NAME == "Yao Ming", "FIRST_NAME"] = "Yao"
         all_df.loc[all_df.LAST_NAME == "Yao Ming", "LAST_NAME"] = "Ming"
         all_df.loc[all_df.LAST_NAME == "Nene", "FIRST_NAME"] = "Nene"
@@ -729,7 +729,7 @@ class PERForecast:
         all_df.loc[all_df.LAST_NAME == "Yi Jianlian", "LAST_NAME"] = "Jianlian"
         all_df["NAME"] = all_df["FIRST_NAME"] + " " + all_df["LAST_NAME"]
 
-        all_df = pd.read_csv("../prep/data/per.csv")
+        all_df = pd.read_csv("prep/data/per.csv")
         all_df["NAME"] = all_df["FIRST_NAME"] + " " + all_df["LAST_NAME"]
         all_df.drop(
             [
@@ -803,7 +803,7 @@ class PERForecast:
 
         final = pd.concat([final, current_season], axis=0)
         final.dropna(inplace=True)
-        final.to_csv("../prep/estimations/perf_forecast.csv", index=False)
+        final.to_csv("prep/estimations/perf_forecast.csv", index=False)
 
 
 class MVPForecast:
@@ -816,7 +816,7 @@ class MVPForecast:
         self.cands_2022 = pd.read_html(
             f"https://www.basketball-reference.com/friv/mvp.html", header=0
         )[0].drop(["Unnamed: 31", "Prob%"], axis=1)
-        with open("../prep/models/mvp/mvpmodel.pkl", "rb") as file:
+        with open("prep/models/mvp/mvpmodel.pkl", "rb") as file:
             self.model = pkl.load(file)
 
     def prep_and_predict(self):
@@ -845,4 +845,4 @@ class MVPForecast:
                 "Predicted_Share",
             ]
         )
-        self.data_2022.to_csv(f"../prep/estimations/mvps/2022_mvp.csv", index=False)
+        self.data_2022.to_csv(f"prep/estimations/mvps/2022_mvp.csv", index=False)

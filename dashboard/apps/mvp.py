@@ -8,7 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
 import pandas as pd
-from app import app
+from dashboard.app import app
 import numpy as np
 import glob
 from dash import callback_context
@@ -73,7 +73,7 @@ def draw_mvp_table(data):
         data = int(data)
     selection = [(1, "2018"), (2, "2019"), (3, "2020"), (4, "2021"), (5, "2022")]
     sel = [val[1] for val in selection if val[0] == data][0]
-    mvp = pd.read_csv(f"../prep/estimations/mvps/{sel}_mvp.csv").round(4)
+    mvp = pd.read_csv(f"prep/estimations/mvps/{sel}_mvp.csv").round(4)
     return dash_table.DataTable(
         data=mvp.to_dict("records"),
         columns=[{"name": i, "id": i} for i in mvp.columns],

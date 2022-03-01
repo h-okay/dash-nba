@@ -9,7 +9,7 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 import pandas as pd
-from app import app, cache
+from dashboard.app import app
 import numpy as np
 import glob
 from dash_bootstrap_components import Button
@@ -34,11 +34,11 @@ def create_card(t_name):
 
 
 def headshotCards(team):
-    merged = pd.read_csv("../prep/data/merged.csv")
+    merged = pd.read_csv("prep/data/merged.csv")
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv("../prep/data/per.csv")
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
-    links = glob.glob(f"assets/top/{team}/*")
+    links = glob.glob(f"dashboard/assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
     files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
     names = (
@@ -97,7 +97,7 @@ def drawFigure(col_name, static, title, team, range=(650, 1300)):
 
 
 def drawStats(team, player):
-    per = pd.read_csv("../prep/data/per.csv")
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
@@ -307,7 +307,7 @@ def drawCard(team, no):
                 },
             ),
             html.Img(
-                src=hs.LINK[no],
+                src=hs.LINK[no][10:].replace('\\', '/'),
                 width=188,
                 height=137,
                 style={"max-height": "100%", "max-width": "100%"},
@@ -331,14 +331,14 @@ def top_card(text, id):
 
 
 def team_worth(team):
-    temp = pd.read_csv("../prep/data/salaries.csv")
+    temp = pd.read_csv("prep/data/salaries.csv")
     temp = temp[(temp.TEAM == team) & (temp.YEAR == 2021)]
     total = temp.SALARY.sum()
     return "{:,}".format(total)
 
 
 def next_game(team):
-    schedule = pd.read_csv("../prep/data/schedule.csv")
+    schedule = pd.read_csv("prep/data/schedule.csv")
     schedule.Away = schedule.Away.apply(fix_team_names)
     schedule.Home = schedule.Home.apply(fix_team_names)
     # sorted(schedule.Away.unique())
@@ -356,8 +356,8 @@ def matchup_info(team_):
     wp.prep()
     winproba_df = wp.get_prediction()
     team, opponent = next_game(team_)
-    mlready = pd.read_csv("../prep/data/mlready.csv")
-    standings = pd.read_csv("../prep/data/standingsCleaned.csv")
+    mlready = pd.read_csv("prep/data/mlready.csv")
+    standings = pd.read_csv("prep/data/standingsCleaned.csv")
     st_tm = standings[
         (standings.TEAM == team) & (standings.SEASON == "2021-22")
     ].STREAK.values[0]
@@ -461,7 +461,7 @@ def matchup_info(team_):
 
 
 def current_team_stats(team):
-    standings = pd.read_csv("../prep/data/standingsCleaned.csv")
+    standings = pd.read_csv("prep/data/standingsCleaned.csv")
     st_tm = (
         standings[(standings.SEASON == "2021-22")]
         .sort_values(by="WIN%", ascending=False)
@@ -501,7 +501,7 @@ def current_team_stats(team):
 
 
 def team_schedule(team):
-    schedule = pd.read_csv("../prep/data/schedule.csv")
+    schedule = pd.read_csv("prep/data/schedule.csv")
     schedule.Away = schedule.Away.apply(fix_team_names)
     schedule.Home = schedule.Home.apply(fix_team_names)
     schedule = (
@@ -532,7 +532,7 @@ def team_schedule(team):
 
 
 def player_perf(team):
-    per = pd.read_csv("../prep/data/per.csv")
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
@@ -602,7 +602,7 @@ def player_perf(team):
 
 
 def performance_forecast_buttons(team):
-    per = pd.read_csv("../prep/data/per.csv")
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per = per.reset_index()
@@ -623,7 +623,7 @@ def performance_forecast_buttons(team):
 
 
 def worth_forecast_buttons(team):
-    per = pd.read_csv("../prep/data/per.csv")
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per = per.reset_index()
@@ -644,14 +644,14 @@ def worth_forecast_buttons(team):
 
 
 def get_button_count(team):
-    per = pd.read_csv("../prep/data/per.csv")
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     return len(sorted(per.NAME.unique()))
 
 
 def team_segmentation(team):
-    segments = pd.read_csv("../prep/estimations/segmentation.csv")
+    segments = pd.read_csv("prep/estimations/segmentation.csv")
     segments["Segment"] = segments["Segment"].astype(str)
     fig = px.scatter_3d(
         segments,
@@ -687,8 +687,8 @@ def team_segmentation(team):
 
 
 def elo_history(team):
-    all_teams = pd.read_csv("../prep/data/all_teams.csv").get(["id", "full_name"])
-    elo_ts = pd.read_csv("../prep/data/save_elo_ts.csv")
+    all_teams = pd.read_csv("prep/data/all_teams.csv").get(["id", "full_name"])
+    elo_ts = pd.read_csv("prep/data/save_elo_ts.csv")
     elo_ts = (
         elo_ts.merge(all_teams, left_on=["TEAM_ID"], right_on="id")
         .drop(["id", "TEAM_ID"], axis=1)
@@ -747,8 +747,8 @@ def elo_history(team):
 
 
 def player_history(team):
-    all_teams = pd.read_csv("../prep/data/all_teams.csv").get(["id", "full_name"])
-    per = pd.read_csv("../prep/data/per.csv")
+    all_teams = pd.read_csv("prep/data/all_teams.csv").get(["id", "full_name"])
+    per = pd.read_csv("prep/data/per.csv")
     per = per[(per.TEAM == team)]
     agg_per = per.groupby("SEASON_ID").PER.mean().reset_index()
     agg_per.SEASON_ID = agg_per.SEASON_ID.apply(lambda x: int(x[:4]))
@@ -804,7 +804,7 @@ def player_history(team):
 
 
 def draw_kmeans():
-    segments = pd.read_csv("../prep/estimations/segmentation.csv")
+    segments = pd.read_csv("prep/estimations/segmentation.csv")
     segments["Segment"] = segments["Segment"].astype(str)
     fig = px.scatter_3d(
         segments,
@@ -836,7 +836,7 @@ def draw_kmeans():
 
 
 def kmeans_table():
-    segments = pd.read_csv("../prep/estimations/segmentation.csv")
+    segments = pd.read_csv("prep/estimations/segmentation.csv")
     segments["Segment"] = segments["Segment"].astype(str)
     agg_df = (
         segments.groupby("Segment")
@@ -876,7 +876,7 @@ def kmeans_table():
 
 
 def segment_treemap():
-    segments = pd.read_csv("../prep/estimations/segmentation.csv")
+    segments = pd.read_csv("prep/estimations/segmentation.csv")
     segments["Segment"] = segments["Segment"].astype(str)
     names = segments["NAME"].to_list()
     parents = segments["Segment"].to_list()
