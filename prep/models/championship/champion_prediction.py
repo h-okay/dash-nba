@@ -57,8 +57,8 @@
 
 # PLAYOFFS DATASININ OKUNMASI
 
-import pandas as pd
-from vboUtil import eda
+# import pandas as pd
+# from vboUtil import eda
 
 playoffs = pd.read_csv("data/est/mlready.csv")
 playoffs = playoffs[

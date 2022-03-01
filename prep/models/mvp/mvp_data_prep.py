@@ -1,12 +1,12 @@
-import pandas as pd
-import numpy as np
-from datetime import date
-from tqdm import tqdm
-from data.scripts.helpers import fix_team_names
-
-pd.set_option("display.max_columns", None)
-pd.set_option("display.max_rows", None)
-pd.set_option("display.width", 500)
+# import pandas as pd
+# import numpy as np
+# from datetime import date
+# from tqdm import tqdm
+# from data.scripts.helpers import fix_team_names
+#
+# pd.set_option("display.max_columns", None)
+# pd.set_option("display.max_rows", None)
+# pd.set_option("display.width", 500)
 
 teams = pd.read_csv("data/base/all_teams.csv")
 

@@ -1,27 +1,27 @@
-import pandas as pd
-import pickle as pkl
-import numpy as np
-from time import sleep
-import re
-from tqdm import tqdm
-import warnings
-import lightgbm as lgbm
+# import pandas as pd
+# import pickle as pkl
+# import numpy as np
+# from time import sleep
+# import re
+# from tqdm import tqdm
+# import warnings
+# import lightgbm as lgbm
+#
+# import sklearn.metrics
+# from sklearn.model_selection import train_test_split
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.common.by import By
+# from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.chrome.service import Service
+#
+# pd.options.mode.chained_assignment = None
+# pd.set_option("display.max_columns", None)
+# warnings.filterwarnings("ignore")
 
-import sklearn.metrics
-from sklearn.model_selection import train_test_split
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.service import Service
-
-pd.options.mode.chained_assignment = None
-pd.set_option("display.max_columns", None)
-warnings.filterwarnings("ignore")
-
-from utils.helpers import FastML
+# from utils.helpers import FastML
 
 # Get Monthly Performances / Selenium
 def get_monthly():
