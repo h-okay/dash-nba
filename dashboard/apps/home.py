@@ -1,9 +1,10 @@
 import dash
+import dash_bootstrap_components as dbc
+import pandas as pd
 from dash import Dash
 from dash import dcc
 from dash import html
-import dash_bootstrap_components as dbc
-import pandas as pd
+
 from dashboard.app import app
 from dashboard.func import create_card
 
@@ -200,7 +201,8 @@ layout = dbc.Container(
                     )
                 ),
                 dbc.Col(
-                    html.A([html.Div(create_card("utah-jazz"))], href="/utah_jazz")
+                    html.A([html.Div(create_card("utah-jazz"))],
+                           href="/utah_jazz")
                 ),
                 dbc.Col(
                     html.A(

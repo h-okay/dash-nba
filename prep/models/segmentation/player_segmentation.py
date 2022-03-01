@@ -26,8 +26,8 @@ for i, val in enumerate(per_["SEASON_ID"]):
 ####
 # Concating FIRST and LAST NAME
 per_["NAME"] = per_["FIRST_NAME"] + " " + per_["LAST_NAME"]
-per_.insert(0, "NAME", per_.pop("NAME"))  # getting player names to first column
-
+per_.insert(0, "NAME",
+            per_.pop("NAME"))  # getting player names to first column
 
 per = per_.copy()
 per = per[per["YEAR"] == "2022"]
@@ -36,8 +36,8 @@ per.shape
 ### Getting player POSITIONS and SALARY from salary data
 per = (
     per.merge(salary, on="NAME", how="inner")
-    .drop_duplicates("P_ID", keep="last", ignore_index=True)
-    .reset_index(drop=True)
+        .drop_duplicates("P_ID", keep="last", ignore_index=True)
+        .reset_index(drop=True)
 )
 
 ### DROP duplicate and unnecessary columns
@@ -60,15 +60,14 @@ per.rename(columns={"TEAM_y": "TEAM", "YEAR_y": "YEAR"}, inplace=True)
 
 # we delete unrelated columns to segmentation
 df = per.drop(
-    [col for col in per.columns if col not in ["AGE", "PTS", "MPG", "PER"]], axis=1
+    [col for col in per.columns if col not in ["AGE", "PTS", "MPG", "PER"]],
+    axis=1
 )
-
 
 ####### SCALING
 scaler = RobustScaler()
 df = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
 df.head()
-
 
 ########### HIERARCHICAL CLUSTERING ####################
 # Finding optimum cluster number with HIEARCHICAL CLUSTERING
@@ -88,7 +87,6 @@ clusters = cluster.fit_predict(df)
 segments = pd.DataFrame({"NAME": per.NAME, "H_cluster_no": clusters})
 segments["H_cluster_no"] = segments["H_cluster_no"] + 1
 per = per.merge(segments, on="NAME")
-
 
 ### analysis of Segments
 sgmnts = {

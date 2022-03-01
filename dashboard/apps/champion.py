@@ -1,20 +1,20 @@
-from dash.dependencies import Input, Output, State
 import dash
-from dash import Dash
-from dash import dcc
-from dash import html
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import plotly.graph_objects as go
-import plotly.figure_factory as ff
-import pandas as pd
-from dashboard.app import app
-import numpy as np
 import glob
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
+from dash import Dash
 from dash import callback_context
 from dash import dash_table
+from dash import dcc
+from dash import html
+from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
 
+from dashboard.app import app
 from dashboard.helpers import fix_team_names
 
 layout = dbc.Container(
@@ -37,8 +37,8 @@ layout = dbc.Container(
                                             style={"font-size": "12.5px"},
                                         )
                                         for i, year in enumerate(
-                                            ["2019", "2020", "2021", "2022"]
-                                        )
+                                        ["2019", "2020", "2021", "2022"]
+                                    )
                                     ],
                                     id="button-holder",
                                 )
@@ -50,7 +50,8 @@ layout = dbc.Container(
             ]
         ),
         dbc.Row(
-            [dbc.Col([dbc.Card([], id="champ-placeholder", className="shadow-card")])]
+            [dbc.Col([dbc.Card([], id="champ-placeholder",
+                               className="shadow-card")])]
         ),
     ]
 )
@@ -58,7 +59,7 @@ layout = dbc.Container(
 
 @app.callback(
     Output("store-id-champ", "data"),
-    [Input(f"champ-btn-{i+1}", "n_clicks") for i in range(4)],
+    [Input(f"champ-btn-{i + 1}", "n_clicks") for i in range(4)],
 )
 def mvpnav(*args):
     trigger = callback_context.triggered[0]

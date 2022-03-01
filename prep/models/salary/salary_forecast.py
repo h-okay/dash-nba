@@ -26,7 +26,7 @@ pd.set_option("display.float_format", lambda x: "%.2f" % x)
 
 salaries = pd.read_csv("data/base/salaries.csv")
 salaries.YEAR.unique()
-salaries.YEAR = salaries.YEAR.apply(lambda x: f"{x-1}-{str(x)[2:]}")
+salaries.YEAR = salaries.YEAR.apply(lambda x: f"{x - 1}-{str(x)[2:]}")
 
 all_teams = pd.read_csv("data/base/all_teams.csv").full_name.to_list()
 
@@ -41,7 +41,6 @@ temp = salaries.merge(
     per, left_on=["NAME", "YEAR"], right_on=["NAME", "SEASON_ID"], how="left"
 )
 temp.dropna(inplace=True)
-
 
 temp.drop(
     [
@@ -84,11 +83,11 @@ temp["SEASON"] = temp.SEASON_ID.apply(lambda x: int(x[:4]))
 temp.drop("SEASON_ID", axis=1, inplace=True)
 temp = temp.rename(columns={"TEAM_x": "TEAM"})
 
-
 labels = temp[["NAME", "SALARY", "SEASON"]]
 labels["SEASON"] = labels["SEASON"] - 1
 labels = labels.rename(columns={"SALARY": "NEXT_SALARY"})
-temp = temp.merge(labels, on=["SEASON", "NAME"], how="left").reset_index(drop=True)
+temp = temp.merge(labels, on=["SEASON", "NAME"], how="left").reset_index(
+    drop=True)
 
 current_season = temp[(temp.SEASON == 2021)]
 current_season_check = current_season[["NAME", "TEAM", "SEASON", "SALARY"]]

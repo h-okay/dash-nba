@@ -63,7 +63,7 @@
 playoffs = pd.read_csv("data/est/mlready.csv")
 playoffs = playoffs[
     playoffs["SEASON"] != "2003-04"
-]  # 2003-04'te 29 takım var. Uğraşmaya gerek yok.
+    ]  # 2003-04'te 29 takım var. Uğraşmaya gerek yok.
 
 east_conf = [
     "Miami Heat",
@@ -85,7 +85,6 @@ east_conf = [
 
 playoffs["EAST"] = playoffs["TEAM"].isin(east_conf)
 
-
 eda.pandas_view_set()
 playoffs.head()
 
@@ -98,6 +97,7 @@ playoffs["FG3P"] = playoffs["FG3M"] / playoffs["FG3A"]
 playoffs["ORP"] = playoffs["OREB"] / playoffs["REB"]
 playoffs["DRP"] = playoffs["DREB"] / playoffs["REB"]
 
+
 ## STATLARIN YILLARA GÖRE TRENDİNİN İNCELENMESİ
 
 
@@ -106,7 +106,6 @@ def minimize():
     import matplotlib.pyplot as plt
 
     def trend_analyser(data, stat):
-
         grp = po_train.groupby("SEASON")[stat].mean()
         sns.lineplot(x=grp.index, y=grp.values)
         plt.xticks(rotation=90)
@@ -124,7 +123,6 @@ drop_list = ["OREB", "DREB", "ORP", "DRP"]
 
 
 def champ_data_prepare(data, stage, drop_list=None):
-
     y_data = data[stage]
     X_data = data.drop(
         [
@@ -161,7 +159,6 @@ def champ_data_prepare(data, stage, drop_list=None):
 po_train = playoffs[playoffs["SEASON"] < "2020-21"]
 po_test = playoffs[playoffs["SEASON"] == "2020-21"]
 
-
 # H2O Serverının initialize edilmesi
 
 import h2o
@@ -180,7 +177,6 @@ stage = "Playoff"
 
 train = champ_data_prepare(po_train, stage, drop_list)
 test = champ_data_prepare(po_test, stage, drop_list)
-
 
 df = h2o.H2OFrame(train)
 df_test = h2o.H2OFrame(test)
@@ -210,7 +206,8 @@ pred_concat = pd.concat(
 )
 
 po_pred = (
-    pred_concat.sort_values(["EAST", "p1"], ascending=False).groupby("EAST").head(8)
+    pred_concat.sort_values(["EAST", "p1"], ascending=False).groupby(
+        "EAST").head(8)
 )
 
 po_test[f"{stage}_pred"] = po_test["TEAM"].isin(po_pred["TEAM"])
@@ -279,7 +276,6 @@ po_test_q = po_test[po_test[f"{pre_stage}_pred"] == 1]
 team_names = po_test_q["TEAM"]
 test = champ_data_prepare(po_test_q, stage, drop_list)
 
-
 df = h2o.H2OFrame(train)
 df_test = h2o.H2OFrame(test)
 factorslist = [stage]
@@ -326,7 +322,6 @@ po_test_q = po_test[po_test[f"{pre_stage}_pred"] == 1]
 team_names = po_test_q["TEAM"]
 test = champ_data_prepare(po_test_q, stage, drop_list)
 
-
 df = h2o.H2OFrame(train)
 df_test = h2o.H2OFrame(test)
 factorslist = [stage]
@@ -367,7 +362,6 @@ train = champ_data_prepare(po_train_q, stage, drop_list)
 po_test_q = po_test[po_test[f"{pre_stage}_pred"] == 1]
 team_names = po_test_q["TEAM"]
 test = champ_data_prepare(po_test_q, stage, drop_list)
-
 
 df = h2o.H2OFrame(train)
 df_test = h2o.H2OFrame(test)

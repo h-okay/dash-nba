@@ -1,20 +1,20 @@
-from dash.dependencies import Input, Output, State
 import dash
-from dash import Dash
-from dash import dcc
-from dash import html
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import plotly.graph_objects as go
-import plotly.figure_factory as ff
-import pandas as pd
-from dashboard.app import app
-import numpy as np
 import glob
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
+from dash import Dash
 from dash import callback_context
 from dash import dash_table
+from dash import dcc
+from dash import html
+from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
 
+from dashboard.app import app
 from dashboard.helpers import fix_team_names
 
 layout = dbc.Container(
@@ -37,8 +37,9 @@ layout = dbc.Container(
                                             style={"font-size": "12.5px"},
                                         )
                                         for i, year in enumerate(
-                                            ["2018", "2019", "2020", "2021", "2022"]
-                                        )
+                                        ["2018", "2019", "2020", "2021",
+                                         "2022"]
+                                    )
                                     ],
                                     id="button-holder",
                                 )
@@ -50,7 +51,8 @@ layout = dbc.Container(
             ]
         ),
         dbc.Row(
-            [dbc.Col([dbc.Card([], id="mvp-placeholder", className="shadow-card")])]
+            [dbc.Col(
+                [dbc.Card([], id="mvp-placeholder", className="shadow-card")])]
         ),
     ]
 )
@@ -58,20 +60,22 @@ layout = dbc.Container(
 
 @app.callback(
     Output("store-id-mvp", "data"),
-    [Input(f"mvp-btn-{i+1}", "n_clicks") for i in range(5)],
+    [Input(f"mvp-btn-{i + 1}", "n_clicks") for i in range(5)],
 )
 def mvpnav(*args):
     trigger = callback_context.triggered[0]
     return trigger["prop_id"].split(".")[0].split("-")[-1]
 
 
-@app.callback(Output("mvp-placeholder", "children"), [Input("store-id-mvp", "data")])
+@app.callback(Output("mvp-placeholder", "children"),
+              [Input("store-id-mvp", "data")])
 def draw_mvp_table(data):
     if data == "":
         data = 5
     else:
         data = int(data)
-    selection = [(1, "2018"), (2, "2019"), (3, "2020"), (4, "2021"), (5, "2022")]
+    selection = [(1, "2018"), (2, "2019"), (3, "2020"), (4, "2021"),
+                 (5, "2022")]
     sel = [val[1] for val in selection if val[0] == data][0]
     mvp = pd.read_csv(f"prep/estimations/mvps/{sel}_mvp.csv").round(4)
     return dash_table.DataTable(

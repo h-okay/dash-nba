@@ -1,22 +1,21 @@
-from dash.dependencies import Input, Output, State
 import dash
-from dash import Dash
-from dash import dcc
-from dash import html
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import plotly.graph_objects as go
-import plotly.figure_factory as ff
-import pandas as pd
-from dashboard.app import app
-import numpy as np
 import glob
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
+from dash import Dash
 from dash import callback_context
 from dash import dash_table
+from dash import dcc
+from dash import html
+from dash.dependencies import Input, Output, State
 
-from dashboard.helpers import fix_team_names
+from dashboard.app import app
 from dashboard.func import draw_kmeans, kmeans_table, segment_treemap
-
+from dashboard.helpers import fix_team_names
 
 layout = dbc.Container(
     [

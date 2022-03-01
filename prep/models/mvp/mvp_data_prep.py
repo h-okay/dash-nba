@@ -36,14 +36,16 @@ for i in tqdm(range(1980, year)):
     advanced = advanced.append(temp2, ignore_index=True)
 
     temp3_e = pd.read_html(
-        f"https://www.basketball-reference.com/leagues/NBA_{i}_standings.html", header=0
+        f"https://www.basketball-reference.com/leagues/NBA_{i}_standings.html",
+        header=0
     )[0]
     temp3_e["Year"] = str(i)
     temp3_e = temp3_e.rename({"Eastern Conference": "Team"}, axis=1)
     temp3_e = temp3_e[temp3_e["Team"].str.contains("Division") == False]
 
     temp3_w = pd.read_html(
-        f"https://www.basketball-reference.com/leagues/NBA_{i}_standings.html", header=0
+        f"https://www.basketball-reference.com/leagues/NBA_{i}_standings.html",
+        header=0
     )[1]
     temp3_w["Year"] = str(i)
     temp3_w = temp3_w.rename({"Western Conference": "Team"}, axis=1)
@@ -64,12 +66,14 @@ team_standings = pd.merge(
 team_standings.tail(20)
 team_standings.rename(columns={"abbreviation": "Tm"}, inplace=True)
 
-all_mvp_cand = pd.merge(mvp_cand, advanced, how="left", on=["Player", "Tm", "Year"])
+all_mvp_cand = pd.merge(mvp_cand, advanced, how="left",
+                        on=["Player", "Tm", "Year"])
 
 team_standings[(team_standings["Tm"] == "MIL")]
 all_mvp_cand[(all_mvp_cand["Tm"] == "MIL") & (all_mvp_cand["Year"] == "2021")]
 
-all_mvp_cand = pd.merge(all_mvp_cand, team_standings, how="left", on=["Tm", "Year"])
+all_mvp_cand = pd.merge(all_mvp_cand, team_standings, how="left",
+                        on=["Tm", "Year"])
 all_mvp_cand["MVP"] = np.where((all_mvp_cand["Rank"] == "1"), 1, 0)
 
 all_mvp_cand = all_mvp_cand.drop(
@@ -96,7 +100,6 @@ all_mvp_cand = all_mvp_cand.drop(
     axis=1,
 )
 
-
 all_mvp_cand.rename(
     columns={
         "Age_x": "Age",
@@ -107,6 +110,5 @@ all_mvp_cand.rename(
     },
     inplace=True,
 )
-
 
 all_mvp_cand.to_csv("data/base/mvp_candidates.csv", index=False)

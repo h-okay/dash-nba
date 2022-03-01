@@ -1,15 +1,15 @@
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
+import pickle as pkl
 from nba_api.stats.endpoints import leaguegamefinder, playercareerstats
 from nba_api.stats.static import players, teams
 from time import sleep
-import pickle as pkl
+from tqdm import tqdm
+
 from utils.helpers import fix_team_names
 
 
 def get_data():
-
     # Teams
     nba_teams = teams.get_teams()
     all_teams = pd.DataFrame(nba_teams)
@@ -41,7 +41,8 @@ def get_data():
             f"{all_teams[all_teams.id == int(id)].full_name.values[0]}"
         )
         gamefinder = leaguegamefinder.LeagueGameFinder(team_id_nullable=id)
-        team_name = list(set(gamefinder.get_data_frames()[0]["TEAM_NAME"].to_list()))[0]
+        team_name = \
+        list(set(gamefinder.get_data_frames()[0]["TEAM_NAME"].to_list()))[0]
         team_name = fix_team_names(team_name)
         matches[team_name] = gamefinder.get_data_frames()[0]
         matches[team_name].SEASON_ID = matches[team_name].SEASON_ID.apply(
@@ -73,7 +74,8 @@ def get_data():
     player_ids = active_players["id"].to_list()
     player_ids = list(map(lambda x: str(x), player_ids))
     stats = pd.DataFrame()
-    pbar = tqdm(player_ids, desc="Updating player stats", position=0, leave=True)
+    pbar = tqdm(player_ids, desc="Updating player stats", position=0,
+                leave=True)
     for id in pbar:
         pbar.set_description(
             f"{active_players[active_players.id == int(id)].full_name.values[0]}"
@@ -134,7 +136,8 @@ def get_data():
     merged.GP = merged.GP.astype("int64")
     min_gp = np.round(
         pd.pivot_table(merged, values="MIN", columns="SEASON_ID", index="P_ID")
-        / pd.pivot_table(merged, values="GP", columns="SEASON_ID", index="P_ID"),
+        / pd.pivot_table(merged, values="GP", columns="SEASON_ID",
+                         index="P_ID"),
         2,
     )
 
@@ -148,7 +151,9 @@ def get_data():
 
 
 def get_mvps():
-    mvp = pd.read_html("https://www.espn.com/nba/history/awards/_/id/33", header=1)[0]
+    mvp = \
+    pd.read_html("https://www.espn.com/nba/history/awards/_/id/33", header=1)[
+        0]
     mvp = mvp.iloc[:, :-1]
 
     mvp.drop(mvp[mvp.values == "No stats available."].index, inplace=True)

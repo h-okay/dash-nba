@@ -42,9 +42,11 @@ def get_monthly():
                 html = s.page_source
                 tables = pd.read_html(html)
                 data = tables[6]
-                data["TEAM"] = all_teams[all_teams.id == id].full_name.values[0]
+                data["TEAM"] = all_teams[all_teams.id == id].full_name.values[
+                    0]
                 data["SEASON"] = season
-                all_data = pd.concat([all_data, data], axis=0, ignore_index=True)
+                all_data = pd.concat([all_data, data], axis=0,
+                                     ignore_index=True)
                 sleep(0.6 + random)
         else:
             for season in edt.SEASON.unique():
@@ -58,9 +60,11 @@ def get_monthly():
                 html = s.page_source
                 tables = pd.read_html(html)
                 data = tables[6]
-                data["TEAM"] = all_teams[all_teams.id == id].full_name.values[0]
+                data["TEAM"] = all_teams[all_teams.id == id].full_name.values[
+                    0]
                 data["SEASON"] = season
-                all_data = pd.concat([all_data, data], axis=0, ignore_index=True)
+                all_data = pd.concat([all_data, data], axis=0,
+                                     ignore_index=True)
                 sleep(0.6 + random)
 
     s.quit()
@@ -111,7 +115,8 @@ def get_matches():
     a = concat_matches[["TEAM_ID_x", "GAME_DATE_x"]]
     checkpoint = concat_matches[~a.duplicated()]  # 6 maç drop oldu.
     checkpoint = (
-        checkpoint.sort_values("GAME_DATE_x").reset_index().drop("index", axis=1)
+        checkpoint.sort_values("GAME_DATE_x").reset_index().drop("index",
+                                                                 axis=1)
     )
     checkpoint.SEASON_ID_x = checkpoint.SEASON_ID_x.apply(
         lambda x: "2009-10" if x == "2009-010" else x
@@ -128,8 +133,8 @@ all_teams = all_teams[["id", "full_name"]]
 elo_ts = pd.read_csv("prep/data/save_elo_ts.csv")
 df = (
     elo_ts.merge(all_teams, left_on="TEAM_ID", right_on="id")
-    .drop("id", axis=1)
-    .rename(columns={"full_name": "TEAM"})
+        .drop("id", axis=1)
+        .rename(columns={"full_name": "TEAM"})
 )
 df = df.sort_values(by="DATE").reset_index(drop=True)
 df.DATE = pd.to_datetime(df.DATE)
@@ -141,7 +146,7 @@ df.tail()
 agg_df = df.groupby(["SEASON", "TEAM", "MONTH"]).ELO.mean().reset_index()
 agg_df[
     (agg_df.SEASON == "2021-22") & (agg_df.TEAM == "Toronto Raptors")
-].MONTH.value_counts()  # 1 for each month as expected
+    ].MONTH.value_counts()  # 1 for each month as expected
 
 monthly_elo = pd.DataFrame()  # 1 month shifted for ML purposes / prevent data leakeage
 for team in agg_df.TEAM.unique():
@@ -152,7 +157,6 @@ for team in agg_df.TEAM.unique():
 monthly_elo.isnull().sum()  # 30 as expected
 monthly_elo.dropna(inplace=True)
 
-
 monthly = pd.read_csv("prep/data/monthly_team_perf.csv")
 monthly = monthly.rename(columns={"Month": "MONTH"})
 monthly.drop(["WIN%", "FG%", "3P%", "FT%", "+/-"], axis=1, inplace=True)
@@ -162,7 +166,8 @@ monthly.tail()
 monthlytotal = pd.DataFrame()  # Rolling totals for the month
 for team in tqdm(monthly.TEAM.unique(), position=0, leave=True):
     for season in monthly.SEASON.unique():
-        temp = monthly[(monthly.TEAM == team) & (monthly.SEASON == season)].reset_index(
+        temp = monthly[
+            (monthly.TEAM == team) & (monthly.SEASON == season)].reset_index(
             drop=True
         )
         for i, row in temp.iterrows():
@@ -271,7 +276,6 @@ final = final[
 
 final.head()
 
-
 # Adding rankings before match as features
 import re
 
@@ -299,7 +303,8 @@ def daily_rankings(date):
     return acmp
 
 
-dates = final.GAME_DATE1.dt.date.apply(lambda x: x.strftime("%Y-%m-%d")).unique()
+dates = final.GAME_DATE1.dt.date.apply(
+    lambda x: x.strftime("%Y-%m-%d")).unique()
 
 rankings = pd.DataFrame()
 for date in tqdm(dates):
@@ -318,7 +323,8 @@ indices = [
 ]
 rankings.drop(indices, axis=0, inplace=True)
 rankings.RANK = rankings.RANK.astype("float64")
-rankings.RANK = rankings.groupby("DATE").RANK.rank(method="min", ascending=False)
+rankings.RANK = rankings.groupby("DATE").RANK.rank(method="min",
+                                                   ascending=False)
 rankings = rankings.sort_values(by=["DATE", "RANK"], ascending=[True, False])
 rankings.TEAM = rankings.TEAM.str.extract("([A-Za-z\s\d]+)")
 
@@ -328,8 +334,8 @@ rankings.TEAM = rankings.TEAM.apply(fix_team_names)
 rankings.reset_index(drop=True, inplace=True)
 rankings.to_csv("daily_rankings_cleaned.csv", index=False)
 
-
-final.GAME_DATE1 = final.GAME_DATE1.dt.date.apply(lambda x: x.strftime("%Y-%m-%d"))
+final.GAME_DATE1 = final.GAME_DATE1.dt.date.apply(
+    lambda x: x.strftime("%Y-%m-%d"))
 rankings = pd.read_csv("prep/data/daily_rankings_cleaned.csv")
 final = final.merge(
     rankings, left_on=["GAME_DATE1", "TEAM11"], right_on=["DATE", "TEAM"]
@@ -363,31 +369,32 @@ final = final.rename(
     }
 )
 
-
 cols = (
-    ["SEASON", "GAME_DATE", "HOME_TEAM", "HOME_WL"]
-    + [
-        "HOME_" + re.findall("[a-zA-Z]+", col)[0]
-        for col in final.columns
-        if col[-1] == "1"
-        and col
-        not in ["SEASON1", "RANK1", "TEAM11", "GAME_DATE1", "WL11", "WINS1", "LOSS1"]
-    ]
-    + ["AWAY_TEAM", "AWAY_WL"]
-    + [
-        "AWAY_" + re.findall("[a-zA-Z]+", col)[0]
-        for col in final.columns
-        if col[-1] == "2"
-        and col not in ["SEASON1", "RANK2", "TEAM22", "WL22", "WINS2", "LOSS2"]
-    ]
-    + [
-        "HOME_WINS",
-        "HOME_LOSS",
-        "HOME_RANK",
-        "AWAY_WINS",
-        "AWAY_LOSS",
-        "AWAY_RANK",
-    ]
+        ["SEASON", "GAME_DATE", "HOME_TEAM", "HOME_WL"]
+        + [
+            "HOME_" + re.findall("[a-zA-Z]+", col)[0]
+            for col in final.columns
+            if col[-1] == "1"
+            and col
+            not in ["SEASON1", "RANK1", "TEAM11", "GAME_DATE1", "WL11",
+                    "WINS1", "LOSS1"]
+        ]
+        + ["AWAY_TEAM", "AWAY_WL"]
+        + [
+            "AWAY_" + re.findall("[a-zA-Z]+", col)[0]
+            for col in final.columns
+            if col[-1] == "2"
+            and col not in ["SEASON1", "RANK2", "TEAM22", "WL22", "WINS2",
+                            "LOSS2"]
+        ]
+        + [
+            "HOME_WINS",
+            "HOME_LOSS",
+            "HOME_RANK",
+            "AWAY_WINS",
+            "AWAY_LOSS",
+            "AWAY_RANK",
+        ]
 )
 final.columns = cols
 final = final.rename(
@@ -399,21 +406,20 @@ final = final.rename(
     }
 )
 
-
 # team offensive/defensive ratings
 # 100*((Points)/(POSS) OFFENSIVE
 # 100*((Opp Points)/(Opp POSS)) DEFENSIVE
 # OFFRTG - DEFRTG NET
 # POSS = (FGA – OREB) + TOV + (.44 * FTA)
 final["HOME_POSS"] = (
-    (final["HOME_FGA"] - final["HOME_OREB"])
-    + final["HOME_TOV"]
-    + (0.44 * final["HOME_FTA"])
+        (final["HOME_FGA"] - final["HOME_OREB"])
+        + final["HOME_TOV"]
+        + (0.44 * final["HOME_FTA"])
 )
 final["AWAY_POSS"] = (
-    (final["AWAY_FGA"] - final["AWAY_OREB"])
-    + final["AWAY_TOV"]
-    + (0.44 * final["AWAY_FTA"])
+        (final["AWAY_FGA"] - final["AWAY_OREB"])
+        + final["AWAY_TOV"]
+        + (0.44 * final["AWAY_FTA"])
 )
 
 final["HOME_OFF_RATING"] = 100 * (final["HOME_PTS"] / final["HOME_POSS"])
@@ -428,31 +434,30 @@ final["AWAY_GP"] = final["AWAY_WINS"] + final["AWAY_LOSS"]
 final["HOME_WIN_PERC"] = (final["HOME_WINS"] / final["HOME_GP"] + 0.1) * 100
 final["AWAY_WIN_PERC"] = (final["AWAY_WINS"] / final["AWAY_GP"] + 0.1) * 100
 
-
 home_cols = [
     col
     for col in final.columns
     if "HOME" in col
-    and col
-    not in [
-        "HOME_GP",
-        "HOME_GAME",
-        "HOME_ELO",
-        "HOME_W",
-        "HOME_L",
-        "HOME_WL",
-        "HOME_TEAM",
-        "HOME_MIN",
-        "HOME_RANK",
-        "HOME_POSS",
-        "HOME_OFF_RATING",
-        "HOME_DEF_RATING",
-        "HOME_WINS",
-        "HOME_LOSS",
-        "HOME_NET_RATING",
-        "HOME_PACE",
-        "HOME_WIN_PERC",
-    ]
+       and col
+       not in [
+           "HOME_GP",
+           "HOME_GAME",
+           "HOME_ELO",
+           "HOME_W",
+           "HOME_L",
+           "HOME_WL",
+           "HOME_TEAM",
+           "HOME_MIN",
+           "HOME_RANK",
+           "HOME_POSS",
+           "HOME_OFF_RATING",
+           "HOME_DEF_RATING",
+           "HOME_WINS",
+           "HOME_LOSS",
+           "HOME_NET_RATING",
+           "HOME_PACE",
+           "HOME_WIN_PERC",
+       ]
 ]
 
 for col in home_cols:
@@ -462,25 +467,25 @@ away_cols = [
     col
     for col in final.columns
     if "AWAY" in col
-    and col
-    not in [
-        "AWAY_GP",
-        "AWAY_ELO",
-        "AWAY_W",
-        "AWAY_L",
-        "AWAY_WL",
-        "AWAY_TEAM",
-        "AWAY_MIN",
-        "AWAY_RANK",
-        "AWAY_POSS",
-        "AWAY_OFF_RATING",
-        "AWAY_DEF_RATING",
-        "AWAY_WINS",
-        "AWAY_LOSS",
-        "AWAY_NET_RATING",
-        "AWAY_PACE",
-        "AWAY_WIN_PERC",
-    ]
+       and col
+       not in [
+           "AWAY_GP",
+           "AWAY_ELO",
+           "AWAY_W",
+           "AWAY_L",
+           "AWAY_WL",
+           "AWAY_TEAM",
+           "AWAY_MIN",
+           "AWAY_RANK",
+           "AWAY_POSS",
+           "AWAY_OFF_RATING",
+           "AWAY_DEF_RATING",
+           "AWAY_WINS",
+           "AWAY_LOSS",
+           "AWAY_NET_RATING",
+           "AWAY_PACE",
+           "AWAY_WIN_PERC",
+       ]
 ]
 
 for col in away_cols:
@@ -542,7 +547,6 @@ final.columns = [
     "OUTCOME",
 ]
 
-
 final.OUTCOME.value_counts()  # Imbalance
 # 1    11359
 # 0     7783
@@ -579,7 +583,8 @@ from verstack import LGBMTuner
 from lightgbm import early_stopping
 
 tuner = LGBMTuner(
-    metric="auc", trials=100, refit=True, verbosity=5, visualization=True, seed=42
+    metric="auc", trials=100, refit=True, verbosity=5, visualization=True,
+    seed=42
 )
 tuner.fit(X_train, y_train)
 
@@ -611,7 +616,8 @@ visualizer.show()
 # Probability optimization
 from sklearn.calibration import CalibratedClassifierCV
 
-calibrated_clf = CalibratedClassifierCV(base_estimator=model_tuned, cv="prefit")
+calibrated_clf = CalibratedClassifierCV(base_estimator=model_tuned,
+                                        cv="prefit")
 calibrated_clf.fit(X_calib, y_calib)
 
 y_pred = calibrated_clf.predict_proba(X_test)
@@ -701,7 +707,6 @@ right[["0", "1", "Real", "Pred"]].head(10)
 wrong = X_test[X_test["True"] == "No"]  # 1303
 wrong["Proba_Diff"] = wrong["0"] - wrong["1"]
 wrong[["0", "1", "Real", "Pred"]].head(10)
-
 
 with open("winprobamodel.pkl", "wb") as file:
     pkl.dump(model_tuned, file)
