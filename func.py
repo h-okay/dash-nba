@@ -14,6 +14,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
+import os
 
 from app import app
 from prep.scripts.classes import winProbability
@@ -41,11 +42,7 @@ def headshotCards(team):
     per.dropna(inplace=True)
     links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
-    for link in links:
-        print(link)
-        link.split("\\")[1][:-4].strip()
-    print(files)
-    temp = [val.split("\\")[1][:-4].strip() for val in files.LINK.to_list()]
+    temp = [os.path.basename(val)[:-4] for val in files.LINK.to_list()]
     files["NAME"] = temp
     names = (
         per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]

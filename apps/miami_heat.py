@@ -7,6 +7,7 @@ from dash import callback_context
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
+import os
 
 from app import app
 from func import (
@@ -239,7 +240,8 @@ def player_performance(data, team=team_):
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
-    files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
+    temp = [os.path.basename(val)[:-4] for val in files.LINK.to_list()]
+    files['NAME'] = temp
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
         drop=True
     )[["NAME", "PER"]]
@@ -525,7 +527,8 @@ def player_performance(data, team=team_):
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
-    files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
+    temp = [os.path.basename(val)[:-4] for val in files.LINK.to_list()]
+    files['NAME'] = temp
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
         drop=True
     )[["NAME", "PER"]]
