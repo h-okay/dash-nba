@@ -2,7 +2,8 @@ from dash.dependencies import Input, Output, State
 from dash import dcc
 from dash import html
 import dash_bootstrap_components as dbc
-from app import app
+from waitress import serve
+from app import app, server
 from apps import (
     atlanta_hawks,
     boston_celtics,
@@ -489,5 +490,5 @@ def render_page_content(pathname):
 
 if __name__ == "__main__":
     # waitress-serve --listen=*:8050 dashboard.app:app
-    # serve(server, host="0.0.0.0", port=8050)
-    app.run_server(debug=True)
+    serve(server, host="0.0.0.0", port=8050)
+    # app.run_server(debug=True)

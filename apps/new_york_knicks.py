@@ -300,7 +300,7 @@ def player_performance(data, team=team_):
                 },
             ),
             html.Img(
-                src=hs.LINK[data - 1][10:].replace("\\", "/"),
+                src=hs.LINK[data - 1],
                 width=188,
                 height=137,
                 style={"max-height": "100%", "max-width": "100%"},
@@ -585,7 +585,7 @@ def player_performance(data, team=team_):
                 },
             ),
             html.Img(
-                src=hs.LINK[data - 1][10:].replace("\\", "/"),
+                src=hs.LINK[data - 1],
                 width=188,
                 height=137,
                 style={"max-height": "100%", "max-width": "100%"},
