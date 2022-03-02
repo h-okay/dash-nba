@@ -1,23 +1,16 @@
 from dash.dependencies import Input, Output, State
-import dash
-from dash import Dash
 from dash import dcc
 from dash import html
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import pandas as pd
-from waitress import serve
-from app import app, server
-from dashboard.apps import (
+from app import app
+from apps import (
     atlanta_hawks,
     boston_celtics,
     brooklyn_nets,
     charlotte_hornets,
-    chicago_bulls,
     cleveland_cavaliers,
     dallas_mavericks,
     denver_nuggets,
-    detroit_pistons,
     golden_state_warriors,
     home,
     houston_rockets,
@@ -28,24 +21,21 @@ from dashboard.apps import (
     miami_heat,
     milwaukee_bucks,
     minnesota_timberwolves,
-    new_orleans_pelicans,
     new_york_knicks,
     oklahoma_city_thunder,
     orlando_magic,
     philadelphia_76ers,
     phoenix_suns,
-    portland_trail_blazers,
     sacramento_kings,
     san_antonio_spurs,
-    toronto_raptors,
-    utah_jazz,
     washington_wizards,
-    kmeans,
     mvp,
     champion,
 )
+from apps import toronto_raptors, new_orleans_pelicans, chicago_bulls, \
+    portland_trail_blazers, utah_jazz, kmeans
 
-from dashboard.assets.style import (
+from assets.style import (
     SIDEBAR_STYLE,
     SIDEBAR_HIDEN,
     CONTENT_STYLE,
