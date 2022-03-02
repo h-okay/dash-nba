@@ -1,1 +1,1 @@
-web: gunicorn index:server
+web: waitress-serve index:server
