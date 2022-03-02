@@ -39,17 +39,22 @@ def headshotCards(team):
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
     per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
+    per.dropna(inplace=True)
     links = glob.glob(f"dashboard/assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
-    files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
-    names = (
-        per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
-            .sort_values(by="PER", ascending=False)[:5]
-            .reset_index(drop=True)[["NAME", "PER"]]
-    )
-    return names.merge(files, on="NAME", how="left").sort_values(
-        by="PER", ascending=False
-    )
+    try:
+        files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
+        names = (
+            per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
+                .sort_values(by="PER", ascending=False)[:5]
+                .reset_index(drop=True)[["NAME", "PER"]]
+        )
+        return names.merge(files, on="NAME", how="left").sort_values(
+            by="PER", ascending=False
+        )
+    except IndexError:
+        print(team)
+        pass
 
 
 def drawFigure(col_name, static, title, team, range=(650, 1300)):
