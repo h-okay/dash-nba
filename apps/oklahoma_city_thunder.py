@@ -251,7 +251,7 @@ def player_performance(data, team=team_):
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
     per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
-    links = glob.glob(f"dashboard/assets/{team}/*")
+    links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
     files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
@@ -537,7 +537,7 @@ def player_performance(data, team=team_):
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
     per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
-    links = glob.glob(f"dashboard/assets/{team}/*")
+    links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
     files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
