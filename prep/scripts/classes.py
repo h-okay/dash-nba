@@ -58,7 +58,7 @@ class playerRating:
         lg_FG = self.merged["FGM"].sum()
         lg_FT = self.merged["FTM"].sum()
         self.merged["factor"] = (
-                (2 / 3) * (0.5 * (lg_AST) / lg_FG) / (2 * (lg_FG / lg_FT))
+            (2 / 3) * (0.5 * (lg_AST) / lg_FG) / (2 * (lg_FG / lg_FT))
         )
         return self.merged
 
@@ -68,8 +68,7 @@ class playerRating:
         lg_ORB = self.merged["OREB"].sum()
         lg_TOV = self.merged["TOV"].sum()
         lg_FTA = self.merged["FTA"].sum()
-        self.merged["vop"] = lg_PTS / (
-                    lg_FGA - lg_ORB + lg_TOV + 0.44 * lg_FTA)
+        self.merged["vop"] = lg_PTS / (lg_FGA - lg_ORB + lg_TOV + 0.44 * lg_FTA)
         return self.merged
 
     def drbp(self):
@@ -102,23 +101,22 @@ class playerRating:
         team_AST = mask["AST"].values[0]
         team_FG = mask["FGM"].values[0]
         uPER = (1 / MP) * (
-                FG3M
-                + (2 / 3) * AST
-                + (2 - factor * (team_AST / team_FG)) * FG
-                + (
-                        FT
-                        * 0.5
-                        * (1 + (1 - (team_AST / team_FG)) + (2 / 3) * (
-                            team_AST / team_FG))
-                )
-                - VOP * TOV
-                - VOP * DRBP * (FGA - FG)
-                - VOP * 0.44 * (0.44 + (0.56 * DRBP)) * (FTA - FT)
-                + VOP * (1 - DRBP) * (TRB - ORB)
-                + VOP * DRBP * ORB
-                + VOP * STL
-                + VOP * DRBP * BLK
-                - PF * ((lg_FT / lg_PF) - 0.44 * (lg_FTA / lg_PF) * VOP)
+            FG3M
+            + (2 / 3) * AST
+            + (2 - factor * (team_AST / team_FG)) * FG
+            + (
+                FT
+                * 0.5
+                * (1 + (1 - (team_AST / team_FG)) + (2 / 3) * (team_AST / team_FG))
+            )
+            - VOP * TOV
+            - VOP * DRBP * (FGA - FG)
+            - VOP * 0.44 * (0.44 + (0.56 * DRBP)) * (FTA - FT)
+            + VOP * (1 - DRBP) * (TRB - ORB)
+            + VOP * DRBP * ORB
+            + VOP * STL
+            + VOP * DRBP * BLK
+            - PF * ((lg_FT / lg_PF) - 0.44 * (lg_FTA / lg_PF) * VOP)
         )
         self.merged.loc[self.merged.TEAM == team, "uPER"] = uPER
         return self.merged
@@ -132,8 +130,7 @@ class playerRating:
         df = self.matches[team]
         df = df[df["SEASON_ID"] == self.season]
         df["OPPONENT"] = df["MATCHUP"].apply(lambda x: x[-3:])
-        df = df.merge(self.all_teams, left_on="OPPONENT",
-                      right_on="abbreviation")
+        df = df.merge(self.all_teams, left_on="OPPONENT", right_on="abbreviation")
         played = [(team, opp) for opp in df["full_name"].values]
         return played
 
@@ -157,17 +154,15 @@ class playerRating:
         opp_TOV = opponent["TOV"].values[0]
         opp_DRB = opponent["DREB"].values[0]
         team_pace = 0.5 * (
-                (
-                        team_FGA
-                        + 0.4 * team_FTA
-                        - 1.07 * (team_ORB / (team_ORB + opp_DRB)) * (
-                                    team_FGA - team_FG)
-                        + team_TOV
-                )
-                + (opp_FGA + 0.4 * opp_FTA - 1.07 * (
-                    opp_ORB / opp_ORB + team_DRB))
-                * (opp_FGA - opp_FG)
-                + opp_TOV
+            (
+                team_FGA
+                + 0.4 * team_FTA
+                - 1.07 * (team_ORB / (team_ORB + opp_DRB)) * (team_FGA - team_FG)
+                + team_TOV
+            )
+            + (opp_FGA + 0.4 * opp_FTA - 1.07 * (opp_ORB / opp_ORB + team_DRB))
+            * (opp_FGA - opp_FG)
+            + opp_TOV
         )
         return team_pace
 
@@ -190,8 +185,7 @@ class playerRating:
                 team_pace = self.get_team_paces(game[0], game[1])
                 total += team_pace
         lg_pace = total / count
-        self.merged.loc[
-            self.merged.SEASON_ID == self.season, "L_PACE"] = lg_pace
+        self.merged.loc[self.merged.SEASON_ID == self.season, "L_PACE"] = lg_pace
         return self.merged
 
     def team_pace(self):
@@ -201,15 +195,13 @@ class playerRating:
         return self.merged
 
     def ratings(self):
-        self.merged["adjustment"] = self.merged["L_PACE"] / self.merged[
-            "T_PACE"]
+        self.merged["adjustment"] = self.merged["L_PACE"] / self.merged["T_PACE"]
         self.merged["aPER"] = self.merged["uPER"] * self.merged["adjustment"]
         self.merged["PER"] = np.round(
             self.merged["aPER"] * (15 / self.merged["aPER"].mean()), 2
         )
         self.merged.drop(
-            ["adjustment", "L_PACE", "T_PACE", "aPER", "uPER", "factor", "vop",
-             "drbp"],
+            ["adjustment", "L_PACE", "T_PACE", "aPER", "uPER", "factor", "vop", "drbp"],
             axis=1,
             inplace=True,
         )
@@ -218,8 +210,7 @@ class playerRating:
     def team_pers(self):
         tempdf = np.round(self.merged.groupby("TEAM").PER.mean(), 2)
         self.team_stats = self.team_stats.merge(
-            tempdf, left_on=self.team_stats.index, right_on=tempdf.index,
-            how="left"
+            tempdf, left_on=self.team_stats.index, right_on=tempdf.index, how="left"
         )
         self.team_stats = self.team_stats.rename(columns={"key_0": "TEAM"})
         self.team_stats["SEASON"] = self.season
@@ -236,8 +227,7 @@ class Generators:
         self.playoffs.Year = self.playoffs.Year.apply(
             lambda x: str(x - 1) + "-" + str(x)[-2:]
         )
-        self.playoffs.columns = [col.strip().upper() for col in
-                                 self.playoffs.columns]
+        self.playoffs.columns = [col.strip().upper() for col in self.playoffs.columns]
         self.playoffs.SERIES = self.playoffs.SERIES.apply(lambda x: x.strip())
         self.t_stats = (
             self.merged.groupby(["SEASON_ID", "TEAM"])[
@@ -259,13 +249,12 @@ class Generators:
                     "PTS",
                 ]
             ]
-                .sum()
-                .reset_index()
+            .sum()
+            .reset_index()
         )
 
         self.t_stats = self.t_stats[self.t_stats.SEASON_ID >= "1979-80"]
-        self.seasons = [i for i in self.t_stats.SEASON_ID.unique() if
-                        i != "2021-22"]
+        self.seasons = [i for i in self.t_stats.SEASON_ID.unique() if i != "2021-22"]
 
     def playoff_generator(self):
         for season in self.seasons:
@@ -277,8 +266,7 @@ class Generators:
                 c = pd.concat([a, b], axis=0, ignore_index=True)
                 d = [i.strip() for i in c.TEAM.to_list()]
                 self.t_stats.loc[
-                    (self.t_stats.SEASON_ID == season) & (
-                        self.t_stats.TEAM.isin(d)),
+                    (self.t_stats.SEASON_ID == season) & (self.t_stats.TEAM.isin(d)),
                     stage,
                 ] = 1
                 self.t_stats[stage] = self.t_stats[stage].fillna(0)
@@ -288,13 +276,11 @@ class Generators:
     def champ_generator(self):
         for season in self.seasons:
             chmp = self.playoffs.loc[
-                (self.playoffs.YEAR == season) & (
-                            self.playoffs.SERIES == "Final"),
+                (self.playoffs.YEAR == season) & (self.playoffs.SERIES == "Final"),
                 "WINNER",
             ].values[0]
             self.t_stats.loc[
-                (self.t_stats.SEASON_ID == season) & (
-                            self.t_stats.TEAM == chmp),
+                (self.t_stats.SEASON_ID == season) & (self.t_stats.TEAM == chmp),
                 "Champion",
             ] = 1
             self.t_stats["Champion"] = self.t_stats["Champion"].fillna(0)
@@ -305,13 +291,10 @@ class Generators:
 class getStandings:
     def __init__(self):
         self.years = range(1971, 2023)
-        self.seasons = [str(year - 1) + "-" + str(year)[-2:] for year in
-                        self.years]
-        self.numeric = pd.DataFrame(
-            {"year": self.years, "season": self.seasons})
+        self.seasons = [str(year - 1) + "-" + str(year)[-2:] for year in self.years]
+        self.numeric = pd.DataFrame({"year": self.years, "season": self.seasons})
         self.standings = pd.read_csv("prep/data/standingsCleaned.csv")
-        self.standings.columns = [col.strip() for col in
-                                  self.standings.columns]
+        self.standings.columns = [col.strip() for col in self.standings.columns]
         self.standings.TEAM = self.standings.TEAM.apply(lambda x: x.strip())
 
     def current_standings(self):
@@ -342,8 +325,7 @@ class getStandings:
         data.TEAM = data.TEAM.str.extract("([A-Za-z].*)")
         data.TEAM = data.TEAM.apply(lambda x: x[:-4])
         data["SEASON"] = "2021-22"
-        self.standings = pd.concat([self.standings, data], axis=0,
-                                   ignore_index=True)
+        self.standings = pd.concat([self.standings, data], axis=0, ignore_index=True)
         self.standings.TEAM = self.standings.TEAM.apply(get_names)
         self.standings.TEAM = self.standings.TEAM.apply(fix_team_names)
         self.standings.to_csv("prep/data/standingsCleaned.csv", index=False)
@@ -352,8 +334,7 @@ class getStandings:
 class playoffWins:
     def __init__(self):
         self.playoffwins = pd.read_csv("prep/data/playoffwins.csv")
-        self.playoffwins.columns = [col.strip() for col in
-                                    self.playoffwins.columns]
+        self.playoffwins.columns = [col.strip() for col in self.playoffwins.columns]
         self.playoffwins.TEAM = self.playoffwins.TEAM.apply(fix_team_names)
 
     def add_playoff_wins(self):
@@ -365,20 +346,18 @@ class Schedule:
         self.today = datetime.datetime.today().strftime("%Y-%m-%d")
         self.dates = (
             pd.date_range(start=self.today, end="2022-04-10", freq="D")
-                .to_frame()
-                .reset_index(drop=True)
+            .to_frame()
+            .reset_index(drop=True)
         )
         self.dates.columns = ["date"]
-        self.dates["date"] = self.dates["date"].apply(
-            lambda x: x.strftime("%Y%m%d"))
+        self.dates["date"] = self.dates["date"].apply(lambda x: x.strftime("%Y%m%d"))
         self.dates = self.dates.date.to_list()
 
     def get_schedules(self):
         self.schedule = pd.DataFrame()
         for date in self.dates:
             try:
-                df = pd.read_html(
-                    f"https://www.cbssports.com/nba/schedule/{date}/")[0]
+                df = pd.read_html(f"https://www.cbssports.com/nba/schedule/{date}/")[0]
                 df = df[["Away", "Home", "Time / TV"]]
                 df["date"] = date
                 self.schedule = pd.concat([self.schedule, df])
@@ -393,9 +372,7 @@ class Schedule:
 
 class PER:
     def __init__(self):
-        self.all_filenames = [
-            file for file in glob.glob("prep/data/pers" + "./*.csv")
-        ]
+        self.all_filenames = [file for file in glob.glob("prep/data/pers" + "./*.csv")]
         self.all_df = pd.concat([pd.read_csv(f) for f in self.all_filenames])
         self.all_df.to_csv("prep/data/" + "per.csv", index=False)
 
@@ -411,15 +388,14 @@ class ELO:
         for value in self.matches.values():
             self.starter = pd.concat([self.starter, value]).copy()
         self.starter["AWAY"] = (
-                self.starter.apply(lambda x: "@" in x["MATCHUP"], axis=1) * 1
+            self.starter.apply(lambda x: "@" in x["MATCHUP"], axis=1) * 1
         )
         away_matches = self.starter[self.starter["AWAY"] == 1].copy()
         home_matches = self.starter[self.starter["AWAY"] == 0].copy()
         home_matches["WL_away"] = home_matches["WL"].apply(
             lambda x: "W" if x == "L" else "L"
         )
-        home_matches["ABB_away"] = home_matches["MATCHUP"].apply(
-            lambda x: x[-3:])
+        home_matches["ABB_away"] = home_matches["MATCHUP"].apply(lambda x: x[-3:])
         concat_matches = home_matches.merge(
             away_matches,
             left_on=["GAME_ID", "WL_away", "ABB_away"],
@@ -450,13 +426,12 @@ class ELO:
         self.checkpoint = concat_matches[~a.duplicated()]  # 6 maç drop oldu.
         self.checkpoint = (
             self.checkpoint.sort_values("GAME_DATE_x")
-                .reset_index()
-                .drop("index", axis=1)
+            .reset_index()
+            .drop("index", axis=1)
         )
 
         self.elo_dict = dict(zip(team_ids, self.elo_ratings))
-        self.elo_date_team = pd.DataFrame(
-            columns=["DATE", "SEASON", "TEAM_ID", "ELO"])
+        self.elo_date_team = pd.DataFrame(columns=["DATE", "SEASON", "TEAM_ID", "ELO"])
 
     @staticmethod
     def expected_score(elo_a, elo_b):
@@ -468,10 +443,10 @@ class ELO:
 
     def calculate_elo(self):
         for index, row in tqdm(
-                self.checkpoint.iterrows(),
-                total=self.checkpoint.shape[0],
-                position=0,
-                leave=False,
+            self.checkpoint.iterrows(),
+            total=self.checkpoint.shape[0],
+            position=0,
+            leave=False,
         ):
             season_id = row["SEASON_ID_x"]
             game_date = row["GAME_DATE_x"]
@@ -484,12 +459,10 @@ class ELO:
 
             if result == "W":
                 self.elo_dict[home_id] = self.new_rating(home_elo, 1, exp_scr)
-                self.elo_dict[away_id] = self.new_rating(away_elo, 0,
-                                                         1 - exp_scr)
+                self.elo_dict[away_id] = self.new_rating(away_elo, 0, 1 - exp_scr)
             elif result == "L":
                 self.elo_dict[home_id] = self.new_rating(home_elo, 0, exp_scr)
-                self.elo_dict[away_id] = self.new_rating(away_elo, 1,
-                                                         1 - exp_scr)
+                self.elo_dict[away_id] = self.new_rating(away_elo, 1, 1 - exp_scr)
             else:
                 continue
 
@@ -517,7 +490,7 @@ class ELO:
         dump = self.edt[
             self.edt.groupby(["SEASON", "TEAM_ID"]).DATE.transform("max")
             == self.edt.DATE
-            ]
+        ]
         dump.to_csv("prep/data/elos.csv", index=False)
 
 
@@ -545,8 +518,7 @@ class Salaries:
         self.df["POS"] = self.df["NAME"].apply(lambda x: x.split(",")[1])
         self.df["NAME"] = self.df["NAME"].apply(lambda x: x.split(",")[0])
         self.df["SALARY"] = self.df["SALARY"].apply(lambda x: x.strip("$"))
-        self.df["SALARY"] = self.df["SALARY"].apply(
-            lambda x: x.replace(",", ""))
+        self.df["SALARY"] = self.df["SALARY"].apply(lambda x: x.replace(",", ""))
         self.df["SALARY"] = self.df["SALARY"].astype(np.compat.long)
         self.df.drop(
             self.df[self.df.TEAM == "null Unknown"].index, axis=0, inplace=True
@@ -559,47 +531,41 @@ class Salaries:
 class winProbability:
     def __init__(self, team):
         self.team = team
-        with open("prep/models/winprobability/winprobamodel.pkl",
-                  "rb") as file:
+        with open("prep/models/winprobability/winprobamodel.pkl", "rb") as file:
             self.model = pkl.load(file)
 
     def prep(self):
-        schedule = pd.read_csv("prep/data/schedule.csv").drop("Time / TV",
-                                                              axis=1)
+        schedule = pd.read_csv("prep/data/schedule.csv").drop("Time / TV", axis=1)
         self.next_match = (
-            schedule[
-                (schedule.Away == self.team) | (schedule.Home == self.team)][
+            schedule[(schedule.Away == self.team) | (schedule.Home == self.team)][
                 ["Away", "Home"]
             ]
-                .iloc[0:1, :]
-                .values
+            .iloc[0:1, :]
+            .values
         )
         melo = pd.read_csv("prep/models/winprobability/data/melo.csv")
         away = (
-            melo[melo.TEAM == self.next_match[0][0]].iloc[-1:, :].reset_index(
-                drop=True)
+            melo[melo.TEAM == self.next_match[0][0]].iloc[-1:, :].reset_index(drop=True)
         )
         away.columns = ["AWAY_" + col for col in away.columns]
         home = (
-            melo[melo.TEAM == self.next_match[0][1]].iloc[-1:, :].reset_index(
-                drop=True)
+            melo[melo.TEAM == self.next_match[0][1]].iloc[-1:, :].reset_index(drop=True)
         )
         home.columns = ["HOME_" + col for col in home.columns]
         melo = pd.concat([away, home], axis=1)
-        melo.drop(["AWAY_W", "AWAY_L", "HOME_W", "HOME_L"], axis=1,
-                  inplace=True)
+        melo.drop(["AWAY_W", "AWAY_L", "HOME_W", "HOME_L"], axis=1, inplace=True)
         rankings = pd.read_csv("prep/data/daily_rankings_cleaned.csv")
         away_rank = (
             rankings[rankings.TEAM == self.next_match[0][0]]
-                .iloc[-1:, :]
-                .reset_index(drop=True)
+            .iloc[-1:, :]
+            .reset_index(drop=True)
         )
         away_rank.drop(["PW", "PL", "PS/G", "PA/G"], axis=1, inplace=True)
         away_rank.columns = ["AWAY_" + col for col in away_rank.columns]
         home_rank = (
             rankings[rankings.TEAM == self.next_match[0][1]]
-                .iloc[-1:, :]
-                .reset_index(drop=True)
+            .iloc[-1:, :]
+            .reset_index(drop=True)
         )
         home_rank.drop(["PW", "PL", "PS/G", "PA/G"], axis=1, inplace=True)
         home_rank.columns = ["HOME_" + col for col in home_rank.columns]
@@ -624,41 +590,39 @@ class winProbability:
         )
 
         self.final["HOME_POSS"] = (
-                (self.final["HOME_FGA"] - self.final["HOME_OREB"])
-                + self.final["HOME_TOV"]
-                + (0.44 * self.final["HOME_FTA"])
+            (self.final["HOME_FGA"] - self.final["HOME_OREB"])
+            + self.final["HOME_TOV"]
+            + (0.44 * self.final["HOME_FTA"])
         )
         self.final["AWAY_POSS"] = (
-                (self.final["AWAY_FGA"] - self.final["AWAY_OREB"])
-                + self.final["AWAY_TOV"]
-                + (0.44 * self.final["AWAY_FTA"])
+            (self.final["AWAY_FGA"] - self.final["AWAY_OREB"])
+            + self.final["AWAY_TOV"]
+            + (0.44 * self.final["AWAY_FTA"])
         )
 
         self.final["HOME_OFF_RATING"] = 100 * (
-                self.final["HOME_PTS"] / self.final["HOME_POSS"]
+            self.final["HOME_PTS"] / self.final["HOME_POSS"]
         )
         self.final["AWAY_OFF_RATING"] = 100 * (
-                self.final["AWAY_PTS"] / self.final["AWAY_POSS"]
+            self.final["AWAY_PTS"] / self.final["AWAY_POSS"]
         )
 
         self.final["HOME_DEF_RATING"] = 100 * (
-                self.final["AWAY_PTS"] / self.final["AWAY_POSS"]
+            self.final["AWAY_PTS"] / self.final["AWAY_POSS"]
         )
         self.final["AWAY_DEF_RATING"] = 100 * (
-                self.final["HOME_PTS"] / self.final["HOME_POSS"]
+            self.final["HOME_PTS"] / self.final["HOME_POSS"]
         )
 
         self.final["HOME_GP"] = self.final["HOME_W"] + self.final["HOME_L"]
         self.final["AWAY_GP"] = self.final["AWAY_W"] + self.final["AWAY_L"]
 
         self.final["HOME_WIN_PERC"] = (
-                                              self.final["HOME_W"] /
-                                              self.final["HOME_GP"] + 0.1
-                                      ) * 100
+            self.final["HOME_W"] / self.final["HOME_GP"] + 0.1
+        ) * 100
         self.final["AWAY_WIN_PERC"] = (
-                                              self.final["AWAY_W"] /
-                                              self.final["AWAY_GP"] + 0.1
-                                      ) * 100
+            self.final["AWAY_W"] / self.final["AWAY_GP"] + 0.1
+        ) * 100
 
         home_cols = [
             "HOME_PTS",
@@ -704,10 +668,8 @@ class winProbability:
         self.final.drop(["HOME_GP", "AWAY_GP"], axis=1, inplace=True)
         self.final.reset_index(drop=True, inplace=True)
 
-        first = self.final[
-            [col for col in self.final.columns if "HOME" in col]]
-        second = self.final[
-            [col for col in self.final.columns if "AWAY" in col]]
+        first = self.final[[col for col in self.final.columns if "HOME" in col]]
+        second = self.final[[col for col in self.final.columns if "AWAY" in col]]
 
         self.final = first.div(second.values)
         self.final.columns = [
@@ -802,8 +764,7 @@ class PERForecast:
         all_df = all_df.merge(labels, on=["SEASON", "NAME"], how="left")
 
         current_season = all_df[(all_df.SEASON == 2021)]
-        current_season_check = current_season[
-            ["NAME", "PER", "SEASON_ID", "TEAM"]]
+        current_season_check = current_season[["NAME", "PER", "SEASON_ID", "TEAM"]]
 
         all_df.dropna(inplace=True)
         all_df.reset_index(drop=True, inplace=True)
@@ -812,8 +773,7 @@ class PERForecast:
         check = check[~check.duplicated()]  # to add later
 
         all_df.drop(
-            ["SEASON_ID", "SEASON", "NAME", "PER", "TEAM"], axis=1,
-            inplace=True
+            ["SEASON_ID", "SEASON", "NAME", "PER", "TEAM"], axis=1, inplace=True
         )
         all_df = all_df[~all_df.duplicated()]
 
@@ -835,10 +795,8 @@ class PERForecast:
             inplace=True,
         )
         current_season["PRED"] = self.model.predict(current_season)
-        current_season = pd.concat([current_season, current_season_check],
-                                   axis=1)
-        current_season = current_season[
-            ["TEAM", "NAME", "SEASON_ID", "PER", "PRED"]]
+        current_season = pd.concat([current_season, current_season_check], axis=1)
+        current_season = current_season[["TEAM", "NAME", "SEASON_ID", "PER", "PRED"]]
 
         final = pd.concat([final, current_season], axis=0)
         final.dropna(inplace=True)
@@ -864,11 +822,9 @@ class MVPForecast:
             how="left",
             left_on=["Player", "Team"],
             right_on=["Player", "Tm"],
-        ).drop(["W", "L", "Rk_x", "Rk_y", "Tm", "Unnamed: 19", "Unnamed: 24"],
-               axis=1)
+        ).drop(["W", "L", "Rk_x", "Rk_y", "Tm", "Unnamed: 19", "Unnamed: 24"], axis=1)
 
-        self.df_2022 = self.data_2022.get(
-            ["W/L%", "WS", "VORP", "PER", "USG%", "BPM"])
+        self.df_2022 = self.data_2022.get(["W/L%", "WS", "VORP", "PER", "USG%", "BPM"])
         self.data_2022["Share"] = self.model.predict(self.df_2022)
         self.data_2022 = self.data_2022.sort_values(
             "Predicted_Share", ascending=False
@@ -886,5 +842,4 @@ class MVPForecast:
                 "Predicted_Share",
             ]
         )
-        self.data_2022.to_csv(f"prep/estimations/mvps/2022_mvp.csv",
-                              index=False)
+        self.data_2022.to_csv(f"prep/estimations/mvps/2022_mvp.csv", index=False)

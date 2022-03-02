@@ -45,7 +45,12 @@ from dashboard.apps import (
     champion,
 )
 
-from dashboard.assets.style import SIDEBAR_STYLE, SIDEBAR_HIDEN, CONTENT_STYLE, CONTENT_STYLE1
+from dashboard.assets.style import (
+    SIDEBAR_STYLE,
+    SIDEBAR_HIDEN,
+    CONTENT_STYLE,
+    CONTENT_STYLE1,
+)
 
 navbar = dbc.NavbarSimple(
     children=[

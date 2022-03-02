@@ -86,8 +86,7 @@ temp = temp.rename(columns={"TEAM_x": "TEAM"})
 labels = temp[["NAME", "SALARY", "SEASON"]]
 labels["SEASON"] = labels["SEASON"] - 1
 labels = labels.rename(columns={"SALARY": "NEXT_SALARY"})
-temp = temp.merge(labels, on=["SEASON", "NAME"], how="left").reset_index(
-    drop=True)
+temp = temp.merge(labels, on=["SEASON", "NAME"], how="left").reset_index(drop=True)
 
 current_season = temp[(temp.SEASON == 2021)]
 current_season_check = current_season[["NAME", "TEAM", "SEASON", "SALARY"]]

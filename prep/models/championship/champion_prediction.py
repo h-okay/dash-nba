@@ -63,7 +63,7 @@
 playoffs = pd.read_csv("data/est/mlready.csv")
 playoffs = playoffs[
     playoffs["SEASON"] != "2003-04"
-    ]  # 2003-04'te 29 takım var. Uğraşmaya gerek yok.
+]  # 2003-04'te 29 takım var. Uğraşmaya gerek yok.
 
 east_conf = [
     "Miami Heat",
@@ -206,8 +206,7 @@ pred_concat = pd.concat(
 )
 
 po_pred = (
-    pred_concat.sort_values(["EAST", "p1"], ascending=False).groupby(
-        "EAST").head(8)
+    pred_concat.sort_values(["EAST", "p1"], ascending=False).groupby("EAST").head(8)
 )
 
 po_test[f"{stage}_pred"] = po_test["TEAM"].isin(po_pred["TEAM"])

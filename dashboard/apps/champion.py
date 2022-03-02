@@ -37,8 +37,8 @@ layout = dbc.Container(
                                             style={"font-size": "12.5px"},
                                         )
                                         for i, year in enumerate(
-                                        ["2019", "2020", "2021", "2022"]
-                                    )
+                                            ["2019", "2020", "2021", "2022"]
+                                        )
                                     ],
                                     id="button-holder",
                                 )
@@ -50,8 +50,7 @@ layout = dbc.Container(
             ]
         ),
         dbc.Row(
-            [dbc.Col([dbc.Card([], id="champ-placeholder",
-                               className="shadow-card")])]
+            [dbc.Col([dbc.Card([], id="champ-placeholder", className="shadow-card")])]
         ),
     ]
 )

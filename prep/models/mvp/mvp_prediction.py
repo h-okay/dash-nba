@@ -61,16 +61,13 @@ y = df["Share"]
 X = df.drop("Share", axis=1)
 
 lgbm = LGBMRegressor()
-np.mean(np.sqrt(
-    -cross_val_score(lgbm, X, y, cv=5, scoring="neg_mean_squared_error")))
+np.mean(np.sqrt(-cross_val_score(lgbm, X, y, cv=5, scoring="neg_mean_squared_error")))
 
 xgb = XGBRegressor()
-np.mean(np.sqrt(
-    -cross_val_score(xgb, X, y, cv=5, scoring="neg_mean_squared_error")))
+np.mean(np.sqrt(-cross_val_score(xgb, X, y, cv=5, scoring="neg_mean_squared_error")))
 
 cat = CatBoostRegressor()
-np.mean(np.sqrt(
-    -cross_val_score(cat, X, y, cv=5, scoring="neg_mean_squared_error")))
+np.mean(np.sqrt(-cross_val_score(cat, X, y, cv=5, scoring="neg_mean_squared_error")))
 
 
 def plot_importance(model, features, num=len(X), save=False):
@@ -108,14 +105,12 @@ parameters = {
     "iterations": [30, 50, 100],
     "early_stopping_rounds": [200],
 }
-grid = GridSearchCV(estimator=cat, param_grid=parameters, cv=5, n_jobs=-1).fit(
-    X, y)
+grid = GridSearchCV(estimator=cat, param_grid=parameters, cv=5, n_jobs=-1).fit(X, y)
 grid.best_params_
 
 final_cat = cat.set_params(**grid.best_params_).fit(X, y)
 np.mean(
-    np.sqrt(-cross_val_score(final_cat, X, y, cv=5,
-                             scoring="neg_mean_squared_error"))
+    np.sqrt(-cross_val_score(final_cat, X, y, cv=5, scoring="neg_mean_squared_error"))
 )  # 0.16
 
 import pickle as pkl
@@ -134,24 +129,21 @@ cands_2022 = pd.read_html(
 )[0].drop(["Unnamed: 31", "Prob%"], axis=1)
 
 data_2022 = cands_2022.merge(
-    advncd_2022, how="left", left_on=["Player", "Team"],
-    right_on=["Player", "Tm"]
+    advncd_2022, how="left", left_on=["Player", "Team"], right_on=["Player", "Tm"]
 ).drop(["W", "L", "Rk_x", "Rk_y", "Tm", "Unnamed: 19", "Unnamed: 24"], axis=1)
 
 df_2022 = data_2022.get(["W/L%", "WS", "VORP", "PER", "USG%", "BPM"])
 
 data_2022["Share"] = final_cat.predict(df_2022)
 
-data_2022.sort_values("Share", ascending=False).get(
-    ["Player", "Team", "Share"])
+data_2022.sort_values("Share", ascending=False).get(["Player", "Team", "Share"])
 data_2022.head()
 data_2022.to_csv(f"prep/estimations/mvps/{year}_mvp.csv", index=False)
 
 ###############   2018-2021 Prediction  ####################
 for i in range(2018, year):
     temp = mvp_cands[mvp_cands["Year"] == i].get(
-        ["Player", "Year", "Tm", "W/L%", "WS", "VORP", "PER", "USG%", "BPM",
-         "Share"]
+        ["Player", "Year", "Tm", "W/L%", "WS", "VORP", "PER", "USG%", "BPM", "Share"]
     )
 
     temp["Predicted_Share"] = final_cat.predict(

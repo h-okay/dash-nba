@@ -2,6 +2,7 @@
 # import lightgbm as lgbm
 # import h2o
 import pandas as pd
+
 # from h2o.automl import H2OAutoML
 # from sklearn.ensemble import (
 #     RandomForestRegressor,
@@ -273,11 +274,9 @@ def fix_team_names(row):
         "Washington",
     ]:
         return "Washington Wizards"
-    if row in ["LA Clippers", "San Diego Clippers", "Buffalo Braves",
-               "L.A. Clippers"]:
+    if row in ["LA Clippers", "San Diego Clippers", "Buffalo Braves", "L.A. Clippers"]:
         return "Los Angeles Clippers"
-    if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City",
-               "Sacramento"]:
+    if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City", "Sacramento"]:
         return "Sacramento Kings"
     if row in ["Seattle SuperSonics", "Oklahoma", "Oklahoma City"]:
         return "Oklahoma City Thunder"
@@ -389,8 +388,7 @@ def get_matches():
     a = concat_matches[["TEAM_ID_x", "GAME_DATE_x"]]
     checkpoint = concat_matches[~a.duplicated()]  # 6 maç drop oldu.
     checkpoint = (
-        checkpoint.sort_values("GAME_DATE_x").reset_index().drop("index",
-                                                                 axis=1)
+        checkpoint.sort_values("GAME_DATE_x").reset_index().drop("index", axis=1)
     )
     checkpoint.SEASON_ID_x = checkpoint.SEASON_ID_x.apply(
         lambda x: "2009-10" if x == "2009-010" else x

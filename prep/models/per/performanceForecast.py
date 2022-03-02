@@ -85,8 +85,7 @@ def get_player_perf_forecast():
     check = all_df[["NAME", "PER", "SEASON_ID", "TEAM"]]
     check = check[~check.duplicated()]  # to add later
 
-    all_df.drop(["SEASON_ID", "SEASON", "NAME", "PER", "TEAM"], axis=1,
-                inplace=True)
+    all_df.drop(["SEASON_ID", "SEASON", "NAME", "PER", "TEAM"], axis=1, inplace=True)
     all_df = all_df[~all_df.duplicated()]
 
     # Get Predictions
@@ -106,13 +105,11 @@ def get_player_perf_forecast():
 
     # current
     current_season.drop(
-        ["SEASON_ID", "SEASON", "NAME", "PER", "TEAM", "NEXT_PER"], axis=1,
-        inplace=True
+        ["SEASON_ID", "SEASON", "NAME", "PER", "TEAM", "NEXT_PER"], axis=1, inplace=True
     )
     current_season["PRED"] = cb.predict(current_season)
     current_season = pd.concat([current_season, current_season_check], axis=1)
-    current_season = current_season[
-        ["TEAM", "NAME", "SEASON_ID", "PER", "PRED"]]
+    current_season = current_season[["TEAM", "NAME", "SEASON_ID", "PER", "PRED"]]
     current_season.head()
 
     final = pd.concat([final, current_season], axis=0)

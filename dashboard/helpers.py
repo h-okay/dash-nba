@@ -1,9 +1,11 @@
 # import catboost
 import glob
+
 # import lightgbm as lgbm
 import numpy as np
 import os
 import pandas as pd
+
 # import xgboost as xgb
 # from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
 # from sklearn.metrics import r2_score, mean_squared_error
@@ -20,8 +22,7 @@ from tqdm import tqdm
 
 def grab_col_names(dataframe, cat_th=10, car_th=20):
     # cat_cols, cat_but_car
-    cat_cols = [col for col in dataframe.columns if
-                dataframe[col].dtypes == "O"]
+    cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "O"]
 
     num_but_cat = [
         col
@@ -40,8 +41,7 @@ def grab_col_names(dataframe, cat_th=10, car_th=20):
     cat_cols = [col for col in cat_cols if col not in cat_but_car]
 
     # num_cols
-    num_cols = [col for col in dataframe.columns if
-                dataframe[col].dtypes != "O"]
+    num_cols = [col for col in dataframe.columns if dataframe[col].dtypes != "O"]
 
     num_cols = [col for col in num_cols if col not in num_but_cat]
 
@@ -114,11 +114,9 @@ def fix_team_names(row):
         "Washington",
     ]:
         return "Washington Wizards"
-    if row in ["LA Clippers", "San Diego Clippers", "Buffalo Braves",
-               "L.A. Clippers"]:
+    if row in ["LA Clippers", "San Diego Clippers", "Buffalo Braves", "L.A. Clippers"]:
         return "Los Angeles Clippers"
-    if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City",
-               "Sacramento"]:
+    if row in ["Kansas City Kings", "Cincinnati Royals", "Kansas City", "Sacramento"]:
         return "Sacramento Kings"
     if row in ["Seattle SuperSonics", "Oklahoma"]:
         return "Oklahoma City Thunder"

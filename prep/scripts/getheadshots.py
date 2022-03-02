@@ -10,9 +10,6 @@ from PIL import Image
 from prep.scripts.classes import print_done
 
 
-
-
-
 def get_headshots():
     per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
@@ -89,6 +86,7 @@ def get_headshots():
                 )
                 sleep(0.6)
 
+
 def convert_to_png():
     all_teams = pd.read_csv("prep/data/all_teams.csv")
     team_list = all_teams.full_name.unique()
@@ -98,7 +96,7 @@ def convert_to_png():
         links = glob.glob(f"dashboard/assets/{team}/*")
         for link in links:
             with Image.open(link) as im1:
-                im1.save(link[:-3]+"png")
+                im1.save(link[:-3] + "png")
 
     for team in pbar:
         pbar.set_description(f"{team}")
@@ -107,9 +105,8 @@ def convert_to_png():
             os.remove(link)
 
 
-
 if __name__ == "__main__":
-    print_done('Getting headshots')
+    print_done("Getting headshots")
     get_headshots()
     convert_to_png()
     print("[DONE]")

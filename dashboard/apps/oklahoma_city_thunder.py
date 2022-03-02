@@ -105,8 +105,7 @@ layout = dbc.Container(
                     [
                         matchup_info("Oklahoma City Thunder"),
                         dbc.Card(
-                            current_team_stats("Oklahoma City Thunder"),
-                            id="table-card"
+                            current_team_stats("Oklahoma City Thunder"), id="table-card"
                         ),
                     ],
                     width=6,
@@ -125,8 +124,7 @@ layout = dbc.Container(
         dbc.Row(
             [
                 dbc.Col(
-                    [dbc.Card(team_schedule("Oklahoma City Thunder"),
-                              id="table-card2")]
+                    [dbc.Card(team_schedule("Oklahoma City Thunder"), id="table-card2")]
                 )
             ]
         ),
@@ -141,8 +139,7 @@ layout = dbc.Container(
         dbc.Row(
             [
                 dbc.Col(
-                    [dbc.Card(player_perf("Oklahoma City Thunder"),
-                              id="table-card3")]
+                    [dbc.Card(player_perf("Oklahoma City Thunder"), id="table-card3")]
                 )
             ]
         ),
@@ -159,8 +156,7 @@ layout = dbc.Container(
                 dbc.Col(
                     [
                         dbc.Card(
-                            performance_forecast_buttons(
-                                "Oklahoma City Thunder"),
+                            performance_forecast_buttons("Oklahoma City Thunder"),
                             id="forecast-card",
                             className="shadow-card",
                         )
@@ -245,16 +241,14 @@ def perfnav(*args):
 
 @app.callback(
     Output("worth-id24", "data"),
-    [Input(f"worth-btn-nclicks-{i + 1}", "n_clicks") for i in
-     range(n_buttons)],
+    [Input(f"worth-btn-nclicks-{i + 1}", "n_clicks") for i in range(n_buttons)],
 )
 def salarynav(*args):
     trigger = callback_context.triggered[0]
     return trigger["prop_id"].split(".")[0].split("-")[-1]
 
 
-@app.callback(Output("placeholder93", "children"),
-              [Input("store-id24", "data")])
+@app.callback(Output("placeholder93", "children"), [Input("store-id24", "data")])
 def player_performance(data, team=team_):
     if data == "":
         data = 1
@@ -308,8 +302,7 @@ def player_performance(data, team=team_):
     forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
     played = forecast[["TEAM", "SEASON"]]
     played = played[~played.duplicated()]
-    played = played.groupby("TEAM").SEASON.min().reset_index().sort_values(
-        by="SEASON")
+    played = played.groupby("TEAM").SEASON.min().reset_index().sort_values(by="SEASON")
 
     return dbc.Card(
         [
@@ -322,7 +315,7 @@ def player_performance(data, team=team_):
                 },
             ),
             html.Img(
-                src=hs.LINK[data - 1][10:].replace('\\', '/'),
+                src=hs.LINK[data - 1][10:].replace("\\", "/"),
                 width=188,
                 height=137,
                 style={"max-height": "100%", "max-width": "100%"},
@@ -333,10 +326,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("PER",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].PER.values[0],
+                                    html.P("PER", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].PER.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -347,10 +338,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("PPG",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].PPG.values[0],
+                                    html.P("PPG", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].PPG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -361,10 +350,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("RPG",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].RPG.values[0],
+                                    html.P("RPG", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].RPG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -375,10 +362,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("APG",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].APG.values[0],
+                                    html.P("APG", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].APG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -396,10 +381,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("FG%",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "FG%"].values[0],
+                                    html.P("FG%", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["FG%"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -410,10 +393,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("FG3%",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "FG3%"].values[
+                                    html.P("FG3%", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["FG3%"].values[
                                         0
                                     ],
                                 ],
@@ -426,10 +407,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("FT%",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "FT_PCT"].values[
+                                    html.P("FT%", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["FT_PCT"].values[
                                         0
                                     ],
                                 ],
@@ -447,10 +426,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("STL",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "STL"].values[0],
+                                    html.P("STL", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["STL"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -461,10 +438,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("BLK",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "BLK"].values[0],
+                                    html.P("BLK", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["BLK"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -475,10 +450,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("TOV",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "TOV"].values[0],
+                                    html.P("TOV", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["TOV"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -493,8 +466,7 @@ def player_performance(data, team=team_):
     )
 
 
-@app.callback(Output("placeholder94", "children"),
-              [Input("store-id24", "data")])
+@app.callback(Output("placeholder94", "children"), [Input("store-id24", "data")])
 def per_forecast(data, team=team_):
     if data == "":
         data = 1
@@ -510,8 +482,7 @@ def per_forecast(data, team=team_):
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
     per["RPG"] = np.round(per["REB"] / per["GP"], 2)
     per["APG"] = np.round(per["AST"] / per["GP"], 2)
-    per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(
-        by="NAME")
+    per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(by="NAME")
     per = per.reset_index(drop=True)
     hs = hs.reset_index(drop=True)
     forecast = pd.read_csv("prep/estimations/perf_forecast.csv")
@@ -563,8 +534,7 @@ def per_forecast(data, team=team_):
     )
 
 
-@app.callback(Output("placeholder95", "children"),
-              [Input("worth-id24", "data")])
+@app.callback(Output("placeholder95", "children"), [Input("worth-id24", "data")])
 def player_performance(data, team=team_):
     if data == "":
         data = 1
@@ -617,8 +587,7 @@ def player_performance(data, team=team_):
     forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
     played = forecast[["TEAM", "SEASON"]]
     played = played[~played.duplicated()]
-    played = played.groupby("TEAM").SEASON.min().reset_index().sort_values(
-        by="SEASON")
+    played = played.groupby("TEAM").SEASON.min().reset_index().sort_values(by="SEASON")
 
     return dbc.Card(
         [
@@ -631,7 +600,7 @@ def player_performance(data, team=team_):
                 },
             ),
             html.Img(
-                src=hs.LINK[data - 1][10:].replace('\\', '/'),
+                src=hs.LINK[data - 1][10:].replace("\\", "/"),
                 width=188,
                 height=137,
                 style={"max-height": "100%", "max-width": "100%"},
@@ -642,10 +611,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("PER",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].PER.values[0],
+                                    html.P("PER", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].PER.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -656,10 +623,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("PPG",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].PPG.values[0],
+                                    html.P("PPG", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].PPG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -670,10 +635,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("RPG",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].RPG.values[0],
+                                    html.P("RPG", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].RPG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -684,10 +647,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("APG",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[
-                                        data - 1]].APG.values[0],
+                                    html.P("APG", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]].APG.values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -705,10 +666,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("FG%",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "FG%"].values[0],
+                                    html.P("FG%", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["FG%"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -719,10 +678,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("FG3%",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "FG3%"].values[
+                                    html.P("FG3%", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["FG3%"].values[
                                         0
                                     ],
                                 ],
@@ -735,10 +692,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("FT%",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "FT_PCT"].values[
+                                    html.P("FT%", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["FT_PCT"].values[
                                         0
                                     ],
                                 ],
@@ -756,10 +711,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("STL",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "STL"].values[0],
+                                    html.P("STL", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["STL"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -770,10 +723,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("BLK",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "BLK"].values[0],
+                                    html.P("BLK", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["BLK"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -784,10 +735,8 @@ def player_performance(data, team=team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("TOV",
-                                           style={"font-weight": "bold"}),
-                                    per[per.NAME == hs.NAME[data - 1]][
-                                        "TOV"].values[0],
+                                    html.P("TOV", style={"font-weight": "bold"}),
+                                    per[per.NAME == hs.NAME[data - 1]]["TOV"].values[0],
                                 ],
                                 className="p-card-stats-card",
                             )
@@ -802,8 +751,7 @@ def player_performance(data, team=team_):
     )
 
 
-@app.callback(Output("placeholder96", "children"),
-              [Input("worth-id24", "data")])
+@app.callback(Output("placeholder96", "children"), [Input("worth-id24", "data")])
 def player_worth(data, team=team_):
     if data == "":
         data = 1

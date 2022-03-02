@@ -201,8 +201,7 @@ layout = dbc.Container(
                     )
                 ),
                 dbc.Col(
-                    html.A([html.Div(create_card("utah-jazz"))],
-                           href="/utah_jazz")
+                    html.A([html.Div(create_card("utah-jazz"))], href="/utah_jazz")
                 ),
                 dbc.Col(
                     html.A(

@@ -27,8 +27,7 @@ def create_card(t_name):
     image = app.get_asset_url(f"logos/NBA-{t_name}-Logo.png")
     return dbc.Card(
         [dbc.CardImg(src=image, top=True)],
-        style={"display": "flex", "justify-content": "center",
-               "align-items": "center"},
+        style={"display": "flex", "justify-content": "center", "align-items": "center"},
         outline=False,
         className="team_logo",
     )
@@ -42,19 +41,15 @@ def headshotCards(team):
     per.dropna(inplace=True)
     links = glob.glob(f"dashboard/assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
-    try:
-        files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
-        names = (
-            per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
-                .sort_values(by="PER", ascending=False)[:5]
-                .reset_index(drop=True)[["NAME", "PER"]]
-        )
-        return names.merge(files, on="NAME", how="left").sort_values(
-            by="PER", ascending=False
-        )
-    except IndexError:
-        print(team)
-        pass
+    files["NAME"] = files.LINK.apply(lambda x: x.split("\\")[1][:-4])
+    names = (
+        per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
+        .sort_values(by="PER", ascending=False)[:5]
+        .reset_index(drop=True)[["NAME", "PER"]]
+    )
+    return names.merge(files, on="NAME", how="left").sort_values(
+        by="PER", ascending=False
+    )
 
 
 def drawFigure(col_name, static, title, team, range=(650, 1300)):
@@ -109,8 +104,7 @@ def drawStats(team, player):
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
     per["RPG"] = np.round(per["REB"] / per["GP"], 2)
     per["APG"] = np.round(per["AST"] / per["GP"], 2)
-    per = per[["NAME", "PPG", "PER"]].sort_values(by="PER",
-                                                  ascending=False).iloc[:5]
+    per = per[["NAME", "PPG", "PER"]].sort_values(by="PER", ascending=False).iloc[:5]
     return dbc.Row(
         [
             dbc.Col(
@@ -314,7 +308,7 @@ def drawCard(team, no):
                 },
             ),
             html.Img(
-                src=hs.LINK[no][10:].replace('\\', '/'),
+                src=hs.LINK[no][10:].replace("\\", "/"),
                 width=188,
                 height=137,
                 style={"max-height": "100%", "max-width": "100%"},
@@ -330,8 +324,7 @@ def top_card(text, id):
     return [
         dbc.CardBody(
             [
-                html.P(text, className="card-text",
-                       style={"font-weight": "bold"}),
+                html.P(text, className="card-text", style={"font-weight": "bold"}),
             ],
             id=id,
         ),
@@ -350,8 +343,7 @@ def next_game(team):
     schedule.Away = schedule.Away.apply(fix_team_names)
     schedule.Home = schedule.Home.apply(fix_team_names)
     # sorted(schedule.Away.unique())
-    schedule = schedule[
-        (schedule.Away == team) | (schedule.Home == team)].sort_values(
+    schedule = schedule[(schedule.Away == team) | (schedule.Home == team)].sort_values(
         by="date"
     )
     next_game = schedule.iloc[0]
@@ -369,25 +361,21 @@ def matchup_info(team_):
     standings = pd.read_csv("prep/data/standingsCleaned.csv")
     st_tm = standings[
         (standings.TEAM == team) & (standings.SEASON == "2021-22")
-        ].STREAK.values[0]
+    ].STREAK.values[0]
     st_op = standings[
         (standings.TEAM == opponent) & (standings.SEASON == "2021-22")
-        ].STREAK.values[0]
-    tm_per = \
-    mlready[(mlready.TEAM == team) & (mlready.SEASON == "2021-22")].PER.values[
+    ].STREAK.values[0]
+    tm_per = mlready[(mlready.TEAM == team) & (mlready.SEASON == "2021-22")].PER.values[
         0
     ]
     op_per = mlready[
         (mlready.TEAM == opponent) & (mlready.SEASON == "2021-22")
-        ].PER.values[0]
+    ].PER.values[0]
     tm_elo = int(
-        mlready[
-            (mlready.TEAM == team) & (mlready.SEASON == "2021-22")].ELO.values[
-            0]
+        mlready[(mlready.TEAM == team) & (mlready.SEASON == "2021-22")].ELO.values[0]
     )
     op_elo = int(
-        mlready[(mlready.TEAM == opponent) & (
-                    mlready.SEASON == "2021-22")].ELO.values[
+        mlready[(mlready.TEAM == opponent) & (mlready.SEASON == "2021-22")].ELO.values[
             0
         ]
     )
@@ -395,8 +383,7 @@ def matchup_info(team_):
         [
             html.P(
                 "Next Match",
-                style={"font-family": "Inter, sans-serif",
-                       "margin-top": "10px"},
+                style={"font-family": "Inter, sans-serif", "margin-top": "10px"},
             ),
             html.Div(
                 html.H3(
@@ -416,8 +403,7 @@ def matchup_info(team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("Win",
-                                           style={"font-weight": "bold"}),
+                                    html.P("Win", style={"font-weight": "bold"}),
                                     f"{int(winproba_df.iloc[0:, 0].values[0] * 100)}% - {int(winproba_df.iloc[0:, 1].values[0] * 100)}%",
                                 ],
                                 className="matchup-card-stats",
@@ -430,8 +416,7 @@ def matchup_info(team_):
                             dbc.Card(
                                 [
                                     html.P(
-                                        "Average PERs",
-                                        style={"font-weight": "bold"}
+                                        "Average PERs", style={"font-weight": "bold"}
                                     ),
                                     f"{tm_per} - {op_per}",
                                 ],
@@ -444,8 +429,7 @@ def matchup_info(team_):
                         [
                             dbc.Card(
                                 [
-                                    html.P("Team ELOs",
-                                           style={"font-weight": "bold"}),
+                                    html.P("Team ELOs", style={"font-weight": "bold"}),
                                     f"{tm_elo} - {op_elo}",
                                 ],
                                 className="matchup-card-stats",
@@ -458,8 +442,7 @@ def matchup_info(team_):
                             dbc.Card(
                                 [
                                     html.P(
-                                        "Win Streaks",
-                                        style={"font-weight": "bold"}
+                                        "Win Streaks", style={"font-weight": "bold"}
                                     ),
                                     f"{st_tm} - {st_op}",
                                 ],
@@ -482,8 +465,8 @@ def current_team_stats(team):
     standings = pd.read_csv("prep/data/standingsCleaned.csv")
     st_tm = (
         standings[(standings.SEASON == "2021-22")]
-            .sort_values(by="WIN%", ascending=False)
-            .reset_index(drop=True)
+        .sort_values(by="WIN%", ascending=False)
+        .reset_index(drop=True)
     )
     st_tm["RANK"] = st_tm.index + 1
     st_tm = st_tm[["RANK", "TEAM", "W", "L", "LAST 10"]]
@@ -491,7 +474,7 @@ def current_team_stats(team):
     if idx in list(range(0, 10)):
         st_tm = st_tm.iloc[:10]
     else:
-        st_tm = st_tm.iloc[idx - 6: idx + 4]
+        st_tm = st_tm.iloc[idx - 6 : idx + 4]
     return dash_table.DataTable(
         data=st_tm.to_dict("records"),
         columns=[{"name": i, "id": i} for i in st_tm.columns],
@@ -524,8 +507,8 @@ def team_schedule(team):
     schedule.Home = schedule.Home.apply(fix_team_names)
     schedule = (
         schedule[(schedule.Away == team) | (schedule.Home == team)]
-            .sort_values(by="date")
-            .iloc[:10]
+        .sort_values(by="date")
+        .iloc[:10]
     )
     schedule = schedule.rename(columns={"date": "Date"})
 
@@ -691,8 +674,7 @@ def team_segmentation(team):
         showlegend=False,
     )
 
-    fig.update_scenes(xaxis_visible=False, yaxis_visible=False,
-                      zaxis_visible=False)
+    fig.update_scenes(xaxis_visible=False, yaxis_visible=False, zaxis_visible=False)
     return dbc.Card(
         [
             dcc.Graph(
@@ -710,8 +692,8 @@ def elo_history(team):
     elo_ts = pd.read_csv("prep/data/save_elo_ts.csv")
     elo_ts = (
         elo_ts.merge(all_teams, left_on=["TEAM_ID"], right_on="id")
-            .drop(["id", "TEAM_ID"], axis=1)
-            .sort_values(by="DATE")
+        .drop(["id", "TEAM_ID"], axis=1)
+        .sort_values(by="DATE")
     )
     elo_ts = elo_ts[elo_ts.full_name == team]
     max_elo = elo_ts.loc[elo_ts.ELO == elo_ts.ELO.max(), ["DATE", "ELO"]]
@@ -771,10 +753,8 @@ def player_history(team):
     per = per[(per.TEAM == team)]
     agg_per = per.groupby("SEASON_ID").PER.mean().reset_index()
     agg_per.SEASON_ID = agg_per.SEASON_ID.apply(lambda x: int(x[:4]))
-    max_per = agg_per.loc[
-        agg_per.PER == agg_per.PER.max(), ["SEASON_ID", "PER"]]
-    min_per = agg_per.loc[
-        agg_per.PER == agg_per.PER.min(), ["SEASON_ID", "PER"]]
+    max_per = agg_per.loc[agg_per.PER == agg_per.PER.max(), ["SEASON_ID", "PER"]]
+    min_per = agg_per.loc[agg_per.PER == agg_per.PER.min(), ["SEASON_ID", "PER"]]
     fig = px.line(data_frame=agg_per, x="SEASON_ID", y="PER", line_shape="hvh")
     fig.update_layout(
         plot_bgcolor="rgba(0, 0, 0, 0)",
@@ -843,8 +823,7 @@ def draw_kmeans():
         showlegend=False,
     )
 
-    fig.update_scenes(xaxis_visible=False, yaxis_visible=False,
-                      zaxis_visible=False)
+    fig.update_scenes(xaxis_visible=False, yaxis_visible=False, zaxis_visible=False)
     return dbc.Card(
         [
             dcc.Graph(
@@ -862,7 +841,7 @@ def kmeans_table():
     segments["Segment"] = segments["Segment"].astype(str)
     agg_df = (
         segments.groupby("Segment")
-            .agg(
+        .agg(
             {
                 "AGE": "mean",
                 "PTS": "mean",
@@ -872,11 +851,10 @@ def kmeans_table():
                 "NAME": "count",
             }
         )
-            .rename(columns={"NAME": "COUNT"})
-            .reindex(
-            ["Best", "Overperforming", "Average", "Underperforming", "Worst"])
-            .round(2)
-            .reset_index()
+        .rename(columns={"NAME": "COUNT"})
+        .reindex(["Best", "Overperforming", "Average", "Underperforming", "Worst"])
+        .round(2)
+        .reset_index()
     )
     return dash_table.DataTable(
         data=agg_df.to_dict("records"),
@@ -904,8 +882,7 @@ def segment_treemap():
     names = segments["NAME"].to_list()
     parents = segments["Segment"].to_list()
     fig = px.treemap(
-        data_frame=segments, path=["Segment", "POS", "TEAM", "NAME"],
-        values="PER"
+        data_frame=segments, path=["Segment", "POS", "TEAM", "NAME"], values="PER"
     )
     fig.update_traces(root_color="rgba(0, 0, 0, 0)")
     fig.update_layout(
