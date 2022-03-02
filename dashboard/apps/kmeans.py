@@ -13,7 +13,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
 
-from dashboard.app import app
+from app import app
 from dashboard.func import draw_kmeans, kmeans_table, segment_treemap
 from dashboard.helpers import fix_team_names
 

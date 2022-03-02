@@ -7,7 +7,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 from waitress import serve
-from dashboard.app import app, server
+from app import app, server
 from dashboard.apps import (
     atlanta_hawks,
     boston_celtics,

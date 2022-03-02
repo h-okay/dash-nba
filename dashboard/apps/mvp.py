@@ -14,7 +14,7 @@ from dash import html
 from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
 
-from dashboard.app import app
+from app import app
 from dashboard.helpers import fix_team_names
 
 layout = dbc.Container(

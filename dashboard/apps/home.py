@@ -5,7 +5,7 @@ from dash import Dash
 from dash import dcc
 from dash import html
 
-from dashboard.app import app
+from app import app
 from dashboard.func import create_card
 
 layout = dbc.Container(
