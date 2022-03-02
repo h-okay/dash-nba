@@ -41,6 +41,7 @@ def headshotCards(team):
     per.dropna(inplace=True)
     links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
+    print(files)
     temp = [val.split("\\")[1][:-4].strip() for val in files.LINK.to_list()]
     files["NAME"] = temp
     names = (

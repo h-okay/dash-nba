@@ -490,5 +490,5 @@ def render_page_content(pathname):
 
 if __name__ == "__main__":
     # waitress-serve --listen=*:8050 dashboard.app:app
-    serve(server, host="0.0.0.0", port=8050)
-    # app.run_server(debug=True)
+    # serve(server, host="0.0.0.0", port=8050)
+    app.run_server(debug=True)
