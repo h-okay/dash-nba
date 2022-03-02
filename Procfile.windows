@@ -1,1 +1,1 @@
-web: gunicorn --port=$PORT index:server
+web: gunicorn index:server
