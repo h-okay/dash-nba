@@ -8,7 +8,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import os
-
+from app import app, server
 
 from func import (
     headshotCards,

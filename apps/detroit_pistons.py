@@ -8,7 +8,8 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import os
-import pathlib
+from app import app, server
+
 
 from app import app
 PATH = pathlib.Path(__file__).parent()

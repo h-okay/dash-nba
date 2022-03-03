@@ -5,9 +5,7 @@
 # from dash import callback_context
 # from func import layout_generator
 #
-# PATH = pathlib.Path(__file__)
-DATA_PATH = PATH.joinpath("../prep/data").resolve()
-EST_PATH = PATH.joinpath("../prep/estimations").resolve()
+# 
 pd.read_csv("prep/data/merged.csv")
 # hs, n_buttons, team_, layout = layout_generator(trigger["prop_id"].split(".")[0].split("-")[-1])
 #

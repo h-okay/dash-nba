@@ -4,7 +4,8 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import os
-import pathlib
+from app import app, server
+
 from dash_bootstrap_components import Button
 
 from app import app

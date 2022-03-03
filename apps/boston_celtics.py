@@ -8,11 +8,10 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import os
-import pathlib
+from app import app, server
 
-PATH = pathlib.Path(__file__)
-DATA_PATH = PATH.joinpath("../prep/data").resolve()
-EST_PATH = PATH.joinpath("../prep/estimations").resolve()
+
+
 
 from func import (
     headshotCards,
