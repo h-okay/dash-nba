@@ -8,11 +8,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import os
-import pathlib
 
-PATH = pathlib.Path(__file__).parent()
-DATA_PATH = PATH.joinpath("../prep/data").resolve()
-EST_PATH = PATH.joinpath("../prep/estimations").resolve()
 
 from func import (
     headshotCards,
@@ -240,9 +236,9 @@ def player_performance(data, team=team_):
         data = 1
     else:
         data = int(data)
-    merged = pd.read_csv(DATA_PATH.joinpath("merged.csv"))
+    merged = pd.read_csv("prep/data/merged.csv")
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
@@ -282,7 +278,7 @@ def player_performance(data, team=team_):
     ].sort_values(by="NAME")
     per = per.reset_index(drop=True)
     hs = hs.reset_index(drop=True)
-    forecast = pd.read_csv(EST_PATH.joinpath("perf_forecast.csv"))
+    forecast = pd.read_csv("prep/estimations/perf_forecast.csv")
     forecast.columns
     p_select = hs.NAME[data - 1]
     forecast = forecast[(forecast.NAME == p_select)]
@@ -459,7 +455,7 @@ def per_forecast(data, team=team_):
         data = 1
     else:
         data = int(data)
-    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
         drop=True
@@ -472,7 +468,7 @@ def per_forecast(data, team=team_):
     per = per[["NAME", "PPG", "PER", "RPG", "APG", "MPG"]].sort_values(by="NAME")
     per = per.reset_index(drop=True)
     hs = hs.reset_index(drop=True)
-    forecast = pd.read_csv(EST_PATH.joinpath("perf_forecast.csv"))
+    forecast = pd.read_csv("prep/estimations/perf_forecast.csv")
     p_select = hs.NAME[data - 1]
     forecast = forecast[(forecast.NAME == p_select)]
     forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
@@ -527,9 +523,9 @@ def player_performance(data, team=team_):
         data = 1
     else:
         data = int(data)
-    merged = pd.read_csv(DATA_PATH.joinpath("merged.csv"))
+    merged = pd.read_csv("prep/data/merged.csv")
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
@@ -569,7 +565,7 @@ def player_performance(data, team=team_):
     ].sort_values(by="NAME")
     per = per.reset_index(drop=True)
     hs = hs.reset_index(drop=True)
-    forecast = pd.read_csv(EST_PATH.joinpath("perf_forecast.csv"))
+    forecast = pd.read_csv("prep/estimations/perf_forecast.csv")
     p_select = hs.NAME[data - 1]
     forecast = forecast[(forecast.NAME == p_select)]
     forecast["SEASON"] = forecast.SEASON_ID.apply(lambda x: int(x[:4]) + 1)
@@ -745,14 +741,14 @@ def player_worth(data, team=team_):
         data = 1
     else:
         data = int(data)
-    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
+    per = pd.read_csv("prep/data/per.csv")
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     names = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")].reset_index(
         drop=True
     )[["NAME", "PER"]]
     hs = names.sort_values(by="NAME").reset_index(drop=True)
     p_select = hs.NAME[data - 1]
-    salaries = pd.read_csv(DATA_PATH.joinpath("salaries.csv"))
+    salaries =pd.read_csv("prep/data/salaries.csv")
     salaries.TEAM = salaries.TEAM.apply(fix_team_names)
     salaries = salaries[(salaries.NAME == p_select)]
     salmax = salaries.SALARY.max()
