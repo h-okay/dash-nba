@@ -6,6 +6,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import requests
 from bs4 import BeautifulSoup
 from dash import Dash
@@ -406,7 +407,7 @@ def matchup_info(team_):
                             dbc.Card(
                                 [
                                     html.P("Win", style={"font-weight": "bold"}),
-                                    f"{int(winproba_df.iloc[0:, 0].values[0] * 100)}% - {int(winproba_df.iloc[0:, 1].values[0] * 100)}%",
+                                    f"{100 - int(winproba_df.iloc[0:, 1].values[0] * 100)}% - {int(winproba_df.iloc[0:, 1].values[0] * 100)}%",
                                 ],
                                 className="matchup-card-stats",
                             )
@@ -904,3 +905,190 @@ def segment_treemap():
         ],
         className="shadow-card",
     )
+
+
+def layout_generator(team):
+    hs = headshotCards(team)
+    n_buttons = get_button_count(team)
+    team_ = team
+    layout = dbc.Container(
+        [
+            dcc.Store(id="store-id"),
+            dcc.Store(id="worth-id"),
+            html.H2(["TEAM"], id="team"),
+            html.Hr(),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        dbc.Card(
+                            dbc.Card(
+                                top_card(
+                                    f"Team Worth: {team_worth(team)} $",
+                                    "worth-cardbody",
+                                ),
+                                color="success",
+                                inverse=True,
+                            ),
+                            id="worth-card",
+                        ),
+                        id="worth",
+                        width=6,
+                        align="center",
+                    ),
+                    dbc.Col(
+                        dbc.Card(
+                            dbc.Card(
+                                top_card(
+                                    "Devin Booker and Chris Paul named NBA All-Stars",
+                                    "news-card-body",
+                                ),
+                                color="danger",
+                                inverse=True,
+                            ),
+                            id="worth-card",
+                        ),
+                        id="worth",
+                        width=6,
+                        align="center",
+                    ),
+                ],
+                align="center",
+                id="worth-row",
+            ),
+            html.Br(),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            dbc.CardBody(
+                                [
+                                    drawCard(team, 0),
+                                    drawCard(team, 1),
+                                    drawCard(team, 2),
+                                    drawCard(team, 3),
+                                    drawCard(team, 4),
+                                ],
+                                id="PlayerCard",
+                            )
+                        ],
+                        width=6,
+                    ),
+                    dbc.Col(
+                        [
+                            matchup_info(team),
+                            dbc.Card(current_team_stats(team),
+                                     id="table-card"),
+                        ],
+                        width=6,
+                    ),
+                ],
+                id="second-row",
+            ),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["SCHEDULE"], id="schedule"),
+            html.Hr(),
+            dbc.Row(
+                [dbc.Col([dbc.Card(team_schedule(team),
+                                   id="table-card2")])]
+            ),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["PLAYER PERFORMANCES"], id="p_performance"),
+            html.Hr(),
+            dbc.Row([dbc.Col(
+                [dbc.Card(player_perf(team), id="table-card3")])]),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["PERFORMANCE FORECAST"], id="f_performance"),
+            html.Hr(),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                performance_forecast_buttons(team),
+                                id="forecast-card",
+                                className="shadow-card",
+                            )
+                        ],
+                        width=12,
+                    ),
+                ]
+            ),
+            dbc.Row(
+                [
+                    dbc.Col(children=[], width=3, id="placeholder1"),
+                    dbc.Col(children=[], width=9, id="placeholder2"),
+                ]
+            ),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["PLAYER WORTH"], id="p_worth"),
+            html.Hr(),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                worth_forecast_buttons(team),
+                                id="salary-nav",
+                                className="shadow-card",
+                            )
+                        ]
+                    )
+                ]
+            ),
+            dbc.Row(
+                [
+                    dbc.Col([], id="placeholder3", width=3),
+                    dbc.Col([], id="placeholder4", width=9),
+                ],
+            ),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["PLAYER SEGMENTATION"], id="p_segment"),
+            html.Hr(),
+            dbc.Row([dbc.Col([team_segmentation(team)])]),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["PLAYER HISTORY"], id="player_history"),
+            html.Hr(),
+            dbc.Row([dbc.Col([player_history(team)])]),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.Br(),
+            html.H2(["TEAM HISTORY"], id="elo_history"),
+            html.Hr(),
+            dbc.Row([dbc.Col([elo_history(team)])]),
+        ],
+        className="team-page-container",
+    )
+    return hs, n_buttons, team_, layout

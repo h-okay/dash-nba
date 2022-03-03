@@ -28,13 +28,20 @@ from apps import (
     philadelphia_76ers,
     phoenix_suns,
     sacramento_kings,
+    toronto_raptors,
+    new_orleans_pelicans,
+    chicago_bulls,
     san_antonio_spurs,
+    portland_trail_blazers,
+    utah_jazz,
+    kmeans,
     washington_wizards,
     mvp,
     champion,
 )
-from apps import toronto_raptors, new_orleans_pelicans, chicago_bulls, \
-    portland_trail_blazers, utah_jazz, kmeans
+
+import warnings
+warnings.filterwarnings("ignore")
 
 from assets.style import (
     SIDEBAR_STYLE,
@@ -278,6 +285,7 @@ navbar = dbc.NavbarSimple(
             nav=True,
             in_navbar=True,
             label="Teams",
+            id="nav_dropdown"
         ),
     ],
     color="rgba(5,28,45, 1)",
