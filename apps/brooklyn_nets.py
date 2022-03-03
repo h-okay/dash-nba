@@ -11,12 +11,6 @@ import os
 from app import app, server
 
 
-from app import app
-
-PATH = pathlib.Path(__file__).parent()
-DATA_PATH = PATH.joinpath("../prep/data").resolve()
-EST_PATH = PATH.joinpath("../prep/estimations").resolve()
-
 
 from func import (
     headshotCards,
