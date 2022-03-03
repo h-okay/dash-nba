@@ -165,6 +165,9 @@ html, body {
 
 #news-card-body {
   /* animation properties */
+   white-space: nowrap;
+   overflow: hidden;
+    text-overflow: ellipsis;
   -moz-transform: translateX(100%);
   -webkit-transform: translateX(100%);
   transform: translateX(100%);

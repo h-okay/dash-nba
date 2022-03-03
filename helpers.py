@@ -174,6 +174,8 @@ def fix_team_names(row):
         return "Portland Trail Blazers"
     if row == "Toronto":
         return "Toronto Raptors"
+    if row == "San Antonio":
+        return "San Antonio Spurs"
 
     return row
 

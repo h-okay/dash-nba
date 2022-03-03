@@ -17,17 +17,17 @@ from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
 import os
 import pathlib
+import docx2txt
+import pickle as pkl
 
 
 from app import app
 from prep.scripts.classes import winProbability
 from utils.helpers import fix_team_names
 
-TIMEOUT = 60
 PATH = pathlib.Path(__file__)
 DATA_PATH = PATH.joinpath("../prep/data").resolve()
 EST_PATH = PATH.joinpath("../prep/estimations").resolve()
-pd.read_csv(DATA_PATH.joinpath("merged.csv"))
 
 
 def create_card(t_name):
@@ -697,7 +697,9 @@ def team_segmentation(team):
 
 
 def elo_history(team):
-    all_teams = pd.read_csv(DATA_PATH.joinpath("all_teams.csv")).get(["id", "full_name"])
+    all_teams = pd.read_csv(DATA_PATH.joinpath("all_teams.csv")).get(
+        ["id", "full_name"]
+    )
     elo_ts = pd.read_csv(DATA_PATH.joinpath("save_elo_ts.csv"))
     elo_ts = (
         elo_ts.merge(all_teams, left_on=["TEAM_ID"], right_on="id")
@@ -757,7 +759,9 @@ def elo_history(team):
 
 
 def player_history(team):
-    all_teams = pd.read_csv(DATA_PATH.joinpath("all_teams.csv")).get(["id", "full_name"])
+    all_teams = pd.read_csv(DATA_PATH.joinpath("all_teams.csv")).get(
+        ["id", "full_name"]
+    )
     per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per = per[(per.TEAM == team)]
     agg_per = per.groupby("SEASON_ID").PER.mean().reset_index()
@@ -913,188 +917,11 @@ def segment_treemap():
     )
 
 
-def layout_generator(team):
-    hs = headshotCards(team)
-    n_buttons = get_button_count(team)
-    team_ = team
-    layout = dbc.Container(
-        [
-            dcc.Store(id="store-id"),
-            dcc.Store(id="worth-id"),
-            html.H2(["TEAM"], id="team"),
-            html.Hr(),
-            dbc.Row(
-                [
-                    dbc.Col(
-                        dbc.Card(
-                            dbc.Card(
-                                top_card(
-                                    f"Team Worth: {team_worth(team)} $",
-                                    "worth-cardbody",
-                                ),
-                                color="success",
-                                inverse=True,
-                            ),
-                            id="worth-card",
-                        ),
-                        id="worth",
-                        width=6,
-                        align="center",
-                    ),
-                    dbc.Col(
-                        dbc.Card(
-                            dbc.Card(
-                                top_card(
-                                    "Devin Booker and Chris Paul named NBA All-Stars",
-                                    "news-card-body",
-                                ),
-                                color="danger",
-                                inverse=True,
-                            ),
-                            id="worth-card",
-                        ),
-                        id="worth",
-                        width=6,
-                        align="center",
-                    ),
-                ],
-                align="center",
-                id="worth-row",
-            ),
-            html.Br(),
-            dbc.Row(
-                [
-                    dbc.Col(
-                        [
-                            dbc.CardBody(
-                                [
-                                    drawCard(team, 0),
-                                    drawCard(team, 1),
-                                    drawCard(team, 2),
-                                    drawCard(team, 3),
-                                    drawCard(team, 4),
-                                ],
-                                id="PlayerCard",
-                            )
-                        ],
-                        width=6,
-                    ),
-                    dbc.Col(
-                        [
-                            matchup_info(team),
-                            dbc.Card(current_team_stats(team),
-                                     id="table-card"),
-                        ],
-                        width=6,
-                    ),
-                ],
-                id="second-row",
-            ),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["SCHEDULE"], id="schedule"),
-            html.Hr(),
-            dbc.Row(
-                [dbc.Col([dbc.Card(team_schedule(team),
-                                   id="table-card2")])]
-            ),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["PLAYER PERFORMANCES"], id="p_performance"),
-            html.Hr(),
-            dbc.Row([dbc.Col(
-                [dbc.Card(player_perf(team), id="table-card3")])]),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["PERFORMANCE FORECAST"], id="f_performance"),
-            html.Hr(),
-            dbc.Row(
-                [
-                    dbc.Col(
-                        [
-                            dbc.Card(
-                                performance_forecast_buttons(team),
-                                id="forecast-card",
-                                className="shadow-card",
-                            )
-                        ],
-                        width=12,
-                    ),
-                ]
-            ),
-            dbc.Row(
-                [
-                    dbc.Col(children=[], width=3, id="placeholder1"),
-                    dbc.Col(children=[], width=9, id="placeholder2"),
-                ]
-            ),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["PLAYER WORTH"], id="p_worth"),
-            html.Hr(),
-            dbc.Row(
-                [
-                    dbc.Col(
-                        [
-                            dbc.Card(
-                                worth_forecast_buttons(team),
-                                id="salary-nav",
-                                className="shadow-card",
-                            )
-                        ]
-                    )
-                ]
-            ),
-            dbc.Row(
-                [
-                    dbc.Col([], id="placeholder3", width=3),
-                    dbc.Col([], id="placeholder4", width=9),
-                ],
-            ),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["PLAYER SEGMENTATION"], id="p_segment"),
-            html.Hr(),
-            dbc.Row([dbc.Col([team_segmentation(team)])]),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["PLAYER HISTORY"], id="player_history"),
-            html.Hr(),
-            dbc.Row([dbc.Col([player_history(team)])]),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.Br(),
-            html.H2(["TEAM HISTORY"], id="elo_history"),
-            html.Hr(),
-            dbc.Row([dbc.Col([elo_history(team)])]),
-        ],
-        className="team-page-container",
-    )
-    return hs, n_buttons, team_, layout
+def news(team):
+    path_ = DATA_PATH.joinpath("news.pkl")
+    with open(path_, "rb") as file:
+        news = pkl.load(file)
+    try:
+        return news[team][1]
+    except (KeyError, IndexError):
+        return f"{team} news needs to be updated..."

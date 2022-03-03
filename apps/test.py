@@ -5,8 +5,8 @@
 # from dash import callback_context
 # from func import layout_generator
 #
-# 
-pd.read_csv("prep/data/merged.csv")
+#
+pd.read_csv(DATA_PATH.joinpath("merged.csv"))
 # hs, n_buttons, team_, layout = layout_generator(trigger["prop_id"].split(".")[0].split("-")[-1])
 #
 # app.layout = dbc.Container(

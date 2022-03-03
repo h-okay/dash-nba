@@ -41,6 +41,7 @@ from apps import (
 )
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 from assets.style import (
@@ -285,7 +286,7 @@ navbar = dbc.NavbarSimple(
             nav=True,
             in_navbar=True,
             label="Teams",
-            id="nav_dropdown"
+            id="nav_dropdown",
         ),
     ],
     color="rgba(5,28,45, 1)",
@@ -494,9 +495,10 @@ def render_page_content(pathname):
         return utah_jazz.layout
     elif pathname == "/washington_wizards":
         return washington_wizards.layout
+    else:
+        return "Page not found."
 
 
 if __name__ == "__main__":
-    # waitress-serve --listen=*:8050 dashboard.app:app
     # serve(server, host="0.0.0.0", port=8050)
     app.run_server(debug=True)

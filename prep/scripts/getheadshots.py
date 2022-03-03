@@ -103,6 +103,8 @@ def convert_to_png():
         links = glob.glob(f"dashboard/assets/{team}/*.jpg")
         for link in links:
             os.remove(link)
+
+
 #
 #
 # if __name__ == "__main__":
