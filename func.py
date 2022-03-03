@@ -17,7 +17,6 @@ from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
 import os
 import pathlib
-import docx2txt
 import pickle as pkl
 
 
