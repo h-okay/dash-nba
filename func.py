@@ -16,12 +16,18 @@ from dash import html
 from dash.dependencies import Input, Output, State
 from dash_bootstrap_components import Button
 import os
+import pathlib
+
 
 from app import app
 from prep.scripts.classes import winProbability
 from utils.helpers import fix_team_names
 
 TIMEOUT = 60
+PATH = pathlib.Path(__file__)
+DATA_PATH = PATH.joinpath("../prep/data").resolve()
+EST_PATH = PATH.joinpath("../prep/estimations").resolve()
+pd.read_csv(DATA_PATH.joinpath("merged.csv"))
 
 
 def create_card(t_name):
@@ -36,9 +42,9 @@ def create_card(t_name):
 
 
 def headshotCards(team):
-    merged = pd.read_csv("prep/data/merged.csv")
+    merged = pd.read_csv(DATA_PATH.joinpath("merged.csv"))
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
-    per = pd.read_csv("prep/data/per.csv")
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per.dropna(inplace=True)
     links = glob.glob(f"assets/{team}/*")
@@ -56,7 +62,7 @@ def headshotCards(team):
 
 
 def drawFigure(col_name, static, title, team, range=(650, 1300)):
-    mlready = pd.read_csv("prep/data/mlready.csv")
+    mlready = pd.read_csv(DATA_PATH.joinpath("mlready.csv"))
     mlready.SEASON = mlready.SEASON.apply(lambda x: int(x[:4]))
     mlready = mlready[mlready.TEAM == team]
     fig = px.area(
@@ -101,7 +107,7 @@ def drawFigure(col_name, static, title, team, range=(650, 1300)):
 
 
 def drawStats(team, player):
-    per = pd.read_csv("prep/data/per.csv")
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
@@ -142,7 +148,7 @@ def drawStats(team, player):
 
 
 def team_perf(team):
-    mlready = pd.read_csv("prep/data/mlready.csv")
+    mlready = pd.read_csv(DATA_PATH.joinpath("mlready.csv"))
     mlready = mlready[(mlready.TEAM == team) & (mlready.SEASON == "2021-22")]
     mlready["GP"] = mlready["W"] + mlready["L"]
     mlready["FG%"] = np.round(mlready["FGM"] / mlready["FGA"] * 100, 2)
@@ -335,14 +341,14 @@ def top_card(text, id):
 
 
 def team_worth(team):
-    temp = pd.read_csv("prep/data/salaries.csv")
+    temp = pd.read_csv(DATA_PATH.joinpath("salaries.csv"))
     temp = temp[(temp.TEAM == team) & (temp.YEAR == 2021)]
     total = temp.SALARY.sum()
     return "{:,}".format(total)
 
 
 def next_game(team):
-    schedule = pd.read_csv("prep/data/schedule.csv")
+    schedule = pd.read_csv(DATA_PATH.joinpath("schedule.csv"))
     schedule.Away = schedule.Away.apply(fix_team_names)
     schedule.Home = schedule.Home.apply(fix_team_names)
     # sorted(schedule.Away.unique())
@@ -360,8 +366,8 @@ def matchup_info(team_):
     wp.prep()
     winproba_df = wp.get_prediction()
     team, opponent = next_game(team_)
-    mlready = pd.read_csv("prep/data/mlready.csv")
-    standings = pd.read_csv("prep/data/standingsCleaned.csv")
+    mlready = pd.read_csv(DATA_PATH.joinpath("mlready.csv"))
+    standings = pd.read_csv(DATA_PATH.joinpath("standingsCleaned.csv"))
     st_tm = standings[
         (standings.TEAM == team) & (standings.SEASON == "2021-22")
     ].STREAK.values[0]
@@ -465,7 +471,7 @@ def matchup_info(team_):
 
 
 def current_team_stats(team):
-    standings = pd.read_csv("prep/data/standingsCleaned.csv")
+    standings = pd.read_csv(DATA_PATH.joinpath("standingsCleaned.csv"))
     st_tm = (
         standings[(standings.SEASON == "2021-22")]
         .sort_values(by="WIN%", ascending=False)
@@ -505,7 +511,7 @@ def current_team_stats(team):
 
 
 def team_schedule(team):
-    schedule = pd.read_csv("prep/data/schedule.csv")
+    schedule = pd.read_csv(DATA_PATH.joinpath("schedule.csv"))
     schedule.Away = schedule.Away.apply(fix_team_names)
     schedule.Home = schedule.Home.apply(fix_team_names)
     schedule = (
@@ -536,7 +542,7 @@ def team_schedule(team):
 
 
 def player_perf(team):
-    per = pd.read_csv("prep/data/per.csv")
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per["PPG"] = np.round(per["PTS"] / per["GP"], 2)
@@ -606,7 +612,7 @@ def player_perf(team):
 
 
 def performance_forecast_buttons(team):
-    per = pd.read_csv("prep/data/per.csv")
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per = per.reset_index()
@@ -627,7 +633,7 @@ def performance_forecast_buttons(team):
 
 
 def worth_forecast_buttons(team):
-    per = pd.read_csv("prep/data/per.csv")
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     per = per.reset_index()
@@ -648,14 +654,14 @@ def worth_forecast_buttons(team):
 
 
 def get_button_count(team):
-    per = pd.read_csv("prep/data/per.csv")
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
     per = per[(per.TEAM == team) & (per.SEASON_ID == "2021-22")]
     return len(sorted(per.NAME.unique()))
 
 
 def team_segmentation(team):
-    segments = pd.read_csv("prep/estimations/segmentation.csv")
+    segments = pd.read_csv(EST_PATH.joinpath("segmentation.csv"))
     segments["Segment"] = segments["Segment"].astype(str)
     fig = px.scatter_3d(
         segments,
@@ -691,8 +697,8 @@ def team_segmentation(team):
 
 
 def elo_history(team):
-    all_teams = pd.read_csv("prep/data/all_teams.csv").get(["id", "full_name"])
-    elo_ts = pd.read_csv("prep/data/save_elo_ts.csv")
+    all_teams = pd.read_csv(DATA_PATH.joinpath("all_teams.csv")).get(["id", "full_name"])
+    elo_ts = pd.read_csv(DATA_PATH.joinpath("save_elo_ts.csv"))
     elo_ts = (
         elo_ts.merge(all_teams, left_on=["TEAM_ID"], right_on="id")
         .drop(["id", "TEAM_ID"], axis=1)
@@ -751,8 +757,8 @@ def elo_history(team):
 
 
 def player_history(team):
-    all_teams = pd.read_csv("prep/data/all_teams.csv").get(["id", "full_name"])
-    per = pd.read_csv("prep/data/per.csv")
+    all_teams = pd.read_csv(DATA_PATH.joinpath("all_teams.csv")).get(["id", "full_name"])
+    per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per = per[(per.TEAM == team)]
     agg_per = per.groupby("SEASON_ID").PER.mean().reset_index()
     agg_per.SEASON_ID = agg_per.SEASON_ID.apply(lambda x: int(x[:4]))
@@ -808,7 +814,7 @@ def player_history(team):
 
 
 def draw_kmeans():
-    segments = pd.read_csv("prep/estimations/segmentation.csv")
+    segments = pd.read_csv(EST_PATH.joinpath("segmentation.csv"))
     segments["Segment"] = segments["Segment"].astype(str)
     fig = px.scatter_3d(
         segments,
@@ -840,7 +846,7 @@ def draw_kmeans():
 
 
 def kmeans_table():
-    segments = pd.read_csv("prep/estimations/segmentation.csv")
+    segments = pd.read_csv(EST_PATH.joinpath("segmentation.csv"))
     segments["Segment"] = segments["Segment"].astype(str)
     agg_df = (
         segments.groupby("Segment")
@@ -880,7 +886,7 @@ def kmeans_table():
 
 
 def segment_treemap():
-    segments = pd.read_csv("prep/estimations/segmentation.csv")
+    segments = pd.read_csv(EST_PATH.joinpath("segmentation.csv"))
     segments["Segment"] = segments["Segment"].astype(str)
     names = segments["NAME"].to_list()
     parents = segments["Segment"].to_list()
