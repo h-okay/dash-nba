@@ -10,10 +10,7 @@ from app import app, server
 
 from dash_bootstrap_components import Button
 
-from app import app
-PATH = pathlib.Path(__file__).parent()
-DATA_PATH = PATH.joinpath("../prep/data").resolve()
-EST_PATH = PATH.joinpath("../prep/estimations").resolve()
+
 
 layout = dbc.Container(
     [
