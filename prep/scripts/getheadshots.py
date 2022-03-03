@@ -103,10 +103,10 @@ def convert_to_png():
         links = glob.glob(f"dashboard/assets/{team}/*.jpg")
         for link in links:
             os.remove(link)
-
-
-if __name__ == "__main__":
-    print_done("Getting headshots")
-    get_headshots()
-    convert_to_png()
-    print("[DONE]")
+#
+#
+# if __name__ == "__main__":
+#     print_done("Getting headshots")
+#     get_headshots()
+#     convert_to_png()
+#     print("[DONE]")
