@@ -8,6 +8,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import os
+import pathlib
 
 PATH = pathlib.Path(__file__)
 DATA_PATH = PATH.joinpath("../prep/data").resolve()
