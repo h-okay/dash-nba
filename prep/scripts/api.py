@@ -13,7 +13,6 @@ def get_data():
     # Teams
     nba_teams = teams.get_teams()
     all_teams = pd.DataFrame(nba_teams)
-    all_teams[all_teams.id == 1610612763].full_name.values[0]
     all_teams.to_csv("../prep/data/all_teams.csv", index=False)
 
     # -------------------------------------------------------------------------

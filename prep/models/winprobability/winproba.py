@@ -138,7 +138,7 @@ df = df.sort_values(by="DATE").reset_index(drop=True)
 df.DATE = pd.to_datetime(df.DATE)
 df["MONTH"] = df.DATE.dt.month_name()
 df.head() # Takımların o ayki elolarını aylık performans tablasuna merge etme.
-# Buradaki problem bir takımın o ay içinde oynadığı kadar elo değeri geliyor.
+# # Buradaki problem bir takımın o ay içinde oynadığı kadar elo değeri geliyor.
 # Bunun önüne geçmek için aylık sonraki aşamada ortalama alıyoruz.
 #         DATE   SEASON     TEAM_ID     ELO                  TEAM    MONTH
 # 0 2003-10-05  2003-04  1610612762  1416.0             Utah Jazz  October

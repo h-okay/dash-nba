@@ -827,7 +827,7 @@ class MVPForecast:
         ).drop(["W", "L", "Rk_x", "Rk_y", "Tm", "Unnamed: 19", "Unnamed: 24"], axis=1)
 
         self.df_2022 = self.data_2022.get(["W/L%", "WS", "VORP", "PER", "USG%", "BPM"])
-        self.data_2022["Share"] = self.model.predict(self.df_2022)
+        self.data_2022["Predicted_Share"] = self.model.predict(self.df_2022)
         self.data_2022 = self.data_2022.sort_values(
             "Predicted_Share", ascending=False
         ).get(
