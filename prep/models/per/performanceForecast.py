@@ -1,29 +1,52 @@
-# import pandas as pd
-# import glob
-# import os
-# import xgboost as xgb
-# import catboost
-# import lightgbm as lgbm
-# import catboost
-# from sklearn.model_selection import (
-#     train_test_split,
-#     cross_validate,
-#     cross_val_score,
-#     RepeatedKFold,
-# )
-# from sklearn.preprocessing import RobustScaler, StandardScaler, OrdinalEncoder
-# from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
-# from sklearn.metrics import r2_score, mean_squared_error
-# from sklearn.model_selection import cross_validate
-# import numpy as np
-# from tqdm import tqdm
-# import pickle as pkl
-#
-# from utils.helpers import *
-#
-# pd.options.mode.chained_assignment = None
+import pandas as pd
+import glob
+import os
+import xgboost as xgb
+import catboost
+import lightgbm as lgbm
+import catboost
+from sklearn.model_selection import (
+    train_test_split,
+    cross_validate,
+    cross_val_score,
+    RepeatedKFold,
+)
+from sklearn.preprocessing import RobustScaler, StandardScaler, OrdinalEncoder
+from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
+from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.model_selection import cross_validate
+import numpy as np
+from tqdm import tqdm
+import pickle as pkl
 
+from utils.helpers import *
 
+pd.options.mode.chained_assignment = None
+
+# oyuncucunun bir önceki sene gösterdiği performansa bağlı olarak gelecek sezon
+# nasıl bir performans göstereceğini tahmin edebilme amacıyla gerçekleştirilmiştir.
+# oyuncunun geçmiş sezon istatistikleri üzerinden model kurulup
+#                    RMSE        R2
+# CatBoost       1.084792  0.941810 elde edilmiştir.
+# kullanılan değişkenler:
+# AGE
+# GP
+# FG%
+# FG3%
+# FT_PCT
+# OREB
+# DREB
+# REB
+# AST
+# STL
+# BLK
+# TOV
+# PF
+# PTS
+# TEAM
+# MPG
+# PER önceki sene
+# yine data leakage önlemek adına bir sene kaydırma yapılmıştır.
 def get_player_perf_forecast():
     # Import and Process
     print("Import and process...")
@@ -45,9 +68,6 @@ def get_player_perf_forecast():
             "P_ID",
             "TEAM_ID",
             "TEAM_ABBREVIATION",
-            "factor",
-            "vop",
-            "drbp",
             "GS",
             "MIN",
             "FGM",
