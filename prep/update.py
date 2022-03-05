@@ -1,6 +1,6 @@
 import pandas as pd
 from pandas.core.common import SettingWithCopyWarning
-from scripts.classes_update import (
+from prep.scripts.classes_update import (
     playerRating,
     Generators,
     getStandings,
@@ -12,7 +12,7 @@ from scripts.classes_update import (
     MVPForecast,
     print_done,
 )
-from scripts.api import get_data
+from prep.scripts.api import get_data
 from tqdm import tqdm
 
 import warnings

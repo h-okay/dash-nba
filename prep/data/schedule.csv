@@ -1,119 +1,103 @@
 Away,Home,Time / TV,date
-Chicago Bulls,Atlanta Hawks,7:00 pm,2022-03-03
-Memphis Grizzlies,Boston Celtics,7:30 pm  TNT,2022-03-03
-Miami Heat,Brooklyn Nets,7:30 pm,2022-03-03
-Detroit Pistons,Toronto Raptors,7:30 pm,2022-03-03
-Golden State Warriors,Dallas Mavericks,8:30 pm,2022-03-03
-Sacramento Kings,San Antonio Spurs,8:30 pm,2022-03-03
-Los Angeles Lakers,Los Angeles Clippers,10:00 pm  TNT,2022-03-03
-New York Knicks,Phoenix Suns,10:00 pm  ESPN,2022-03-04
-Houston Rockets,Denver Nuggets,9:00 pm,2022-03-04
-Minnesota Timberwolves,Oklahoma City Thunder,8:00 pm,2022-03-04
-Utah Jazz,New Orleans Pelicans,8:00 pm,2022-03-04
-Cleveland Cavaliers,Philadelphia 76ers,7:00 pm,2022-03-04
-Milwaukee Bucks,Chicago Bulls,7:30 pm  ESPN,2022-03-04
-Atlanta Hawks,Washington Wizards,7:00 pm,2022-03-04
-Indiana Pacers,Detroit Pistons,7:00 pm,2022-03-04
-Orlando Magic,Toronto Raptors,7:30 pm,2022-03-04
-Golden State Warriors,Los Angeles Lakers,8:30 pm  ABC,2022-03-05
-Portland Trail Blazers,Minnesota Timberwolves,8:00 pm,2022-03-05
-Orlando Magic,Memphis Grizzlies,8:00 pm,2022-03-05
+Sacramento Kings,Dallas Mavericks,5:00 pm,2022-03-05
 San Antonio Spurs,Charlotte Hornets,7:00 pm,2022-03-05
 Philadelphia 76ers,Miami Heat,8:00 pm,2022-03-05
-Sacramento Kings,Dallas Mavericks,5:00 pm,2022-03-05
+Portland Trail Blazers,Minnesota Timberwolves,8:00 pm,2022-03-05
+Orlando Magic,Memphis Grizzlies,8:00 pm,2022-03-05
+Golden State Warriors,Los Angeles Lakers,8:30 pm  ABC,2022-03-05
+New York Knicks,Los Angeles Clippers,10:00 pm  ESPN,2022-03-06
 New Orleans Pelicans,Denver Nuggets,8:00 pm,2022-03-06
 Toronto Raptors,Cleveland Cavaliers,7:30 pm  ESPN,2022-03-06
 Utah Jazz,Oklahoma City Thunder,7:00 pm,2022-03-06
-New York Knicks,Los Angeles Clippers,10:00 pm  ESPN,2022-03-06
 Indiana Pacers,Washington Wizards,6:00 pm,2022-03-06
 Phoenix Suns,Milwaukee Bucks,3:30 pm  ABC,2022-03-06
 Brooklyn Nets,Boston Celtics,1:00 pm  ABC,2022-03-06
 Memphis Grizzlies,Houston Rockets,7:00 pm,2022-03-06
-Atlanta Hawks,Detroit Pistons,7:00 pm,2022-03-07
-Chicago Bulls,Philadelphia 76ers,7:00 pm,2022-03-07
-Houston Rockets,Miami Heat,7:30 pm,2022-03-07
-Portland Trail Blazers,Minnesota Timberwolves,8:00 pm,2022-03-07
-Utah Jazz,Dallas Mavericks,8:30 pm,2022-03-07
 Los Angeles Lakers,San Antonio Spurs,8:30 pm,2022-03-07
-Golden State Warriors,Denver Nuggets,9:00 pm  NBAt,2022-03-07
 New York Knicks,Sacramento Kings,10:30 pm,2022-03-07
+Golden State Warriors,Denver Nuggets,9:00 pm  NBAt,2022-03-07
+Utah Jazz,Dallas Mavericks,8:30 pm,2022-03-07
+Houston Rockets,Miami Heat,7:30 pm,2022-03-07
+Chicago Bulls,Philadelphia 76ers,7:00 pm,2022-03-07
+Atlanta Hawks,Detroit Pistons,7:00 pm,2022-03-07
+Portland Trail Blazers,Minnesota Timberwolves,8:00 pm,2022-03-07
+Cleveland Cavaliers,Indiana Pacers,7:00 pm,2022-03-08
+Phoenix Suns,Orlando Magic,7:00 pm,2022-03-08
+Brooklyn Nets,Charlotte Hornets,7:00 pm,2022-03-08
+New Orleans Pelicans,Memphis Grizzlies,7:30 pm  TNT,2022-03-08
 Milwaukee Bucks,Oklahoma City Thunder,8:00 pm,2022-03-08
 Los Angeles Clippers,Golden State Warriors,10:00 pm  TNT,2022-03-08
-New Orleans Pelicans,Memphis Grizzlies,7:30 pm  TNT,2022-03-08
-Phoenix Suns,Orlando Magic,7:00 pm,2022-03-08
-Cleveland Cavaliers,Indiana Pacers,7:00 pm,2022-03-08
-Brooklyn Nets,Charlotte Hornets,7:00 pm,2022-03-08
 Toronto Raptors,San Antonio Spurs,8:30 pm,2022-03-09
 Washington Wizards,Los Angeles Clippers,10:30 pm,2022-03-09
 Portland Trail Blazers,Utah Jazz,10:00 pm  ESPN,2022-03-09
 Denver Nuggets,Sacramento Kings,10:00 pm,2022-03-09
-New York Knicks,Dallas Mavericks,8:30 pm,2022-03-09
 Oklahoma City Thunder,Minnesota Timberwolves,8:00 pm,2022-03-09
+New York Knicks,Dallas Mavericks,8:30 pm,2022-03-09
 Orlando Magic,New Orleans Pelicans,8:00 pm,2022-03-09
-Atlanta Hawks,Milwaukee Bucks,7:30 pm  ESPN,2022-03-09
-Phoenix Suns,Miami Heat,7:30 pm,2022-03-09
+Los Angeles Lakers,Houston Rockets,8:00 pm,2022-03-09
+Atlanta Hawks,Milwaukee Bucks,8:00 pm,2022-03-09
+Phoenix Suns,Miami Heat,7:30 pm  ESPN,2022-03-09
 Boston Celtics,Charlotte Hornets,7:00 pm,2022-03-09
 Chicago Bulls,Detroit Pistons,7:00 pm,2022-03-09
-Los Angeles Lakers,Houston Rockets,8:00 pm,2022-03-09
-Golden State Warriors,Denver Nuggets,10:00 pm  TNT,2022-03-10
 Brooklyn Nets,Philadelphia 76ers,7:30 pm  TNT,2022-03-10
-Toronto Raptors,Phoenix Suns,9:00 pm,2022-03-11
-Detroit Pistons,Boston Celtics,7:30 pm,2022-03-11
-Utah Jazz,San Antonio Spurs,8:30 pm,2022-03-11
+Golden State Warriors,Denver Nuggets,10:00 pm  TNT,2022-03-10
 Washington Wizards,Los Angeles Lakers,10:30 pm  NBAt,2022-03-11
+Toronto Raptors,Phoenix Suns,9:00 pm,2022-03-11
+Utah Jazz,San Antonio Spurs,8:30 pm,2022-03-11
 New York Knicks,Memphis Grizzlies,8:00 pm  NBAt,2022-03-11
-Minnesota Timberwolves,Orlando Magic,7:00 pm,2022-03-11
-Dallas Mavericks,Houston Rockets,8:00 pm,2022-03-11
+Cleveland Cavaliers,Miami Heat,8:00 pm,2022-03-11
+Detroit Pistons,Boston Celtics,7:30 pm,2022-03-11
 Charlotte Hornets,New Orleans Pelicans,8:00 pm,2022-03-11
 Los Angeles Clippers,Atlanta Hawks,7:30 pm,2022-03-11
-Cleveland Cavaliers,Miami Heat,8:00 pm,2022-03-11
-Washington Wizards,Portland Trail Blazers,10:00 pm,2022-03-12
-Cleveland Cavaliers,Chicago Bulls,8:00 pm,2022-03-12
-Minnesota Timberwolves,Miami Heat,8:00 pm,2022-03-12
-Indiana Pacers,San Antonio Spurs,8:00 pm,2022-03-12
-Milwaukee Bucks,Golden State Warriors,8:30 pm  ABC,2022-03-12
-Toronto Raptors,Denver Nuggets,9:00 pm,2022-03-12
+Minnesota Timberwolves,Orlando Magic,7:00 pm,2022-03-11
+Dallas Mavericks,Houston Rockets,8:00 pm,2022-03-11
 Sacramento Kings,Utah Jazz,9:00 pm,2022-03-12
-Memphis Grizzlies,Oklahoma City Thunder,7:00 pm,2022-03-13
-Houston Rockets,New Orleans Pelicans,7:00 pm,2022-03-13
-Los Angeles Lakers,Phoenix Suns,9:00 pm  ESPN,2022-03-13
-Indiana Pacers,Atlanta Hawks,7:00 pm,2022-03-13
+Washington Wizards,Portland Trail Blazers,10:00 pm,2022-03-12
+Toronto Raptors,Denver Nuggets,9:00 pm,2022-03-12
+Cleveland Cavaliers,Chicago Bulls,8:00 pm,2022-03-12
+Indiana Pacers,San Antonio Spurs,8:00 pm,2022-03-12
+Minnesota Timberwolves,Miami Heat,8:00 pm,2022-03-12
+Milwaukee Bucks,Golden State Warriors,8:30 pm  ABC,2022-03-12
 New York Knicks,Brooklyn Nets,1:00 pm  ABC,2022-03-13
+Los Angeles Clippers,Detroit Pistons,3:00 pm,2022-03-13
 Dallas Mavericks,Boston Celtics,3:30 pm  ABC,2022-03-13
 Philadelphia 76ers,Orlando Magic,6:00 pm,2022-03-13
-Los Angeles Clippers,Detroit Pistons,3:00 pm,2022-03-13
-Toronto Raptors,Los Angeles Lakers,10:30 pm,2022-03-14
-Los Angeles Clippers,Cleveland Cavaliers,7:00 pm,2022-03-14
-Portland Trail Blazers,Atlanta Hawks,7:30 pm,2022-03-14
-Denver Nuggets,Philadelphia 76ers,8:00 pm  ESPN,2022-03-14
-Charlotte Hornets,Oklahoma City Thunder,8:00 pm,2022-03-14
-Minnesota Timberwolves,San Antonio Spurs,8:30 pm,2022-03-14
-Washington Wizards,Golden State Warriors,10:00 pm,2022-03-14
+Indiana Pacers,Atlanta Hawks,7:00 pm,2022-03-13
+Houston Rockets,New Orleans Pelicans,7:00 pm,2022-03-13
+Memphis Grizzlies,Oklahoma City Thunder,7:00 pm,2022-03-13
+Los Angeles Lakers,Phoenix Suns,9:00 pm  ESPN,2022-03-13
 Chicago Bulls,Sacramento Kings,10:00 pm,2022-03-14
+Toronto Raptors,Los Angeles Lakers,10:30 pm,2022-03-14
 Milwaukee Bucks,Utah Jazz,10:00 pm  ESPN,2022-03-14
+Washington Wizards,Golden State Warriors,10:00 pm,2022-03-14
+Los Angeles Clippers,Cleveland Cavaliers,7:00 pm,2022-03-14
+Charlotte Hornets,Oklahoma City Thunder,8:00 pm,2022-03-14
+Denver Nuggets,Philadelphia 76ers,8:00 pm  ESPN,2022-03-14
+Portland Trail Blazers,Atlanta Hawks,7:30 pm,2022-03-14
+Minnesota Timberwolves,San Antonio Spurs,8:30 pm,2022-03-14
 Memphis Grizzlies,Indiana Pacers,7:00 pm,2022-03-15
 Brooklyn Nets,Orlando Magic,7:00 pm,2022-03-15
 Detroit Pistons,Miami Heat,7:30 pm,2022-03-15
 Phoenix Suns,New Orleans Pelicans,8:00 pm  NBAt,2022-03-15
-Boston Celtics,Golden State Warriors,10:00 pm  ESPN,2022-03-16
-Milwaukee Bucks,Sacramento Kings,10:00 pm,2022-03-16
-Philadelphia 76ers,Cleveland Cavaliers,7:00 pm,2022-03-16
-Chicago Bulls,Utah Jazz,9:00 pm,2022-03-16
 Toronto Raptors,Los Angeles Clippers,10:30 pm,2022-03-16
+Milwaukee Bucks,Sacramento Kings,10:00 pm,2022-03-16
+Boston Celtics,Golden State Warriors,10:00 pm  ESPN,2022-03-16
+Chicago Bulls,Utah Jazz,9:00 pm,2022-03-16
 Oklahoma City Thunder,San Antonio Spurs,8:30 pm,2022-03-16
-Denver Nuggets,Washington Wizards,7:00 pm,2022-03-16
-Phoenix Suns,Houston Rockets,8:00 pm,2022-03-16
+Los Angeles Lakers,Minnesota Timberwolves,8:00 pm,2022-03-16
 Portland Trail Blazers,New York Knicks,7:30 pm,2022-03-16
 Dallas Mavericks,Brooklyn Nets,7:30 pm  ESPN,2022-03-16
 Atlanta Hawks,Charlotte Hornets,7:00 pm,2022-03-16
-Los Angeles Lakers,Minnesota Timberwolves,8:00 pm,2022-03-16
+Philadelphia 76ers,Cleveland Cavaliers,7:00 pm,2022-03-16
+Denver Nuggets,Washington Wizards,7:00 pm,2022-03-16
+Phoenix Suns,Houston Rockets,8:00 pm,2022-03-16
 Detroit Pistons,Orlando Magic,7:00 pm  NBAt,2022-03-17
 Oklahoma City Thunder,Miami Heat,8:00 pm,2022-03-18
-Chicago Bulls,Phoenix Suns,10:00 pm  NBAt,2022-03-18
+Boston Celtics,Sacramento Kings,10:00 pm,2022-03-18
 Los Angeles Clippers,Utah Jazz,9:00 pm,2022-03-18
 New Orleans Pelicans,San Antonio Spurs,8:30 pm,2022-03-18
-Boston Celtics,Sacramento Kings,10:00 pm,2022-03-18
 Indiana Pacers,Houston Rockets,8:00 pm,2022-03-18
+Chicago Bulls,Phoenix Suns,10:00 pm  NBAt,2022-03-18
 Washington Wizards,New York Knicks,7:30 pm,2022-03-18
 Portland Trail Blazers,Brooklyn Nets,7:30 pm,2022-03-18
 Denver Nuggets,Cleveland Cavaliers,7:30 pm,2022-03-18
@@ -146,17 +130,17 @@ Golden State Warriors,Orlando Magic,7:00 pm,2022-03-22
 Atlanta Hawks,New York Knicks,7:30 pm  TNT,2022-03-22
 Chicago Bulls,Milwaukee Bucks,8:00 pm,2022-03-22
 Los Angeles Clippers,Denver Nuggets,10:00 pm  TNT,2022-03-22
-Orlando Magic,Oklahoma City Thunder,8:00 pm,2022-03-23
+Phoenix Suns,Minnesota Timberwolves,8:00 pm,2022-03-23
 San Antonio Spurs,Portland Trail Blazers,10:00 pm,2022-03-23
 Philadelphia 76ers,Los Angeles Lakers,10:00 pm  ESPN,2022-03-23
+Orlando Magic,Oklahoma City Thunder,8:00 pm,2022-03-23
+Brooklyn Nets,Memphis Grizzlies,7:30 pm  ESPN,2022-03-23
 Houston Rockets,Dallas Mavericks,8:30 pm,2022-03-23
-Phoenix Suns,Minnesota Timberwolves,8:00 pm,2022-03-23
-Atlanta Hawks,Detroit Pistons,7:00 pm,2022-03-23
-Golden State Warriors,Miami Heat,7:30 pm,2022-03-23
 Utah Jazz,Boston Celtics,7:30 pm,2022-03-23
 New York Knicks,Charlotte Hornets,7:00 pm,2022-03-23
+Golden State Warriors,Miami Heat,7:30 pm,2022-03-23
 Sacramento Kings,Indiana Pacers,7:00 pm,2022-03-23
-Brooklyn Nets,Memphis Grizzlies,7:30 pm  ESPN,2022-03-23
+Atlanta Hawks,Detroit Pistons,7:00 pm,2022-03-23
 Cleveland Cavaliers,Toronto Raptors,7:30 pm,2022-03-24
 Chicago Bulls,New Orleans Pelicans,8:00 pm,2022-03-24
 Washington Wizards,Milwaukee Bucks,8:00 pm,2022-03-24

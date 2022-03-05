@@ -4912,6 +4912,7 @@ Portland Trail Blazers,Nassir Little,2020-21,11.73,12.980064503761895
 Golden State Warriors,Kevon Looney,2020-21,12.74,15.540907274552955
 Cleveland Cavaliers,Kevin Love,2020-21,14.22,18.106408879286064
 Toronto Raptors,Kyle Lowry,2020-21,15.76,16.41025206630059
+Oklahoma City Thunder,Theo Maledon,2020-21,8.74,12.885651976325192
 Los Angeles Clippers,Terance Mann,2020-21,13.71,13.862033203977571
 Chicago Bulls,Lauri Markkanen,2020-21,16.19,15.83747281649843
 Charlotte Hornets,Caleb Martin,2020-21,10.23,14.13008060897309
@@ -4951,6 +4952,8 @@ Utah Jazz,Royce O'Neale,2020-21,10.32,11.653134322255035
 Orlando Magic,Chuma Okeke,2020-21,11.54,12.506507693511649
 Atlanta Hawks,Onyeka Okongwu,2020-21,16.92,18.868656170818227
 Cleveland Cavaliers,Isaac Okoro,2020-21,7.7,11.012542726223025
+Miami Heat,Kelly Olynyk,2020-21,12.1,12.68294610983239
+Houston Rockets,Kelly Olynyk,2020-21,20.9,22.269326611511378
 Cleveland Cavaliers,Cedi Osman,2020-21,10.1,13.309495530307967
 Golden State Warriors,Kelly Oubre Jr.,2020-21,15.53,16.27169526697432
 Golden State Warriors,Eric Paschall,2020-21,15.96,14.556313940066886
@@ -5031,332 +5034,336 @@ Detroit Pistons,Delon Wright,2020-21,15.24,13.878916052530274
 Sacramento Kings,Delon Wright,2020-21,14.41,13.474239321990384
 Atlanta Hawks,Trae Young,2020-21,23.22,24.078089021834035
 Los Angeles Clippers,Ivica Zubac,2020-21,18.48,19.22846916381369
-Toronto Raptors,Precious Achiuwa,2021-22,11.31,15.302094508497646
-Memphis Grizzlies,Steven Adams,2021-22,17.92,15.914167857889668
-Miami Heat,Bam Adebayo,2021-22,21.61,22.212610275432848
-Brooklyn Nets,LaMarcus Aldridge,2021-22,20.93,19.91504948195589
-New Orleans Pelicans,Nickeil Alexander-Walker,2021-22,11.23,14.243333625887205
-Milwaukee Bucks,Grayson Allen,2021-22,12.9,12.58344920621989
-Cleveland Cavaliers,Jarrett Allen,2021-22,22.36,23.080750852842876
-Memphis Grizzlies,Kyle Anderson,2021-22,14.85,14.33758233049891
-Milwaukee Bucks,Giannis Antetokounmpo,2021-22,31.67,30.896624383429728
-Los Angeles Lakers,Carmelo Anthony,2021-22,14.86,14.233275499133038
-Orlando Magic,Cole Anthony,2021-22,15.16,17.86396066243667
-Toronto Raptors,OG Anunoby,2021-22,13.72,16.729751524214112
-Houston Rockets,D.J. Augustin,2021-22,10.09,13.26994906707926
-Washington Wizards,Deni Avdija,2021-22,11.65,14.02279865327194
-Phoenix Suns,Deandre Ayton,2021-22,22.75,22.00796231590363
-Sacramento Kings,Marvin Bagley III,2021-22,14.66,17.00985817863618
-Charlotte Hornets,LaMelo Ball,2021-22,20.81,21.691188063793795
-Chicago Bulls,Lonzo Ball,2021-22,14.61,14.985623043726095
-Orlando Magic,Mo Bamba,2021-22,15.7,18.15082385464697
-Memphis Grizzlies,Desmond Bane,2021-22,18.36,16.44276251259434
-Toronto Raptors,Dalano Banton,2021-22,9.29,13.2810577606005
-Sacramento Kings,Harrison Barnes,2021-22,16.32,14.861741117451698
-Toronto Raptors,Scottie Barnes,2021-22,14.11,18.515745419303766
-New York Knicks,RJ Barrett,2021-22,15.35,16.366977724569
-Denver Nuggets,Will Barton,2021-22,14.44,15.013650268692054
-San Antonio Spurs,Keita Bates-Diop,2021-22,13.19,13.749159045737793
-Los Angeles Clippers,Nicolas Batum,2021-22,14.4,12.238368430203964
-Oklahoma City Thunder,Darius Bazley,2021-22,12.3,15.186637815585893
-Washington Wizards,Bradley Beal,2021-22,18.74,20.784790716558177
-Minnesota Timberwolves,Malik Beasley,2021-22,12.0,12.459061173645487
-Brooklyn Nets,DeAndre' Bembry,2021-22,12.52,12.35910384496383
-Washington Wizards,Davis Bertans,2021-22,8.88,11.052486255992541
-Minnesota Timberwolves,Patrick Beverley,2021-22,14.52,12.367606519247163
-Detroit Pistons,Saddiq Bey,2021-22,12.96,16.9391106104742
-Toronto Raptors,Khem Birch,2021-22,12.65,13.034148427043027
-Golden State Warriors,Nemanja Bjelica,2021-22,15.47,14.313159347645923
-Los Angeles Clippers,Eric Bledsoe,2021-22,13.37,13.798438506342213
-Atlanta Hawks,Bogdan Bogdanovic,2021-22,14.25,13.55370518060181
-Utah Jazz,Bojan Bogdanovic,2021-22,16.46,15.040968527508607
+Toronto Raptors,Precious Achiuwa,2021-22,11.6,14.873685367557416
+Memphis Grizzlies,Steven Adams,2021-22,17.91,15.762651308606083
+Miami Heat,Bam Adebayo,2021-22,21.96,21.8968961191096
+Brooklyn Nets,LaMarcus Aldridge,2021-22,21.09,20.039226492831617
+New Orleans Pelicans,Nickeil Alexander-Walker,2021-22,11.19,14.243333625887205
+Milwaukee Bucks,Grayson Allen,2021-22,12.99,12.622233099007492
+Cleveland Cavaliers,Jarrett Allen,2021-22,22.42,23.31272934647275
+Memphis Grizzlies,Kyle Anderson,2021-22,15.04,14.417432279487972
+Milwaukee Bucks,Giannis Antetokounmpo,2021-22,31.92,31.045267084671625
+Los Angeles Lakers,Carmelo Anthony,2021-22,15.08,14.30555198669724
+Orlando Magic,Cole Anthony,2021-22,15.0,17.60926710653935
+Toronto Raptors,OG Anunoby,2021-22,13.84,16.729751524214112
+Houston Rockets,D.J. Augustin,2021-22,10.12,13.26994906707926
+Washington Wizards,Deni Avdija,2021-22,11.54,13.803869255339023
+Phoenix Suns,Deandre Ayton,2021-22,22.89,21.78850250072838
+Sacramento Kings,Marvin Bagley III,2021-22,14.67,17.00985817863618
+Charlotte Hornets,LaMelo Ball,2021-22,20.97,22.152196958486325
+Chicago Bulls,Lonzo Ball,2021-22,14.54,14.985623043726095
+Orlando Magic,Mo Bamba,2021-22,16.36,18.31712741503657
+Memphis Grizzlies,Desmond Bane,2021-22,18.14,16.744346415213798
+Toronto Raptors,Dalano Banton,2021-22,9.16,13.042623688668481
+Sacramento Kings,Harrison Barnes,2021-22,16.53,15.57489736442001
+Toronto Raptors,Scottie Barnes,2021-22,14.86,18.690886835298123
+New York Knicks,RJ Barrett,2021-22,15.35,16.068117964013908
+Denver Nuggets,Will Barton,2021-22,14.25,14.6900335791455
+San Antonio Spurs,Keita Bates-Diop,2021-22,13.05,14.290000609700323
+Los Angeles Clippers,Nicolas Batum,2021-22,14.18,12.114179428571557
+Oklahoma City Thunder,Darius Bazley,2021-22,12.78,15.07024958116788
+Washington Wizards,Bradley Beal,2021-22,18.57,20.784790716558177
+Minnesota Timberwolves,Malik Beasley,2021-22,12.54,12.571936374984489
+Brooklyn Nets,DeAndre' Bembry,2021-22,12.51,12.518011447880216
+Washington Wizards,Davis Bertans,2021-22,8.8,11.03257424004168
+Minnesota Timberwolves,Patrick Beverley,2021-22,14.92,12.303186410531973
+Detroit Pistons,Saddiq Bey,2021-22,13.65,16.828222962558424
+Toronto Raptors,Khem Birch,2021-22,12.89,13.788130076978995
+Golden State Warriors,Nemanja Bjelica,2021-22,15.33,14.24525637294614
+Los Angeles Clippers,Eric Bledsoe,2021-22,13.39,13.798438506342213
+Atlanta Hawks,Bogdan Bogdanovic,2021-22,14.52,13.892114016549105
+Utah Jazz,Bojan Bogdanovic,2021-22,16.34,15.054013246050125
 Phoenix Suns,Devin Booker,2021-22,21.32,22.182409822709978
-Los Angeles Clippers,Brandon Boston Jr.,2021-22,11.56,13.648022816708105
-Toronto Raptors,Chris Boucher,2021-22,16.28,17.36904877292401
-Los Angeles Lakers,Avery Bradley,2021-22,7.82,10.410535297724138
-Chicago Bulls,Tony Bradley,2021-22,14.52,17.651036564576213
-Phoenix Suns,Mikal Bridges,2021-22,14.49,15.462252879868883
-Charlotte Hornets,Miles Bridges,2021-22,19.09,20.710191552252034
-Indiana Pacers,Oshae Brissett,2021-22,11.56,14.802188666540935
-Indiana Pacers,Malcolm Brogdon,2021-22,17.25,18.162909603908794
-Houston Rockets,Armoni Brooks,2021-22,9.08,12.104953922556442
-Memphis Grizzlies,Dillon Brooks,2021-22,18.03,17.422123029324865
-Brooklyn Nets,Bruce Brown,2021-22,12.69,14.043873074337167
-Boston Celtics,Jaylen Brown,2021-22,19.98,20.24471131063543
-Dallas Mavericks,Sterling Brown,2021-22,8.82,12.795662697387773
-Chicago Bulls,Troy Brown Jr.,2021-22,9.5,11.675376682407617
-Dallas Mavericks,Jalen Brunson,2021-22,16.55,18.049215419220772
-Dallas Mavericks,Reggie Bullock,2021-22,9.53,10.846193080626856
-New York Knicks,Alec Burks,2021-22,14.23,12.324680943966161
-Miami Heat,Jimmy Butler,2021-22,24.72,23.2988871080331
-Washington Wizards,Kentavious Caldwell-Pope,2021-22,11.65,12.807143020032518
-Denver Nuggets,Facundo Campazzo,2021-22,11.18,11.461245164974667
-Atlanta Hawks,Clint Capela,2021-22,19.9,18.71370550356608
-Brooklyn Nets,Jevon Carter,2021-22,7.03,12.01109439939846
-Orlando Magic,Wendell Carter Jr.,2021-22,18.53,20.315365373053304
-Chicago Bulls,Alex Caruso,2021-22,13.52,11.536646288133408
-Houston Rockets,Josh Christopher,2021-22,12.94,15.042479587681626
-Memphis Grizzlies,Brandon Clarke,2021-22,26.48,21.843846173992112
-Utah Jazz,Jordan Clarkson,2021-22,15.92,16.953475704371463
-Brooklyn Nets,Nicolas Claxton,2021-22,18.97,20.080127140430278
-Los Angeles Clippers,Amir Coffey,2021-22,13.65,13.42013538153525
-Atlanta Hawks,John Collins,2021-22,19.31,19.04128169943266
-Utah Jazz,Mike Conley,2021-22,18.34,15.235211245616805
-Milwaukee Bucks,Pat Connaughton,2021-22,13.42,11.705300342735164
-Portland Trail Blazers,Robert Covington,2021-22,9.35,10.736648658991296
-Indiana Pacers,Torrey Craig,2021-22,10.38,12.476207831379797
-Phoenix Suns,Jae Crowder,2021-22,11.25,10.818160460372201
-Detroit Pistons,Cade Cunningham,2021-22,12.02,16.884223474021034
-Philadelphia 76ers,Seth Curry,2021-22,13.48,14.125477730142332
-Golden State Warriors,Stephen Curry,2021-22,23.56,21.593382296295495
+Los Angeles Clippers,Brandon Boston Jr.,2021-22,11.94,13.975295965369906
+Toronto Raptors,Chris Boucher,2021-22,16.39,17.464498193604754
+Los Angeles Lakers,Avery Bradley,2021-22,7.83,10.410535297724138
+Chicago Bulls,Tony Bradley,2021-22,14.67,18.165967323966036
+Phoenix Suns,Mikal Bridges,2021-22,14.58,15.491401034487035
+Charlotte Hornets,Miles Bridges,2021-22,19.08,20.848590509140195
+Indiana Pacers,Oshae Brissett,2021-22,11.31,14.460794548317198
+Indiana Pacers,Malcolm Brogdon,2021-22,17.65,17.86886387052093
+Houston Rockets,Armoni Brooks,2021-22,9.11,12.104953922556442
+Memphis Grizzlies,Dillon Brooks,2021-22,17.98,17.422123029324865
+Brooklyn Nets,Bruce Brown,2021-22,12.72,13.703093254903465
+Boston Celtics,Jaylen Brown,2021-22,19.86,19.76909008453554
+Dallas Mavericks,Sterling Brown,2021-22,8.85,12.795662697387773
+Chicago Bulls,Troy Brown Jr.,2021-22,9.41,11.526870003371444
+Dallas Mavericks,Jalen Brunson,2021-22,16.77,18.35649673687945
+Dallas Mavericks,Reggie Bullock,2021-22,9.35,10.960330336993703
+New York Knicks,Alec Burks,2021-22,13.98,12.098855611297955
+Miami Heat,Jimmy Butler,2021-22,24.35,22.69851275428071
+Washington Wizards,Kentavious Caldwell-Pope,2021-22,11.55,12.839174089533628
+Denver Nuggets,Facundo Campazzo,2021-22,11.14,11.461245164974667
+Atlanta Hawks,Clint Capela,2021-22,19.65,18.499462858149748
+Brooklyn Nets,Jevon Carter,2021-22,7.02,12.01109439939846
+Orlando Magic,Wendell Carter Jr.,2021-22,18.83,20.207780240276346
+Chicago Bulls,Alex Caruso,2021-22,13.46,11.536646288133408
+Houston Rockets,Josh Christopher,2021-22,12.7,15.129118963602483
+Memphis Grizzlies,Brandon Clarke,2021-22,26.34,21.620019719081778
+Utah Jazz,Jordan Clarkson,2021-22,15.91,16.96867249756125
+Brooklyn Nets,Nicolas Claxton,2021-22,18.76,20.285980054475004
+Los Angeles Clippers,Amir Coffey,2021-22,13.75,13.42132041480073
+Atlanta Hawks,John Collins,2021-22,19.33,19.04128169943266
+Utah Jazz,Mike Conley,2021-22,18.38,15.311504833530192
+Milwaukee Bucks,Pat Connaughton,2021-22,13.44,11.705300342735164
+Portland Trail Blazers,Robert Covington,2021-22,9.35,10.92167654469117
+Indiana Pacers,Torrey Craig,2021-22,10.36,12.476207831379797
+Phoenix Suns,Jae Crowder,2021-22,11.56,11.059922131462805
+Detroit Pistons,Cade Cunningham,2021-22,12.66,17.568766838574096
+Philadelphia 76ers,Seth Curry,2021-22,13.4,14.125477730142332
+Golden State Warriors,Stephen Curry,2021-22,23.49,21.710780840159842
 Los Angeles Lakers,Anthony Davis,2021-22,23.79,24.845095999948406
-Sacramento Kings,Terence Davis,2021-22,15.34,13.408256144269298
-Chicago Bulls,DeMar DeRozan,2021-22,25.61,22.186175502241007
-Miami Heat,Dewayne Dedmon,2021-22,17.66,16.626958744255973
-Detroit Pistons,Hamidou Diallo,2021-22,15.34,16.999996320134578
-Washington Wizards,Spencer Dinwiddie,2021-22,13.47,14.8003712584784
-Dallas Mavericks,Luka Doncic,2021-22,23.17,23.546554269336752
-Oklahoma City Thunder,Luguentz Dort,2021-22,13.52,14.688813885672383
-Chicago Bulls,Ayo Dosunmu,2021-22,11.58,12.262232697302796
-Philadelphia 76ers,Andre Drummond,2021-22,18.23,15.949845405109032
-Indiana Pacers,Chris Duarte,2021-22,12.36,14.56662753089998
-Brooklyn Nets,Kevin Durant,2021-22,26.15,26.17525136386609
-Minnesota Timberwolves,Anthony Edwards,2021-22,17.38,19.80797361474147
-Brooklyn Nets,Kessler Edwards,2021-22,8.22,12.950506172170774
-Portland Trail Blazers,CJ Elleby,2021-22,9.39,12.463514186153343
-Los Angeles Lakers,Wayne Ellington,2021-22,8.92,10.141832810342919
-Philadelphia 76ers,Joel Embiid,2021-22,30.31,26.63034046576616
-San Antonio Spurs,Drew Eubanks,2021-22,16.34,17.138865556714837
-Oklahoma City Thunder,Derrick Favors,2021-22,14.29,12.811393130179631
-Dallas Mavericks,Dorian Finney-Smith,2021-22,11.02,12.520216880380929
-San Antonio Spurs,Bryn Forbes,2021-22,13.8,14.466499943375046
-Utah Jazz,Trent Forrest,2021-22,11.7,15.091189111092074
-New York Knicks,Evan Fournier,2021-22,14.32,12.974232101374287
-Sacramento Kings,De'Aaron Fox,2021-22,17.28,18.622823437844257
-Washington Wizards,Daniel Gafford,2021-22,21.19,19.423580403768053
-Atlanta Hawks,Danilo Gallinari,2021-22,13.8,13.08020144967078
-Cleveland Cavaliers,Darius Garland,2021-22,18.44,22.257971861261332
-Utah Jazz,Rudy Gay,2021-22,14.52,13.143273839564184
-Los Angeles Clippers,Paul George,2021-22,19.32,21.19169939641492
-New York Knicks,Taj Gibson,2021-22,11.41,10.75377024589088
-Oklahoma City Thunder,Josh Giddey,2021-22,14.34,18.83107722209423
-Oklahoma City Thunder,Shai Gilgeous-Alexander,2021-22,20.37,20.398473401131678
-Utah Jazz,Rudy Gobert,2021-22,25.34,22.977342181846137
-Denver Nuggets,Aaron Gordon,2021-22,15.5,17.07413824804957
-Houston Rockets,Eric Gordon,2021-22,13.69,15.140335471656616
-New Orleans Pelicans,Devonte' Graham,2021-22,11.73,13.588033205661123
-Detroit Pistons,Jerami Grant,2021-22,14.55,15.817748029510756
-Philadelphia 76ers,Danny Green,2021-22,9.18,11.356376728429161
-Golden State Warriors,Draymond Green,2021-22,15.34,14.360610931129896
-Denver Nuggets,JaMychal Green,2021-22,14.66,14.31273659213032
-Houston Rockets,Jalen Green,2021-22,10.63,13.739252672339521
-Chicago Bulls,Javonte Green,2021-22,14.02,13.276598669483384
-Denver Nuggets,Jeff Green,2021-22,12.44,13.539254853058626
-Dallas Mavericks,Josh Green,2021-22,11.85,14.177748291027715
-Brooklyn Nets,Blake Griffin,2021-22,13.61,14.610583367676233
-New York Knicks,Quentin Grimes,2021-22,12.35,11.374787792449126
-Sacramento Kings,Tyrese Haliburton,2021-22,16.85,18.96718807008589
-Orlando Magic,R.J. Hampton,2021-22,10.21,11.523541217308688
-Dallas Mavericks,Tim Hardaway Jr.,2021-22,12.71,13.506305837585789
-Brooklyn Nets,James Harden,2021-22,20.2,19.671108737576752
-Sacramento Kings,Maurice Harkless,2021-22,8.07,11.549257527666468
-Washington Wizards,Montrezl Harrell,2021-22,24.08,20.452003424834796
-Orlando Magic,Gary Harris,2021-22,11.56,12.766936037662834
-Philadelphia 76ers,Tobias Harris,2021-22,16.78,18.546004969528827
-New Orleans Pelicans,Josh Hart,2021-22,14.6,17.265435344222617
-Los Angeles Clippers,Isaiah Hartenstein,2021-22,22.09,18.55525679776206
-New Orleans Pelicans,Jaxson Hayes,2021-22,19.21,20.99107990741996
-Detroit Pistons,Killian Hayes,2021-22,7.7,10.856210615030957
-Charlotte Hornets,Gordon Hayward,2021-22,16.84,15.27828228895159
-New Orleans Pelicans,Willy Hernangomez,2021-22,21.79,18.43813971913334
-Miami Heat,Tyler Herro,2021-22,16.47,17.036090112001858
-Sacramento Kings,Buddy Hield,2021-22,12.52,13.968670563784977
-Milwaukee Bucks,George Hill,2021-22,10.71,13.052032483790333
-Washington Wizards,Aaron Holiday,2021-22,11.98,14.23909085019785
-Milwaukee Bucks,Jrue Holiday,2021-22,19.82,20.776647659694397
-Indiana Pacers,Justin Holiday,2021-22,10.1,10.72248093477809
-Sacramento Kings,Richaun Holmes,2021-22,18.23,15.987557664755366
-Milwaukee Bucks,Rodney Hood,2021-22,6.9,12.253322325990005
-Boston Celtics,Al Horford,2021-22,16.51,17.138286278074737
-Los Angeles Lakers,Talen Horton-Tucker,2021-22,10.4,13.02872229942744
-Los Angeles Lakers,Dwight Howard,2021-22,17.11,15.18991451702186
-Atlanta Hawks,Kevin Huerter,2021-22,11.87,12.941699318760945
-Atlanta Hawks,De'Andre Hunter,2021-22,10.5,12.250882638375202
-Denver Nuggets,Nah'Shon Hyland,2021-22,11.07,13.213289305691205
-Los Angeles Clippers,Serge Ibaka,2021-22,15.88,15.761087445450633
-Golden State Warriors,Andre Iguodala,2021-22,13.14,12.172308892313183
-Utah Jazz,Joe Ingles,2021-22,10.5,11.127839832445131
-New Orleans Pelicans,Brandon Ingram,2021-22,18.04,19.74378091754977
-Brooklyn Nets,Kyrie Irving,2021-22,20.34,22.546204600917008
-Detroit Pistons,Frank Jackson,2021-22,10.69,12.834852139241537
-Detroit Pistons,Josh Jackson,2021-22,9.8,12.759004912685548
-Los Angeles Clippers,Reggie Jackson,2021-22,13.84,15.688807171221839
-Memphis Grizzlies,Jaren Jackson Jr.,2021-22,18.98,19.363356969257033
-Los Angeles Lakers,LeBron James,2021-22,25.79,25.965011728455977
-Oklahoma City Thunder,Ty Jerome,2021-22,12.35,13.299591551148573
-Philadelphia 76ers,Isaiah Joe,2021-22,7.96,13.16219087510688
-Phoenix Suns,Cameron Johnson,2021-22,15.71,14.138349009603541
-Brooklyn Nets,James Johnson,2021-22,10.62,11.961324533733338
-San Antonio Spurs,Keldon Johnson,2021-22,15.43,17.19111536255201
-Los Angeles Lakers,Stanley Johnson,2021-22,9.76,12.187741913553767
-Denver Nuggets,Nikola Jokic,2021-22,31.17,28.73010317168373
-Sacramento Kings,Damian Jones,2021-22,16.88,16.73976520019732
-New Orleans Pelicans,Herbert Jones,2021-22,11.88,14.548807044443853
-San Antonio Spurs,Tre Jones,2021-22,15.21,17.041884454706548
-Memphis Grizzlies,Tyus Jones,2021-22,17.75,16.157327163848635
-Chicago Bulls,Derrick Jones Jr.,2021-22,14.25,14.457818773847393
-Detroit Pistons,Cory Joseph,2021-22,10.74,12.04395305795992
-Los Angeles Clippers,Luke Kennard,2021-22,13.9,13.548098950908388
-Washington Wizards,Corey Kispert,2021-22,10.65,13.383322370797424
-Dallas Mavericks,Maxi Kleber,2021-22,11.72,12.23991492583883
-Memphis Grizzlies,John Konchar,2021-22,13.64,13.261710692285767
-Philadelphia 76ers,Furkan Korkmaz,2021-22,10.72,13.416456744701872
-Golden State Warriors,Jonathan Kuminga,2021-22,16.38,15.497898882415127
-Washington Wizards,Kyle Kuzma,2021-22,16.0,17.856141568760904
-Chicago Bulls,Zach LaVine,2021-22,21.1,19.854566656936427
-Indiana Pacers,Jeremy Lamb,2021-22,12.7,13.088491679726003
-Boston Celtics,Romeo Langford,2021-22,10.01,11.09019649322579
-Indiana Pacers,Caris LeVert,2021-22,16.3,17.175325416727304
-Golden State Warriors,Damion Lee,2021-22,12.51,12.395525101031481
-Sacramento Kings,Alex Len,2021-22,13.22,14.671868808404355
+Sacramento Kings,Terence Davis,2021-22,15.35,13.408256144269298
+Chicago Bulls,DeMar DeRozan,2021-22,25.33,22.271572247626455
+Miami Heat,Dewayne Dedmon,2021-22,17.62,16.569518288628974
+Detroit Pistons,Hamidou Diallo,2021-22,15.83,17.15374007629732
+Washington Wizards,Spencer Dinwiddie,2021-22,13.35,14.8003712584784
+Dallas Mavericks,Luka Doncic,2021-22,23.05,24.00701397644007
+Oklahoma City Thunder,Luguentz Dort,2021-22,13.86,14.688813885672383
+Chicago Bulls,Ayo Dosunmu,2021-22,11.68,12.441288909981397
+Philadelphia 76ers,Andre Drummond,2021-22,18.13,15.949845405109032
+Indiana Pacers,Chris Duarte,2021-22,12.29,14.633617499703467
+Brooklyn Nets,Kevin Durant,2021-22,26.13,26.17525136386609
+Minnesota Timberwolves,Anthony Edwards,2021-22,17.73,19.97814028863723
+Brooklyn Nets,Kessler Edwards,2021-22,7.8,13.2857783382664
+Portland Trail Blazers,CJ Elleby,2021-22,8.94,12.440147535627469
+Los Angeles Lakers,Wayne Ellington,2021-22,8.93,10.141832810342919
+Philadelphia 76ers,Joel Embiid,2021-22,30.04,26.566517440102572
+San Antonio Spurs,Drew Eubanks,2021-22,16.35,16.387854828329896
+Oklahoma City Thunder,Derrick Favors,2021-22,14.66,12.811393130179631
+Dallas Mavericks,Dorian Finney-Smith,2021-22,11.15,12.41339992321927
+San Antonio Spurs,Bryn Forbes,2021-22,13.81,14.466499943375046
+Utah Jazz,Trent Forrest,2021-22,11.53,15.022210153567853
+New York Knicks,Evan Fournier,2021-22,13.93,12.833568777682787
+Sacramento Kings,De'Aaron Fox,2021-22,17.44,18.308309134740302
+Washington Wizards,Daniel Gafford,2021-22,21.13,19.676627147674196
+Atlanta Hawks,Danilo Gallinari,2021-22,13.75,13.224512055949798
+Cleveland Cavaliers,Darius Garland,2021-22,18.55,22.965519047232625
+Utah Jazz,Rudy Gay,2021-22,14.17,13.231184614713861
+Los Angeles Clippers,Paul George,2021-22,19.35,21.19169939641492
+New York Knicks,Taj Gibson,2021-22,11.49,10.581337612863319
+Oklahoma City Thunder,Josh Giddey,2021-22,14.71,18.83107722209423
+Oklahoma City Thunder,Shai Gilgeous-Alexander,2021-22,21.4,21.524173070736417
+Utah Jazz,Rudy Gobert,2021-22,25.56,23.177830514776286
+Denver Nuggets,Aaron Gordon,2021-22,15.22,16.680328870231744
+Houston Rockets,Eric Gordon,2021-22,13.59,14.609104130394199
+New Orleans Pelicans,Devonte' Graham,2021-22,11.59,13.607708617354252
+Detroit Pistons,Jerami Grant,2021-22,15.46,15.63766456974237
+Philadelphia 76ers,Danny Green,2021-22,9.05,11.158289538943041
+Golden State Warriors,Draymond Green,2021-22,15.26,14.360610931129896
+Denver Nuggets,JaMychal Green,2021-22,14.59,14.429593745152168
+Houston Rockets,Jalen Green,2021-22,11.14,13.643654402565636
+Chicago Bulls,Javonte Green,2021-22,13.96,13.293859177456056
+Denver Nuggets,Jeff Green,2021-22,12.35,13.480512959582473
+Dallas Mavericks,Josh Green,2021-22,12.21,14.911300510906129
+Brooklyn Nets,Blake Griffin,2021-22,13.62,14.602616864218545
+New York Knicks,Quentin Grimes,2021-22,12.22,11.374787792449126
+Sacramento Kings,Tyrese Haliburton,2021-22,16.86,18.72240795008515
+Orlando Magic,R.J. Hampton,2021-22,10.44,11.500712852151958
+Dallas Mavericks,Tim Hardaway Jr.,2021-22,12.74,13.506305837585789
+Brooklyn Nets,James Harden,2021-22,20.18,19.63397188130135
+Sacramento Kings,Maurice Harkless,2021-22,8.08,11.549257527666468
+Washington Wizards,Montrezl Harrell,2021-22,23.86,20.57432952143609
+Orlando Magic,Gary Harris,2021-22,11.77,12.83724150350062
+Philadelphia 76ers,Tobias Harris,2021-22,16.64,18.211737297964653
+New Orleans Pelicans,Josh Hart,2021-22,14.54,17.2788012605155
+Los Angeles Clippers,Isaiah Hartenstein,2021-22,21.75,18.035655420292795
+New Orleans Pelicans,Jaxson Hayes,2021-22,19.18,21.089605710685383
+Detroit Pistons,Killian Hayes,2021-22,8.19,11.060030580997314
+Charlotte Hornets,Gordon Hayward,2021-22,16.99,15.27828228895159
+New Orleans Pelicans,Willy Hernangomez,2021-22,21.7,18.43813971913334
+Miami Heat,Tyler Herro,2021-22,17.04,17.471646713987518
+Sacramento Kings,Buddy Hield,2021-22,12.53,13.874780197712047
+Milwaukee Bucks,George Hill,2021-22,10.73,13.052032483790333
+Washington Wizards,Aaron Holiday,2021-22,11.86,14.073545814640527
+Milwaukee Bucks,Jrue Holiday,2021-22,20.24,20.809777310926606
+Indiana Pacers,Justin Holiday,2021-22,10.08,10.72248093477809
+Sacramento Kings,Richaun Holmes,2021-22,18.24,15.987557664755366
+Milwaukee Bucks,Rodney Hood,2021-22,6.91,12.356408087632088
+Boston Celtics,Al Horford,2021-22,16.34,16.933882167451852
+Los Angeles Lakers,Talen Horton-Tucker,2021-22,10.26,13.220029038609797
+Los Angeles Lakers,Dwight Howard,2021-22,17.14,15.095243356584552
+Atlanta Hawks,Kevin Huerter,2021-22,11.81,12.929065750164847
+Atlanta Hawks,De'Andre Hunter,2021-22,10.08,11.772016836452613
+Denver Nuggets,Nah'Shon Hyland,2021-22,11.63,12.937262255869264
+Los Angeles Clippers,Serge Ibaka,2021-22,15.91,15.761087445450633
+Golden State Warriors,Andre Iguodala,2021-22,13.07,12.172308892313183
+Utah Jazz,Joe Ingles,2021-22,10.47,11.127839832445131
+New Orleans Pelicans,Brandon Ingram,2021-22,18.34,19.76720658079428
+Brooklyn Nets,Kyrie Irving,2021-22,20.31,22.546204600917008
+Detroit Pistons,Frank Jackson,2021-22,10.97,12.761788647761872
+Detroit Pistons,Josh Jackson,2021-22,10.24,12.846523018011661
+Los Angeles Clippers,Reggie Jackson,2021-22,13.97,15.779378139377425
+Memphis Grizzlies,Jaren Jackson Jr.,2021-22,18.8,19.18221376330326
+Los Angeles Lakers,LeBron James,2021-22,25.68,26.022001562961826
+Oklahoma City Thunder,Ty Jerome,2021-22,12.67,13.299591551148573
+Philadelphia 76ers,Isaiah Joe,2021-22,7.88,13.183820663864054
+Phoenix Suns,Cameron Johnson,2021-22,16.03,14.393535104839811
+Brooklyn Nets,James Johnson,2021-22,10.84,12.68122077229074
+San Antonio Spurs,Keldon Johnson,2021-22,15.32,16.671079476374437
+Los Angeles Lakers,Stanley Johnson,2021-22,9.97,12.054417936830378
+Denver Nuggets,Nikola Jokic,2021-22,30.92,28.98006268900419
+Sacramento Kings,Damian Jones,2021-22,16.63,16.893216337581727
+New Orleans Pelicans,Herbert Jones,2021-22,11.98,14.538875486574426
+San Antonio Spurs,Tre Jones,2021-22,15.22,16.91615683462809
+Memphis Grizzlies,Tyus Jones,2021-22,17.66,16.490691589223903
+Chicago Bulls,Derrick Jones Jr.,2021-22,13.78,14.314048803488008
+Detroit Pistons,Cory Joseph,2021-22,11.34,12.423423432924315
+Los Angeles Clippers,Luke Kennard,2021-22,13.77,13.311295810006547
+Washington Wizards,Corey Kispert,2021-22,10.55,13.208226276857284
+Dallas Mavericks,Maxi Kleber,2021-22,11.76,12.333494777587688
+Memphis Grizzlies,John Konchar,2021-22,13.61,13.261710692285767
+Philadelphia 76ers,Furkan Korkmaz,2021-22,10.55,13.461582389175216
+Golden State Warriors,Jonathan Kuminga,2021-22,16.12,15.390513223908748
+Washington Wizards,Kyle Kuzma,2021-22,15.91,17.547717462386668
+Chicago Bulls,Zach LaVine,2021-22,20.92,19.591833415293692
+Indiana Pacers,Jeremy Lamb,2021-22,12.68,13.018831020516808
+Boston Celtics,Romeo Langford,2021-22,9.96,11.09019649322579
+Indiana Pacers,Caris LeVert,2021-22,16.27,17.175325416727304
+Golden State Warriors,Damion Lee,2021-22,12.82,13.09009381566409
+Sacramento Kings,Alex Len,2021-22,13.23,14.671868808404355
 Portland Trail Blazers,Damian Lillard,2021-22,18.05,19.90675689541905
 Portland Trail Blazers,Nassir Little,2021-22,12.91,15.318128866587472
-Golden State Warriors,Kevon Looney,2021-22,16.58,16.652663407684642
-Cleveland Cavaliers,Kevin Love,2021-22,19.92,15.995900344678379
-Miami Heat,Kyle Lowry,2021-22,14.77,15.7045310096826
-Detroit Pistons,Trey Lyles,2021-22,15.77,16.724136906184516
-Los Angeles Clippers,Terance Mann,2021-22,13.61,14.614352043814645
-Oklahoma City Thunder,Tre Mann,2021-22,11.11,12.802652345430634
-Cleveland Cavaliers,Lauri Markkanen,2021-22,14.36,14.581916127884986
-Miami Heat,Caleb Martin,2021-22,15.46,14.836772070808603
-Charlotte Hornets,Cody Martin,2021-22,13.4,13.044489150660919
-Houston Rockets,KJ Martin,2021-22,15.52,16.08777728345343
-Houston Rockets,Garrison Mathews,2021-22,12.43,12.04644925088848
-Philadelphia 76ers,Tyrese Maxey,2021-22,15.94,16.491294249752986
-Portland Trail Blazers,CJ McCollum,2021-22,16.09,16.19981803987922
-Indiana Pacers,T.J. McConnell,2021-22,14.38,12.948118455778776
-Minnesota Timberwolves,Jaden McDaniels,2021-22,10.59,13.141323440367753
-Charlotte Hornets,Jalen McDaniels,2021-22,13.66,13.521449900983523
-San Antonio Spurs,Doug McDermott,2021-22,13.13,11.070851075098343
-Phoenix Suns,JaVale McGee,2021-22,24.56,19.404981945872912
-Minnesota Timberwolves,Jordan McLaughlin,2021-22,11.63,15.495277083121655
-Portland Trail Blazers,Ben McLemore,2021-22,10.56,12.37537885245645
-Memphis Grizzlies,De'Anthony Melton,2021-22,16.07,16.605444243243284
-Sacramento Kings,Chimezie Metu,2021-22,13.27,16.173420097187424
-Milwaukee Bucks,Khris Middleton,2021-22,18.25,18.001766982758593
-Brooklyn Nets,Patty Mills,2021-22,12.06,12.251513267020181
-Philadelphia 76ers,Shake Milton,2021-22,11.96,12.971289277283976
-Sacramento Kings,Davion Mitchell,2021-22,10.61,12.844054762291773
-Utah Jazz,Donovan Mitchell,2021-22,24.34,23.931724314649514
-Cleveland Cavaliers,Evan Mobley,2021-22,15.69,20.51906284750525
-Los Angeles Lakers,Malik Monk,2021-22,13.78,14.506623808283075
-Memphis Grizzlies,Ja Morant,2021-22,27.38,27.518683214560568
-Denver Nuggets,Monte Morris,2021-22,14.73,15.448646926277679
-Los Angeles Clippers,Marcus Morris Sr.,2021-22,15.04,14.175761306318188
-New Orleans Pelicans,Trey Murphy III,2021-22,8.95,11.646073205677496
-San Antonio Spurs,Dejounte Murray,2021-22,23.11,22.57140099678198
-Oklahoma City Thunder,Mike Muscala,2021-22,20.46,12.965173221441603
-Toronto Raptors,Svi Mykhailiuk,2021-22,9.51,12.85093249519456
+Golden State Warriors,Kevon Looney,2021-22,16.35,16.541888728649546
+Cleveland Cavaliers,Kevin Love,2021-22,20.18,16.06263408470875
+Miami Heat,Kyle Lowry,2021-22,14.99,15.7045310096826
+Detroit Pistons,Trey Lyles,2021-22,16.46,16.72220305287667
+Oklahoma City Thunder,Theo Maledon,2021-22,8.66,13.36390534255958
+Los Angeles Clippers,Terance Mann,2021-22,13.63,14.670638087151607
+Oklahoma City Thunder,Tre Mann,2021-22,11.25,12.912573674317864
+Cleveland Cavaliers,Lauri Markkanen,2021-22,13.93,14.461821511676566
+Miami Heat,Caleb Martin,2021-22,16.0,15.089189329360435
+Charlotte Hornets,Cody Martin,2021-22,13.23,12.241288092985837
+Houston Rockets,KJ Martin,2021-22,15.7,15.90150137524045
+Houston Rockets,Garrison Mathews,2021-22,12.07,11.851602693817746
+Philadelphia 76ers,Tyrese Maxey,2021-22,16.03,16.688295575004233
+Portland Trail Blazers,CJ McCollum,2021-22,16.08,16.19981803987922
+Indiana Pacers,T.J. McConnell,2021-22,14.36,12.948118455778776
+Minnesota Timberwolves,Jaden McDaniels,2021-22,10.93,13.082233343766669
+Charlotte Hornets,Jalen McDaniels,2021-22,13.77,13.521449900983523
+San Antonio Spurs,Doug McDermott,2021-22,13.31,11.22650221913117
+Phoenix Suns,JaVale McGee,2021-22,24.69,19.349596211498003
+Detroit Pistons,Rodney McGruder,2021-22,11.0,10.274402696504161
+Minnesota Timberwolves,Jordan McLaughlin,2021-22,11.84,14.523064891031789
+Portland Trail Blazers,Ben McLemore,2021-22,10.67,12.396450040338141
+Memphis Grizzlies,De'Anthony Melton,2021-22,15.99,16.454387515595368
+Sacramento Kings,Chimezie Metu,2021-22,13.14,16.151440803615337
+Milwaukee Bucks,Khris Middleton,2021-22,18.28,18.200165110224468
+Brooklyn Nets,Patty Mills,2021-22,11.77,12.204254424591257
+Philadelphia 76ers,Shake Milton,2021-22,11.86,13.552769977972144
+Sacramento Kings,Davion Mitchell,2021-22,10.61,12.764703263336607
+Utah Jazz,Donovan Mitchell,2021-22,24.35,23.558272674931608
+Cleveland Cavaliers,Evan Mobley,2021-22,15.51,20.11621592340125
+Los Angeles Lakers,Malik Monk,2021-22,13.69,14.224616549901745
+Memphis Grizzlies,Ja Morant,2021-22,27.86,27.31345045911001
+Denver Nuggets,Monte Morris,2021-22,14.51,15.593320424170571
+Los Angeles Clippers,Marcus Morris Sr.,2021-22,15.25,13.99908263424892
+New Orleans Pelicans,Trey Murphy III,2021-22,9.16,11.669783627923321
+San Antonio Spurs,Dejounte Murray,2021-22,23.09,22.83730819158881
+Oklahoma City Thunder,Mike Muscala,2021-22,20.99,12.965173221441603
+Toronto Raptors,Svi Mykhailiuk,2021-22,9.91,13.13779960845667
 Portland Trail Blazers,Larry Nance Jr.,2021-22,13.44,13.504153325079349
-Washington Wizards,Raul Neto,2021-22,12.14,14.38132108318456
-Philadelphia 76ers,Georges Niang,2021-22,10.52,11.386921729606051
-Denver Nuggets,Zeke Nnaji,2021-22,14.38,14.596480627796911
-New York Knicks,Nerlens Noel,2021-22,11.82,11.891968523449439
-Minnesota Timberwolves,Jaylen Nowell,2021-22,17.87,15.013631831481202
-Dallas Mavericks,Frank Ntilikina,2021-22,9.37,13.819776187141134
+Washington Wizards,Raul Neto,2021-22,12.27,14.286717306126125
+Philadelphia 76ers,Georges Niang,2021-22,10.43,11.130886343628745
+Denver Nuggets,Zeke Nnaji,2021-22,14.32,14.596480627796911
+New York Knicks,Nerlens Noel,2021-22,11.7,11.891968523449439
+Minnesota Timberwolves,Jaylen Nowell,2021-22,18.26,15.050994968181413
+Dallas Mavericks,Frank Ntilikina,2021-22,9.4,13.819776187141134
 Portland Trail Blazers,Jusuf Nurkic,2021-22,19.22,20.10344381891545
-Houston Rockets,David Nwaba,2021-22,14.99,13.781291775932317
-Milwaukee Bucks,Jordan Nwora,2021-22,11.3,13.70282590255826
-Utah Jazz,Royce O'Neale,2021-22,11.64,12.10502917775397
-Orlando Magic,Chuma Okeke,2021-22,13.25,13.821732989145685
-Atlanta Hawks,Onyeka Okongwu,2021-22,19.47,17.84575955405723
-Cleveland Cavaliers,Isaac Okoro,2021-22,10.11,12.891901912955406
-Cleveland Cavaliers,Cedi Osman,2021-22,13.22,12.670836301636612
-Charlotte Hornets,Kelly Oubre Jr.,2021-22,16.95,15.492834467310466
-Utah Jazz,Eric Paschall,2021-22,14.14,12.475164733530015
+Houston Rockets,David Nwaba,2021-22,15.14,13.901088422816235
+Milwaukee Bucks,Jordan Nwora,2021-22,11.02,13.504624961839555
+Utah Jazz,Royce O'Neale,2021-22,11.68,12.001999914299631
+Orlando Magic,Chuma Okeke,2021-22,13.47,14.014354253045205
+Atlanta Hawks,Onyeka Okongwu,2021-22,19.45,18.01945207190147
+Cleveland Cavaliers,Isaac Okoro,2021-22,9.89,12.560579486340645
+Detroit Pistons,Kelly Olynyk,2021-22,15.43,13.673734286317464
+Cleveland Cavaliers,Cedi Osman,2021-22,13.45,12.863354671507196
+Charlotte Hornets,Kelly Oubre Jr.,2021-22,17.21,15.801402476099067
+Utah Jazz,Eric Paschall,2021-22,14.1,12.475164733530015
 Phoenix Suns,Chris Paul,2021-22,20.75,19.39759693343676
-Phoenix Suns,Cameron Payne,2021-22,13.68,14.374878775362834
-Golden State Warriors,Gary Payton II,2021-22,19.98,15.994197371725102
-Charlotte Hornets,Mason Plumlee,2021-22,15.15,13.804841396520139
-San Antonio Spurs,Jakob Poeltl,2021-22,21.87,20.874424904095726
-Oklahoma City Thunder,Aleksej Pokusevski,2021-22,11.18,14.912947442888148
-Golden State Warriors,Jordan Poole,2021-22,16.07,15.989345201164836
-Houston Rockets,Kevin Porter Jr.,2021-22,12.31,13.236141382598738
-Golden State Warriors,Otto Porter Jr.,2021-22,17.68,14.636225419022102
-Milwaukee Bucks,Bobby Portis,2021-22,18.81,18.610910544578832
-Dallas Mavericks,Kristaps Porzingis,2021-22,21.04,19.39132247610278
-Dallas Mavericks,Dwight Powell,2021-22,15.52,14.760136814957901
-Portland Trail Blazers,Norman Powell,2021-22,15.05,13.910571110384321
-Minnesota Timberwolves,Taurean Prince,2021-22,11.6,12.184446617877752
-Boston Celtics,Payton Pritchard,2021-22,12.92,13.78371552466313
-New York Knicks,Immanuel Quickley,2021-22,12.6,12.687075528957827
-New York Knicks,Julius Randle,2021-22,17.35,18.837877829777568
-Los Angeles Lakers,Austin Reaves,2021-22,9.54,12.768755445364596
-Atlanta Hawks,Cam Reddish,2021-22,13.19,14.280433948106934
-Minnesota Timberwolves,Naz Reid,2021-22,17.43,17.639838232694085
-Boston Celtics,Josh Richardson,2021-22,13.08,12.323126961251857
-Denver Nuggets,Austin Rivers,2021-22,7.84,10.715683205848613
-Miami Heat,Duncan Robinson,2021-22,11.15,12.049488369190161
-New York Knicks,Mitchell Robinson,2021-22,20.51,18.53141281184913
-Oklahoma City Thunder,Jeremiah Robinson-Earl,2021-22,11.28,14.044453817154876
-New York Knicks,Derrick Rose,2021-22,18.62,14.223057725901228
-Orlando Magic,Terrence Ross,2021-22,11.38,13.980751309405761
-Charlotte Hornets,Terry Rozier,2021-22,18.7,17.289364339767484
-Cleveland Cavaliers,Ricky Rubio,2021-22,13.98,14.186416904327874
-Minnesota Timberwolves,D'Angelo Russell,2021-22,18.18,17.66209384819524
-Indiana Pacers,Domantas Sabonis,2021-22,20.77,22.873149992186843
-Boston Celtics,Dennis Schroder,2021-22,14.87,16.00562161994659
-Houston Rockets,Alperen Sengun,2021-22,16.47,17.444486094280947
-Phoenix Suns,Landry Shamet,2021-22,10.15,12.588820672736986
-Toronto Raptors,Pascal Siakam,2021-22,18.14,21.041906330570374
-Portland Trail Blazers,Anfernee Simons,2021-22,15.3,16.131941874532277
-Boston Celtics,Marcus Smart,2021-22,13.86,13.384091854489931
-Charlotte Hornets,Ish Smith,2021-22,11.1,10.872369050348457
-Portland Trail Blazers,Dennis Smith Jr.,2021-22,12.52,13.77990511079745
-Portland Trail Blazers,Tony Snell,2021-22,5.09,9.251384451275468
-Cleveland Cavaliers,Lamar Stevens,2021-22,10.81,13.48280765107208
-Detroit Pistons,Isaiah Stewart,2021-22,12.83,16.974114881260547
-Miami Heat,Max Strus,2021-22,13.15,11.364479178170724
-Orlando Magic,Jalen Suggs,2021-22,9.9,12.577127023100974
-Houston Rockets,Jae'Sean Tate,2021-22,15.83,16.675683130717683
-Boston Celtics,Jayson Tatum,2021-22,21.65,23.19959610972061
-New Orleans Pelicans,Garrett Temple,2021-22,8.61,11.800063059749066
-Houston Rockets,Daniel Theis,2021-22,11.38,14.864911062987128
-Brooklyn Nets,Cam Thomas,2021-22,13.33,14.531556443474413
-Philadelphia 76ers,Matisse Thybulle,2021-22,10.43,11.461023464440462
-Memphis Grizzlies,Xavier Tillman Sr.,2021-22,16.01,15.062954548223523
-New York Knicks,Obi Toppin,2021-22,17.4,16.271372691159762
-Golden State Warriors,Juan Toscano-Anderson,2021-22,12.34,12.716895799288833
-Minnesota Timberwolves,Karl-Anthony Towns,2021-22,24.76,24.020376800410702
-Toronto Raptors,Gary Trent Jr.,2021-22,14.34,15.285790061194747
-Miami Heat,P.J. Tucker,2021-22,12.06,12.593199511386423
-Indiana Pacers,Myles Turner,2021-22,16.34,17.737515370533316
-New Orleans Pelicans,Jonas Valanciunas,2021-22,20.45,20.586719079384725
-Toronto Raptors,Fred VanVleet,2021-22,17.15,19.762821394389952
-Minnesota Timberwolves,Jarred Vanderbilt,2021-22,16.08,16.897122180581082
-San Antonio Spurs,Devin Vassell,2021-22,14.35,14.198067545031348
-Miami Heat,Gabe Vincent,2021-22,12.04,13.038740437255562
-Chicago Bulls,Nikola Vucevic,2021-22,19.42,20.782206062640512
-Cleveland Cavaliers,Dean Wade,2021-22,10.29,10.225107518072257
-Orlando Magic,Franz Wagner,2021-22,15.37,17.33110873209237
-Orlando Magic,Moritz Wagner,2021-22,18.98,13.971276093883349
-New York Knicks,Kemba Walker,2021-22,15.3,13.975081787609643
-San Antonio Spurs,Lonnie Walker IV,2021-22,12.92,14.206862774895953
-Charlotte Hornets,P.J. Washington,2021-22,14.61,14.400192760672335
-Indiana Pacers,Duane Washington Jr.,2021-22,8.77,12.893231488469898
-Los Angeles Lakers,Russell Westbrook,2021-22,14.8,17.902753023985714
-Chicago Bulls,Coby White,2021-22,14.66,14.17190191899537
-San Antonio Spurs,Derrick White,2021-22,16.46,15.40148719528648
-Utah Jazz,Hassan Whiteside,2021-22,22.73,18.506936812144062
-Oklahoma City Thunder,Aaron Wiggins,2021-22,10.8,12.949547613985589
-Golden State Warriors,Andrew Wiggins,2021-22,17.88,16.47420196915661
-Boston Celtics,Grant Williams,2021-22,12.22,12.694362863294714
-Oklahoma City Thunder,Kenrich Williams,2021-22,13.98,13.363513209860136
-Atlanta Hawks,Lou Williams,2021-22,12.73,13.498945704425626
-Memphis Grizzlies,Ziaire Williams,2021-22,10.12,11.866298485846826
-Boston Celtics,Robert Williams III,2021-22,21.99,20.89519693223108
-Houston Rockets,Christian Wood,2021-22,18.75,18.56956970445697
-Atlanta Hawks,Delon Wright,2021-22,12.39,12.188818499064283
-Atlanta Hawks,Trae Young,2021-22,24.53,25.06205800426173
-Miami Heat,Omer Yurtseven,2021-22,18.95,17.030048105262345
-Los Angeles Clippers,Ivica Zubac,2021-22,18.79,19.959404140679
+Phoenix Suns,Cameron Payne,2021-22,13.61,14.59479117246636
+Golden State Warriors,Gary Payton II,2021-22,19.63,15.725130353485856
+Charlotte Hornets,Mason Plumlee,2021-22,15.19,13.833497995628603
+San Antonio Spurs,Jakob Poeltl,2021-22,21.9,20.623133975907916
+Oklahoma City Thunder,Aleksej Pokusevski,2021-22,11.91,14.694415201532781
+Golden State Warriors,Jordan Poole,2021-22,15.88,15.860439039930789
+Houston Rockets,Kevin Porter Jr.,2021-22,12.31,13.375975187081893
+Golden State Warriors,Otto Porter Jr.,2021-22,17.57,14.711858203788944
+Milwaukee Bucks,Bobby Portis,2021-22,19.0,18.852166212021576
+Dallas Mavericks,Kristaps Porzingis,2021-22,21.09,19.39132247610278
+Dallas Mavericks,Dwight Powell,2021-22,15.71,14.512305742886173
+Portland Trail Blazers,Norman Powell,2021-22,15.04,13.910571110384321
+San Antonio Spurs,Joshua Primo,2021-22,8.28,11.170454246050594
+Minnesota Timberwolves,Taurean Prince,2021-22,12.65,12.666333261739101
+Boston Celtics,Payton Pritchard,2021-22,12.64,13.699641137596462
+New York Knicks,Immanuel Quickley,2021-22,12.66,12.325289629083786
+New York Knicks,Julius Randle,2021-22,17.19,18.821268490610706
+Los Angeles Lakers,Austin Reaves,2021-22,9.34,12.736737654367243
+Atlanta Hawks,Cam Reddish,2021-22,13.2,14.280433948106934
+Minnesota Timberwolves,Naz Reid,2021-22,17.63,17.382504179127135
+Boston Celtics,Josh Richardson,2021-22,13.02,12.80600365699465
+Denver Nuggets,Austin Rivers,2021-22,8.0,10.672360899254512
+Miami Heat,Duncan Robinson,2021-22,11.53,12.070715165949986
+New York Knicks,Mitchell Robinson,2021-22,20.33,18.69356497798015
+Oklahoma City Thunder,Jeremiah Robinson-Earl,2021-22,11.58,14.044453817154876
+New York Knicks,Derrick Rose,2021-22,18.42,14.223057725901228
+Orlando Magic,Terrence Ross,2021-22,11.47,13.963455728101305
+Charlotte Hornets,Terry Rozier,2021-22,19.14,17.71568631837068
+Cleveland Cavaliers,Ricky Rubio,2021-22,13.97,14.186416904327874
+Minnesota Timberwolves,D'Angelo Russell,2021-22,18.67,17.84003642585557
+Indiana Pacers,Domantas Sabonis,2021-22,20.74,22.87542679345939
+Boston Celtics,Dennis Schroder,2021-22,14.8,16.00562161994659
+Houston Rockets,Alperen Sengun,2021-22,16.35,16.866482858031567
+Phoenix Suns,Landry Shamet,2021-22,10.16,12.720283189101275
+Toronto Raptors,Pascal Siakam,2021-22,18.01,21.221672576643684
+Portland Trail Blazers,Anfernee Simons,2021-22,15.16,15.953068076618571
+Boston Celtics,Marcus Smart,2021-22,13.74,13.55810008269576
+Charlotte Hornets,Ish Smith,2021-22,11.19,10.83846966530023
+Portland Trail Blazers,Dennis Smith Jr.,2021-22,12.51,13.77990511079745
+Portland Trail Blazers,Tony Snell,2021-22,5.09,9.293510085413567
+Cleveland Cavaliers,Lamar Stevens,2021-22,10.58,13.29995241720691
+Detroit Pistons,Isaiah Stewart,2021-22,13.37,17.230147860407374
+Miami Heat,Max Strus,2021-22,13.39,11.970828613385821
+Orlando Magic,Jalen Suggs,2021-22,10.3,12.898087799912574
+Houston Rockets,Jae'Sean Tate,2021-22,15.94,16.313356967234387
+Boston Celtics,Jayson Tatum,2021-22,21.66,23.016945322622185
+New Orleans Pelicans,Garrett Temple,2021-22,8.58,11.800063059749066
+Houston Rockets,Daniel Theis,2021-22,11.41,14.864911062987128
+Brooklyn Nets,Cam Thomas,2021-22,13.16,14.363529228022896
+Philadelphia 76ers,Matisse Thybulle,2021-22,10.54,11.569374655546348
+Memphis Grizzlies,Xavier Tillman Sr.,2021-22,15.94,14.758208245193005
+New York Knicks,Obi Toppin,2021-22,17.1,16.062304242974704
+Golden State Warriors,Juan Toscano-Anderson,2021-22,12.27,12.846629369969301
+Minnesota Timberwolves,Karl-Anthony Towns,2021-22,25.33,24.005679322909778
+Toronto Raptors,Gary Trent Jr.,2021-22,14.6,15.341038969705474
+Miami Heat,P.J. Tucker,2021-22,12.36,12.320032601434988
+Indiana Pacers,Myles Turner,2021-22,16.31,17.737515370533316
+New Orleans Pelicans,Jonas Valanciunas,2021-22,20.3,20.375267550826496
+Toronto Raptors,Fred VanVleet,2021-22,17.3,19.762821394389952
+Minnesota Timberwolves,Jarred Vanderbilt,2021-22,16.18,16.846828729006624
+San Antonio Spurs,Devin Vassell,2021-22,14.28,14.28195479367874
+Miami Heat,Gabe Vincent,2021-22,12.71,12.841492579464404
+Chicago Bulls,Nikola Vucevic,2021-22,19.28,21.091034998100195
+Cleveland Cavaliers,Dean Wade,2021-22,10.12,10.75120650956187
+Orlando Magic,Franz Wagner,2021-22,15.96,17.494669003032932
+Orlando Magic,Moritz Wagner,2021-22,19.32,13.971276093883349
+New York Knicks,Kemba Walker,2021-22,15.14,13.975081787609643
+San Antonio Spurs,Lonnie Walker IV,2021-22,13.2,14.400606106023618
+Charlotte Hornets,P.J. Washington,2021-22,14.83,14.8085497309485
+Indiana Pacers,Duane Washington Jr.,2021-22,8.28,12.799782842425511
+Los Angeles Lakers,Russell Westbrook,2021-22,14.76,17.451011408078344
+Chicago Bulls,Coby White,2021-22,14.45,14.305896670670613
+San Antonio Spurs,Derrick White,2021-22,16.47,15.419363780669759
+Utah Jazz,Hassan Whiteside,2021-22,22.42,18.55903395419169
+Oklahoma City Thunder,Aaron Wiggins,2021-22,10.96,12.787615733314265
+Golden State Warriors,Andrew Wiggins,2021-22,17.68,16.42512365771153
+Boston Celtics,Grant Williams,2021-22,12.42,12.973304035830987
+Oklahoma City Thunder,Kenrich Williams,2021-22,14.34,13.363513209860136
+Atlanta Hawks,Lou Williams,2021-22,12.75,13.498945704425626
+Memphis Grizzlies,Ziaire Williams,2021-22,9.74,11.898996964494454
+Boston Celtics,Robert Williams III,2021-22,21.84,20.881002053573173
+Houston Rockets,Christian Wood,2021-22,19.08,18.937471220114283
+Atlanta Hawks,Delon Wright,2021-22,12.36,12.712145933883274
+Atlanta Hawks,Trae Young,2021-22,24.51,24.955379599071428
+Miami Heat,Omer Yurtseven,2021-22,19.12,16.776771683061526
+Los Angeles Clippers,Ivica Zubac,2021-22,19.23,20.709660911384532
