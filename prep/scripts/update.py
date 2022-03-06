@@ -1,6 +1,6 @@
 import pandas as pd
 from pandas.core.common import SettingWithCopyWarning
-from prep.scripts.classes_update import (
+from classes_update import (
     playerRating,
     Generators,
     getStandings,
@@ -12,7 +12,7 @@ from prep.scripts.classes_update import (
     MVPForecast,
     print_done,
 )
-from prep.scripts.api import get_data
+from api import get_data
 from tqdm import tqdm
 
 import warnings
@@ -45,7 +45,7 @@ if __name__ == "__main__":
             break
         continue
 
-    merged = pd.read_csv("../prep/data/merged.csv")
+    merged = pd.read_csv("data/merged.csv")
     available_seasons = sorted(merged.SEASON_ID.unique())[::-1]
 
     glob = pd.DataFrame()
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         df.team_pace()
         df.league_pace()
         df.ratings()
-        df.merged.to_csv(f"../prep/data/pers/PER_{season}.csv", index=False)
+        df.merged.to_csv(f"data/pers/PER_{season}.csv", index=False)
         df.team_pers()
         first = df.team_stats
 
@@ -104,8 +104,8 @@ if __name__ == "__main__":
     print_done("Generating ELOS")
     elo = ELO()
     elo.calculate_elo()
-    all_teams = pd.read_csv("../prep/data/all_teams.csv")
-    elos = pd.read_csv("../prep/data/elos.csv")
+    all_teams = pd.read_csv("data/all_teams.csv")
+    elos = pd.read_csv("data/elos.csv")
     elos = elos.merge(all_teams, left_on="TEAM_ID", right_on="id", how="left")
     elos.drop(
         ["id", "nickname", "city", "state", "year_founded", "DATE", "abbreviation"],
@@ -135,5 +135,5 @@ if __name__ == "__main__":
 
     # DUMP
     print_done("Generating ML Ready DataFrame")
-    glob.to_csv("../prep/data/mlready.csv", index=False)
+    glob.to_csv("data/mlready.csv", index=False)
     print("[DONE]")

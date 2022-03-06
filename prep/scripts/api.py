@@ -6,21 +6,21 @@ from nba_api.stats.static import players, teams
 from time import sleep
 from tqdm import tqdm
 
-from utils.helpers import fix_team_names
+from classes_update import fix_team_names
 
 
 def get_data():
     # Teams
     nba_teams = teams.get_teams()
     all_teams = pd.DataFrame(nba_teams)
-    all_teams.to_csv("../prep/data/all_teams.csv", index=False)
+    all_teams.to_csv("data/all_teams.csv", index=False)
 
     # -------------------------------------------------------------------------
 
     # All Players
     nba_players = players.get_players()
     all_players = pd.DataFrame(nba_players)
-    all_players.to_csv("../prep/data/all_players.csv", index=False)
+    all_players.to_csv("data/all_players.csv", index=False)
 
     # -------------------------------------------------------------------------
 
@@ -63,7 +63,7 @@ def get_data():
         temp = temp.drop("date", axis=1)
         matches[key] = temp
 
-    with open("../prep/data/matches.pkl", "wb") as file:
+    with open("data/matches.pkl", "wb") as file:
         pkl.dump(matches, file)
 
     # -------------------------------------------------------------------------
@@ -83,13 +83,13 @@ def get_data():
         stats = stats.append(p_st, ignore_index=True)
         sleep(0.600)
 
-    all_stats = pd.read_csv("../prep/data/fixed_raw_stats.csv")
+    all_stats = pd.read_csv("data/fixed_raw_stats.csv")
     all_stats = all_stats[all_stats.SEASON_ID >= "2003-04"]
     all_stats.drop(
         all_stats[all_stats.SEASON_ID == "2021-22"].index, axis=0, inplace=True
     )
     updated_stats = pd.concat([all_stats, stats], axis=0, ignore_index=True)
-    updated_stats.to_csv("../prep/data/stats.csv", index=False)
+    updated_stats.to_csv("data/stats.csv", index=False)
 
     # -------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ def get_data():
     merged = merged[merged["MPG"] >= 6.09]
     merged = merged[merged["MIN"] >= 500]
 
-    merged.to_csv("../prep/data/merged.csv", index=False)
+    merged.to_csv("data/merged.csv", index=False)
 
 
 def get_mvps():
@@ -155,5 +155,5 @@ def get_mvps():
     mvp.TEAM = mvp.TEAM.apply(fix_team_names)
     mvp.reset_index(drop=True, inplace=True)
 
-    mvp.to_csv("../prep/data/mvps.csv", index=False)
+    mvp.to_csv("data/mvps.csv", index=False)
     print("Done.")
