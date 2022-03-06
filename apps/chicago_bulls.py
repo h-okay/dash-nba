@@ -246,7 +246,7 @@ def player_performance(data, team=team_):
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
     per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
-    links = glob.glob(f"/assets/{team}/*")
+    links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
     temp = [os.path.basename(val)[:-4] for val in files.LINK.to_list()]
     files["NAME"] = temp
@@ -533,7 +533,7 @@ def player_performance(data, team=team_):
     merged = merged[(merged.TEAM == team) & (merged.SEASON_ID == "2021-22")]
     per = pd.read_csv(DATA_PATH.joinpath("per.csv"))
     per["NAME"] = per["FIRST_NAME"] + " " + per["LAST_NAME"]
-    links = glob.glob(f"/assets/{team}/*")
+    links = glob.glob(f"assets/{team}/*")
     files = pd.DataFrame({"LINK": links})
     temp = [os.path.basename(val)[:-4] for val in files.LINK.to_list()]
     files["NAME"] = temp

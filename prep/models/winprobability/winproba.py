@@ -6,6 +6,8 @@ import re
 from tqdm import tqdm
 import warnings
 import lightgbm as lgbm
+from tabulate import tabulate
+
 
 import sklearn.metrics
 from sklearn.model_selection import train_test_split
@@ -137,6 +139,8 @@ df = (
 df = df.sort_values(by="DATE").reset_index(drop=True)
 df.DATE = pd.to_datetime(df.DATE)
 df["MONTH"] = df.DATE.dt.month_name()
+df.columns
+print(tabulate(df.head(), tablefmt='pretty', headers=['DATE', 'SEASON', 'TEAM_ID', 'ELO', 'TEAM', 'MONTH']))
 df.head() # Takımların o ayki elolarını aylık performans tablasuna merge etme.
 # # Buradaki problem bir takımın o ay içinde oynadığı kadar elo değeri geliyor.
 # Bunun önüne geçmek için aylık sonraki aşamada ortalama alıyoruz.
@@ -333,61 +337,61 @@ final.head()
 # 4  944.0  1340.0  681.0  507.0  260.0  151.0  694.0
 
 # Adding rankings before match as features
-import re
-
-# feature engineering için maçın oynandığı günden bir önceki gündeki genel sıralamarını
-# ekleyelim.
-def daily_rankings(date):
-    year = date.split("-")[0]
-    month = date.split("-")[1]
-    day = date.split("-")[2]
-    url = f"https://www.basketball-reference.com/friv/standings.fcgi?month={month}&day={day}&year={year}&lg_id=NBA"
-    # Atlantic-Central
-    ac = pd.read_html(url)[0]
-    # ac.drop([0, 8], axis=0, inplace=True)
-    ac.drop("GB", axis=1, inplace=True)
-    ac.columns = ["TEAM", "W", "L", "RANK", "PW", "PL", "PS/G", "PA/G"]
-    # Midwest-Pacific
-    mp = pd.read_html(url)[1]
-    # mp.drop([0, 8], axis=0, inplace=True)
-    mp.drop("GB", axis=1, inplace=True)
-    mp.columns = ["TEAM", "W", "L", "RANK", "PW", "PL", "PS/G", "PA/G"]
-    acmp = pd.concat([ac, mp], axis=0)
-    if len(str(day)) == 1:
-        acmp["DATE"] = str(year) + "-" + str(month) + "-0" + str(day)
-    else:
-        acmp["DATE"] = str(year) + "-" + str(month) + "-" + str(day)
-    return acmp
-
-
-dates = final.GAME_DATE1.dt.date.apply(lambda x: x.strftime("%Y-%m-%d")).unique()
-
-rankings = pd.DataFrame()
-for date in tqdm(dates):
-    try:
-        rankings = pd.concat([rankings, daily_rankings(date)])
-    except (ValueError, IndexError):
-        continue
-
-rankings.to_csv("daily_rankings_raw.csv", index=False)
-
-rankings = pd.read_csv("data/prep/daily_rankings_raw.csv")
-indices = [
-    i
-    for i, row in tqdm(rankings.iterrows(), total=rankings.shape[0])
-    if "Division" in row["TEAM"]
-]
-rankings.drop(indices, axis=0, inplace=True)
-rankings.RANK = rankings.RANK.astype("float64")
-rankings.RANK = rankings.groupby("DATE").RANK.rank(method="min", ascending=False)
-rankings = rankings.sort_values(by=["DATE", "RANK"], ascending=[True, False])
-rankings.TEAM = rankings.TEAM.str.extract("([A-Za-z\s\d]+)")
-
-from data.scripts.helpers import *
-
-rankings.TEAM = rankings.TEAM.apply(fix_team_names)
-rankings.reset_index(drop=True, inplace=True)
-rankings.to_csv("daily_rankings_cleaned.csv", index=False)
+# import re
+#
+# # feature engineering için maçın oynandığı günden bir önceki gündeki genel sıralamarını
+# # ekleyelim.
+# def daily_rankings(date):
+#     year = date.split("-")[0]
+#     month = date.split("-")[1]
+#     day = date.split("-")[2]
+#     url = f"https://www.basketball-reference.com/friv/standings.fcgi?month={month}&day={day}&year={year}&lg_id=NBA"
+#     # Atlantic-Central
+#     ac = pd.read_html(url)[0]
+#     # ac.drop([0, 8], axis=0, inplace=True)
+#     ac.drop("GB", axis=1, inplace=True)
+#     ac.columns = ["TEAM", "W", "L", "RANK", "PW", "PL", "PS/G", "PA/G"]
+#     # Midwest-Pacific
+#     mp = pd.read_html(url)[1]
+#     # mp.drop([0, 8], axis=0, inplace=True)
+#     mp.drop("GB", axis=1, inplace=True)
+#     mp.columns = ["TEAM", "W", "L", "RANK", "PW", "PL", "PS/G", "PA/G"]
+#     acmp = pd.concat([ac, mp], axis=0)
+#     if len(str(day)) == 1:
+#         acmp["DATE"] = str(year) + "-" + str(month) + "-0" + str(day)
+#     else:
+#         acmp["DATE"] = str(year) + "-" + str(month) + "-" + str(day)
+#     return acmp
+#
+#
+# dates = final.GAME_DATE1.dt.date.apply(lambda x: x.strftime("%Y-%m-%d")).unique()
+#
+# rankings = pd.DataFrame()
+# for date in tqdm(dates):
+#     try:
+#         rankings = pd.concat([rankings, daily_rankings(date)])
+#     except (ValueError, IndexError):
+#         continue
+#
+# rankings.to_csv("daily_rankings_raw.csv", index=False)
+#
+# rankings = pd.read_csv("data/prep/daily_rankings_raw.csv")
+# indices = [
+#     i
+#     for i, row in tqdm(rankings.iterrows(), total=rankings.shape[0])
+#     if "Division" in row["TEAM"]
+# ]
+# rankings.drop(indices, axis=0, inplace=True)
+# rankings.RANK = rankings.RANK.astype("float64")
+# rankings.RANK = rankings.groupby("DATE").RANK.rank(method="min", ascending=False)
+# rankings = rankings.sort_values(by=["DATE", "RANK"], ascending=[True, False])
+# rankings.TEAM = rankings.TEAM.str.extract("([A-Za-z\s\d]+)")
+#
+# from data.scripts.helpers import *
+#
+# rankings.TEAM = rankings.TEAM.apply(fix_team_names)
+# rankings.reset_index(drop=True, inplace=True)
+# rankings.to_csv("daily_rankings_cleaned.csv", index=False)
 
 # sıralamalar ile final df 'in birleştirilmesi
 final.GAME_DATE1 = final.GAME_DATE1.dt.date.apply(lambda x: x.strftime("%Y-%m-%d"))
@@ -567,6 +571,9 @@ final = pd.get_dummies(final, drop_first=True)
 final = final.rename(columns={"HOME_WL_W": "OUTCOME"})  # 1 if home team wins
 # ev sahibinin kazanması durumuna 1 aksi duruma 0 diyerek binary classification problemi olarak yaklaşalım
 final.reset_index(drop=True, inplace=True)
+print(tabulate(final.head(), headers=final.columns.to_list(), tablefmt='pretty'))
+
+
 
 outcome = final["OUTCOME"]
 first = final[[col for col in final.columns if "HOME" in col]]
@@ -669,10 +676,13 @@ final.columns = [
 # 19270        1.565217        1
 # 19271        0.499752        0
 
-
+print(tabulate(final.head(), headers=final.columns.to_list(), tablefmt='pretty'))
 final.OUTCOME.value_counts()  # Imbalance
 # 1    11359
 # 0     7783
+
+plt.pie(final.OUTCOME.value_counts(), labels=["Ev Sahibi Kazandı","Misafir Kazandı"])
+plt.show()
 
 X = final.drop("OUTCOME", axis=1)
 y = final["OUTCOME"]
@@ -768,7 +778,7 @@ roc_auc_score(y_test, y_pred)  # 0.72210
 confusion_matrix(y_test, y_pred)
 # [1674,  610]
 # [ 662, 1631]
-print(classification_report(y_test, y_pred))
+print(tabulate(classification_report(y_test, y_pred)))
 #               precision    recall  f1-score   support
 #            0       0.72      0.73      0.72      2284
 #            1       0.73      0.71      0.72      2293

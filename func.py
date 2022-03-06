@@ -924,3 +924,32 @@ def news(team):
         return news[team][1]
     except (KeyError, IndexError):
         return f"{team} news needs to be updated..."
+
+
+def draw_mvp_table():
+    mvp = pd.read_csv("prep/estimations/mvps/2022_mvp.csv").round(4)
+    return dash_table.DataTable(
+        data=mvp.to_dict("records"),
+        columns=[{"name": i, "id": i} for i in mvp.columns],
+        style_cell={
+            "textAlign": "center",
+            "background-color": "#242b44",
+            "color": "white",
+        },
+        style_header={
+            "backgroundColor": "#242b44",
+            "color": "white",
+            "fontWeight": "bold",
+            "textAlign": "left",
+            "border": "1px solid black",
+        },
+        style_data={"border": "1px solid black"},
+        id="mvp-table",
+    )
+
+def champ_photo():
+    return html.Img(
+        src=f"assets/champ_output/2022-Predictions-with-extra-features.png",
+        style={"width": "100%", "heigth": "100%"},
+    )
+

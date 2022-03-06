@@ -15,6 +15,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
 from tqdm import tqdm
 
+from sklearn.preprocessing import MinMaxScaler
+
 from utils.helpers import fix_team_names, get_names
 
 pd.options.mode.chained_assignment = None
@@ -815,7 +817,7 @@ class MVPForecast:
         self.cands_2022 = pd.read_html(
             f"https://www.basketball-reference.com/friv/mvp.html", header=0
         )[0].drop(["Unnamed: 31", "Prob%"], axis=1)
-        with open("../prep/models/mvp/mvpmodel.pkl", "rb") as file:
+        with open("prep/models/mvp/mvpmodel.pkl", "rb") as file:
             self.model = pkl.load(file)
 
     def prep_and_predict(self):
@@ -824,24 +826,8 @@ class MVPForecast:
             how="left",
             left_on=["Player", "Team"],
             right_on=["Player", "Tm"],
-        ).drop(["W", "L", "Rk_x", "Rk_y", "Tm", "Unnamed: 19", "Unnamed: 24"], axis=1)
-
+        )
         self.df_2022 = self.data_2022.get(["W/L%", "WS", "VORP", "PER", "USG%", "BPM"])
         self.data_2022["Predicted_Share"] = self.model.predict(self.df_2022)
-        self.data_2022 = self.data_2022.sort_values(
-            "Predicted_Share", ascending=False
-        ).get(
-            [
-                "Player",
-                "Year",
-                "Tm",
-                "W/L%",
-                "WS",
-                "VORP",
-                "PER",
-                "USG%",
-                "BPM",
-                "Predicted_Share",
-            ]
-        )
+        self.data_2022 = self.data_2022[["Player", "Tm", "Predicted_Share"]].sort_values("Predicted_Share", ascending=False)
         self.data_2022.to_csv(f"../prep/estimations/mvps/2022_mvp.csv", index=False)

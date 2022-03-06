@@ -10,6 +10,7 @@ from apps import (
     brooklyn_nets,
     charlotte_hornets,
     cleveland_cavaliers,
+    detroit_pistons,
     dallas_mavericks,
     denver_nuggets,
     golden_state_warriors,
@@ -180,7 +181,7 @@ navbar = dbc.NavbarSimple(
                 ),
                 dbc.DropdownMenuItem(
                     "Detroit Pistons",
-                    href="/detroit_piston",
+                    href="/detroit_pistons",
                     style={"font-size": "12.5px"},
                 ),
                 dbc.DropdownMenuItem(
@@ -451,8 +452,8 @@ def render_page_content(pathname):
         return dallas_mavericks.layout
     elif pathname == "/denver_nuggets":
         return denver_nuggets.layout
-    elif pathname == "/detroit_piston":
-        return detroit_piston.layout
+    elif pathname == "/detroit_pistons":
+        return detroit_pistons.layout
     elif pathname == "/golden_state_warriors":
         return golden_state_warriors.layout
     elif pathname == "/houston_rockets":
